@@ -59,9 +59,7 @@
 											<th>Qty</th>
 											<th>Sat</th>
 											<th>Tanggal Kirim</th>
-											<th>Tanggal Terima</th>
 											<th>Tujuan Pengiriman</th>
-											<th>Action</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -70,10 +68,7 @@
 											<td>2</td>
 											<td> pcs </td>
 											<td>01-01-2021</td>
-											<td></td>
 											<td>Gudang Surabaya</td>
-											<td><button class="btn btn-success" type="button">terima</button></td>
-
 										</tr>
 									</tbody>
 

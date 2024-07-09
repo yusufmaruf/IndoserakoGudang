@@ -50,4 +50,12 @@ class Pbb extends CI_Controller
 		$this->load->view('admin/pbb/vterima');
 		$this->load->view('vfooter');
 	}
+	public function detail($id = null)
+	{
+		$header['title'] = 'Report Detail';
+		$this->load->view('vheader', $header);
+		$this->mglobal->load_toast();
+		$this->load->view('admin/pbb/vdetail');
+		$this->load->view('vfooter');
+	}
 }

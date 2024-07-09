@@ -4,7 +4,7 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1 class="m-0">Form Pembelian Barang</h1>
+					<h1 class="m-0">Form Penerimaan Barang</h1>
 				</div>
 				<div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">
@@ -24,7 +24,7 @@
 						<div class="card-header">
 							<div class="row">
 								<div class="col-6">
-									<h5 class="m-0">Pembelian Barang : PPB/01/09/07/2024</h5>
+									<h5 class="m-0">Penerimaan Barang : PPB/01/09/07/2024</h5>
 								</div>
 								<div class="col-6">
 									<div class="float-right">
@@ -49,7 +49,7 @@
 							<form action="">
 								<div class="row">
 									<div class="col-lg-6 mb-3">
-										<h5>Data Pengiriman Barang PC Siemens</h5>
+										<h5>Data Penerimaan Barang PC Siemens</h5>
 									</div>
 								</div>
 								<table class="table table-bordered">
@@ -58,10 +58,11 @@
 											<th style="width: 10px">No</th>
 											<th>Qty</th>
 											<th>Sat</th>
-											<th>Tanggal Kirim</th>
-											<th>Tanggal Terima</th>
-											<th>Tujuan Pengiriman</th>
-											<th>Action</th>
+											<th>Sender</th>
+											<th>Tanggal Masuk</th>
+											<th>Harga</th>
+											<th>Gudang</th>
+											<th>Penerima</th>
 										</tr>
 									</thead>
 									<tbody>
@@ -69,10 +70,11 @@
 											<td>1</td>
 											<td>2</td>
 											<td> pcs </td>
+											<td>Offical Siemens</td>
 											<td>01-01-2021</td>
-											<td></td>
+											<td>Rp. 50.000.000</td>
 											<td>Gudang Surabaya</td>
-											<td><button class="btn btn-success" type="button">terima</button></td>
+											<td>Achmad</td>
 
 										</tr>
 									</tbody>
@@ -110,7 +112,7 @@
 				<div class="col-lg-4">
 					<div class="card">
 						<div class="card-header">
-							<h5 class="m-0">Buat Pengiriman</h5>
+							<h5 class="m-0">Buat Penerimaan</h5>
 						</div>
 						<div class="card-body">
 							<form action="">
@@ -123,12 +125,24 @@
 									<input type="number" class="form-control" placeholder="Qty" name="NoForm">
 								</div>
 								<div class="form-group">
+									<label for="">Harga</label>
+									<input type="text" class="form-control" placeholder="Harga" name="NoForm">
+								</div>
+								<div class="form-group">
+									<label for="">Supplier</label>
+									<input type="text" class="form-control" placeholder="Harga" name="NoForm">
+								</div>
+								<div class="form-group">
 									<label for="">Satuan</label>
 									<input type="text" class="form-control" placeholder="Pcs" name="NoForm" disabled>
 								</div>
 								<div class="form-group">
-									<label for="">Tujuan Pengiriman</label>
-									<input type="text" class="form-control" placeholder="Pilih Nama Barang" name="NoForm" value="">
+									<label for="">Penyimpanan</label>
+									<input type="text" class="form-control" placeholder="Pilih Gudang" name="NoForm" value="">
+								</div>
+								<div class="form-group">
+									<label for="">Penerima</label>
+									<input type="text" class="form-control" placeholder="Nama Penerima" name="NoForm" value="">
 								</div>
 
 

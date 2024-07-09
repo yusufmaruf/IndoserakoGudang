@@ -202,7 +202,7 @@ class Master extends CI_Controller
 		$this->mglobal->checkpermit(99);
 		$header['title'] = 'Supplier';
 		$data = [];
-		$res = $this->mglobal->get_table('gudang');
+		$res = $this->mglobal->get_table('suppliers');
 		$data['row'] = $res;
 		$this->load->view('vheader', $header);
 		$this->mglobal->load_toast();

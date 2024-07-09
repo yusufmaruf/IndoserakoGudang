@@ -28,7 +28,7 @@
 					<ol class="breadcrumb float-sm-right">
 						<li class="breadcrumb-item"><a href="<?= base_url(); ?>">Main</a></li>
 						<li class="breadcrumb-item">Setting</li>
-						<li class="breadcrumb-item active">User</li>
+						<li class="breadcrumb-item active">Supplier</li>
 					</ol>
 				</div>
 			</div>
@@ -44,9 +44,9 @@
 					<div class="card">
 						<div class="card-header">
 							<div class="row">
-								<h5 class="m-0">Data User</h5>
+								<h5 class="m-0">Data Supplier</h5>
 								<div class="ml-auto">
-									<a href="<?= base_url() . 'master/user_add' ?>" class="btn btn-primary mr-2 mb-2"><i class="fa fa-plus mr-2"></i> Add New Gudang</a>
+									<a href="<?= base_url() . 'master/user_add' ?>" class="btn btn-primary mr-2 mb-2"><i class="fa fa-plus mr-2"></i> Add New Supplier</a>
 								</div>
 							</div>
 						</div>
@@ -55,8 +55,10 @@
 								<table class="table table-bordered" id="datatable">
 									<thead>
 										<th class="w5">No.</th>
-										<th>Gudang</th>
+										<th>Name</th>
 										<th>Lokasi</th>
+										<th>Contact Person</th>
+										<th>Phone</th>
 										<th class="text-center w5" colspan="2">Action</th>
 									</thead>
 									<tbody>
@@ -65,7 +67,9 @@
 											<tr>
 												<td></td>
 												<td><?= $value['name'] ?></td>
-												<td><?= $value['location'] ?></td>
+												<td><?= $value['address'] ?></td>
+												<td><?= $value['cp'] ?></td>
+												<td><?= $value['phone'] ?></td>
 												<td class="text-center">
 													<a type="button" title="Reset Password" class="text-danger"><i class="fa fa-trash" onclick="reset_confirm(<?= $value['id'] ?>)"></i></a>
 												</td>
@@ -101,7 +105,7 @@
 			"iDisplayLength": 10,
 			"columnDefs": [{
 				"orderable": false,
-				"targets": [0, 4]
+				"targets": [0, 6]
 			}],
 			"order": [
 				[1, 'asc']

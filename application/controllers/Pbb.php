@@ -55,7 +55,7 @@ class Pbb extends CI_Controller
 		$header['title'] = 'Report Detail';
 		$this->load->view('vheader', $header);
 		$this->mglobal->load_toast();
-		$this->load->view('admin/pbb/vdetail');
+		$this->load->view('admin/pbb/vdetailnew');
 		$this->load->view('vfooter');
 	}
 }

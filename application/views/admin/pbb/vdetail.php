@@ -172,7 +172,7 @@
 						<div class="card-header">
 							<h5 class="m-0">Log Penggadaan</h5>
 						</div>
-						<div class="card-body py-1 px-2 m-0" style="max-height: 500px; overflow-y: auto;">
+						<div class="card-body py-1 px-2 m-0">
 							<ul class="timeline">
 								<li class="timeline-item bg-white rounded ml-3 py-0 px-3 border border-grey ">
 									<h6 class="mb-0 pt-2"><i class="fa fa-clock-o mr-1"></i>21 March, 2019</h6>

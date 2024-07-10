@@ -46,7 +46,7 @@
 							<div class="row">
 								<h5 class="m-0">Data <?= $title; ?></h5>
 								<div class="ml-auto">
-									<a href="" class="btn btn-primary mr-2 mb-2"><i class="fa fa-plus mr-2"></i> Add New Gudang</a>
+									<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-add"><i class="fa fa-plus"> </i> &nbsp; Add</button>
 								</div>
 							</div>
 						</div>
@@ -63,8 +63,8 @@
 											<td class="text-center">1</td>
 											<td class="text-center">Computer</td>
 											<td class="text-center">
-												<a href="" class="btn  btn-primary btn-sm"><i class="fa fa-edit"></i></a>
-												<a href="" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+												<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-edit"><i class="fa fa-pencil"> </i> </button>
+												<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-delete"><i class="fa fa-trash "> </i> </button>
 											</td>
 										</tr>
 
@@ -75,6 +75,77 @@
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="modal-add" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Form Tambah Category</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<form action="">
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="">Nama Category</label>
+						<input type="text" class="form-control" placeholder="Masukan Nama Category" name="NoForm">
+					</div>
+				</div>
+				<div class="modal-footer justify-content-between">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="modal-edit" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Edit Category</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<form action="">
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="">Nama Category</label>
+						<input type="text" class="form-control" placeholder="Masukan Nama Category" name="NoForm" value="Computer">
+					</div>
+				</div>
+				<div class="modal-footer justify-content-between">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="modal-delete" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Hapus Category</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<form action="">
+				<div class="modal-body">
+					<p>Apakah anda yakin ingin menghapus data ini ?</p>
+				</div>
+				<div class="modal-footer justify-content-between">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>

@@ -18,44 +18,20 @@ class Stock extends CI_Controller
 		$this->load->view('admin/stock_gudang/vstock_gudang');
 		$this->load->view('vfooter');
 	}
-	public function create()
+	public function inventarisCompany()
 	{
-		$header['title'] = 'Report';
+		$header['title'] = 'Inventaris Company Report';
 		$this->load->view('vheader', $header);
 		$this->mglobal->load_toast();
-		$this->load->view('admin/pbb/vadd');
+		$this->load->view('admin/stock_gudang/vstockcompany_gudang');
 		$this->load->view('vfooter');
 	}
-	public function view($id = null)
+	public function safetyStock()
 	{
-		$header['title'] = 'Report View';
+		$header['title'] = 'Safety Stock Report';
 		$this->load->view('vheader', $header);
 		$this->mglobal->load_toast();
-		$this->load->view('admin/pbb/vview');
-		$this->load->view('vfooter');
-	}
-	public function kirim($id = null)
-	{
-		$header['title'] = 'Kirim Barang';
-		$this->load->view('vheader', $header);
-		$this->mglobal->load_toast();
-		$this->load->view('admin/pbb/vkirim');
-		$this->load->view('vfooter');
-	}
-	public function terima($id = null)
-	{
-		$header['title'] = 'Terima Barang';
-		$this->load->view('vheader', $header);
-		$this->mglobal->load_toast();
-		$this->load->view('admin/pbb/vterima');
-		$this->load->view('vfooter');
-	}
-	public function detail($id = null)
-	{
-		$header['title'] = 'Report Detail';
-		$this->load->view('vheader', $header);
-		$this->mglobal->load_toast();
-		$this->load->view('admin/pbb/vdetail');
+		$this->load->view('admin/stock_gudang/vsafety_stock');
 		$this->load->view('vfooter');
 	}
 }

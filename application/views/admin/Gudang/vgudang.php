@@ -46,7 +46,7 @@
 							<div class="row">
 								<h5 class="m-0">Data <?= $title ?> </h5>
 								<div class="ml-auto">
-									<a href="<?= base_url() . 'master/user_add' ?>" class="btn btn-primary mr-2 mb-2"><i class="fa fa-plus mr-2"></i> Add New Gudang</a>
+									<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-add"><i class="fa fa-plus"> </i> &nbsp; Add</button>
 								</div>
 							</div>
 						</div>

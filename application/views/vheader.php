@@ -21,7 +21,7 @@
 
 	<!--
 	==============================
-		Local Assets                 
+		Local Assets
 	==============================
 	-->
 	<link rel="stylesheet" href="<?= base_url('assets'); ?>/plugins/fontawesome-free/css/all.min.css">
@@ -189,13 +189,13 @@
 										</a>
 									</li>
 									<li class="nav-item">
-										<a href="<?= base_url() . 'master/user'; ?>" class="nav-link <?php if ($this->uri->segment('2') == 'user') echo 'active'; ?>">
+										<a href="<?= base_url() . 'stock/inventarisCompany'; ?>" class="nav-link <?php if ($this->uri->segment('2') == 'inventarisCompany') echo 'active'; ?>">
 											<i class="fas fa-server  nav-icon"></i>
 											<p>Inventaris Company</p>
 										</a>
 									</li>
 									<li class="nav-item">
-										<a href="<?= base_url() . 'master/user'; ?>" class="nav-link <?php if ($this->uri->segment('2') == 'user') echo 'active'; ?>">
+										<a href="<?= base_url() . 'stock/safetyStock'; ?>" class="nav-link <?php if ($this->uri->segment('2') == 'safetyStock') echo 'active'; ?>">
 											<i class="fas fa-server  nav-icon"></i>
 											<p>Safety Stock</p>
 										</a>
@@ -221,12 +221,7 @@
 											<p>User</p>
 										</a>
 									</li>
-									<li class="nav-item">
-										<a href="<?= base_url() . 'master/gudang'; ?>" class="nav-link <?php if ($this->uri->segment('2') == 'gudang') echo 'active'; ?>">
-											<i class="fas fa-warehouse  nav-icon"></i>
-											<p>Gudang</p>
-										</a>
-									</li>
+
 									<li class="nav-item">
 										<a href="<?= base_url() . 'master/category'; ?>" class="nav-link <?php if ($this->uri->segment('2') == 'category') echo 'active'; ?>">
 											<i class="fas fa-cubes  nav-icon"></i>

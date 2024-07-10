@@ -8,63 +8,103 @@
 <script src="<?= base_url() ?>assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="<?= base_url() ?>assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
 
+
+<style>
+	.progress {
+		height: 20px;
+		margin: 0;
+		overflow: visible;
+		border-radius: 50px;
+		/* background: #eaedf3; */
+	}
+
+	.progress .progress-bar {
+		border-radius: 10px;
+	}
+
+	.progress .progress-value {
+		position: relative;
+		left: -45px;
+		top: 10px;
+		font-size: 14px;
+		font-weight: bold;
+		color: #fff;
+		letter-spacing: 2px;
+	}
+
+	.progress-bar.active {
+		animation: reverse progress-bar-stripes 0.40s linear infinite, animate-positive 2s;
+	}
+
+	@-webkit-keyframes animate-positive {
+		0% {
+			width: 0%;
+		}
+	}
+
+	@keyframes animate-positive {
+		0% {
+			width: 0%;
+		}
+	}
+</style>
+
 <div class="content-wrapper">
 	<div class="content-header">
-		<div class="container-fluid">
-			<div class="row mb-2">
-				<div class="col-sm-6">
-					<h1 class="m-0">Data Penggadaan Barang</h1>
-				</div>
-				<div class="col-sm-6">
-					<ol class="breadcrumb float-sm-right">
-						<li class="breadcrumb-item"><a href="<?= base_url(); ?>">Main</a></li>
-						<li class="breadcrumb-item active">Data PB</li>
-					</ol>
-				</div>
-			</div>
-		</div>
 	</div>
 
 	<div class="content">
 		<div class="container-fluid">
-			<div class="row">
+			<div class="row p-0">
 				<div class="col-lg-12">
 					<div class="card">
-						<div class="card-header">
+						<div class="card-header p-2 m-0">
 							<div class="row">
-								<div class="col-6">
-									<h5 class="m-0">Data Penggadaan Barang</h5>
+								<div class="col-2">
+									<form action="">
+										<input type="month" name="from" class="form-control">
+									</form>
+
 								</div>
-								<div class="col-6">
+
+
+
+								<div class="col-10">
 									<div class="float-right">
 										<a href="<?= base_url() . '/pbb/create' ?>" class="btn btn-primary"><i class="fa fa-plus mr-2"></i> Add New PBB</a>
+
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="card-body">
+						<div class="card-body p-1">
 							<div class="col-12">
 								<table class="table table-bordered" id="datatable">
-									<thead>
+									<thead class="text-center p-1">
 										<tr>
 											<th>No.</th>
+											<th>Date Required</th>
 											<th>No. PPB</th>
 											<th>Nama Perusahaan</th>
 											<th>Nama Project</th>
-											<th>Progress</th>
+											<th>Delivered</th>
 											<th>Status</th>
 											<th colspan="2">Action</th>
 										</tr>
 									</thead>
-									<tbody>
+									<tbody class="text-center p-1">
 										<tr>
 											<td>1</td>
+											<td>01-07-2024</td>
 											<td>PPB/001/07/09/2024</td>
 											<td>PT. ABC</td>
 											<td>Project ABC</td>
-											<td>
-												<div class="progress">
-													<div class="progress-bar progress-bar-striped" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
+											<td class=" text-center">
+												<div class="progress-outer">
+													<div class="progress">
+														<div class="progress-bar progress-bar-info progress-bar-striped active" style="width:80%;"></div>
+														<div class="progress-value">80%</div>
+													</div>
 												</div>
 											</td>
 											<td>
@@ -104,7 +144,7 @@
 			"iDisplayLength": 10,
 			"columnDefs": [{
 				"orderable": false,
-				"targets": [0, 6, 7]
+				"targets": [0, 7, 8]
 			}],
 			"order": [
 				[1, 'asc']

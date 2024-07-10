@@ -20,7 +20,7 @@
 	}
 
 	li.timeline-item {
-		margin: 20px 0;
+		margin: 10px 0;
 	}
 
 	/* Timeline item arrow */
@@ -40,7 +40,7 @@
 		display: inline-block;
 		position: absolute;
 		border-radius: 50%;
-		border: 3px solid #a5b3c9;
+		border: 3px solid #fff;
 		left: 11px;
 		width: 14px;
 		height: 14px;
@@ -172,18 +172,22 @@
 						<div class="card-header">
 							<h5 class="m-0">Log Penggadaan</h5>
 						</div>
-						<div class="card-body py-0 m-0 ">
-							<ul class="timeline px-0 m-0 ">
-								<li class="timeline-item bg-white rounded ml-3 p-4 shadow">
-									<div class="timeline-arrow"></div>
-									<h2 class="h5 mb-0">Barang Diterima</h2><span class="small text-gray"><i class="fa fa-clock-o mr-1"></i>21 March, 2019</span>
-									<p class="text-small mt-2 font-weight-light">PC Siemens dengan jumlah 9 pcs diterima di Gudang Surabaya oleh Achmad </p>
+						<div class="card-body py-1 px-2 m-0" style="max-height: 500px; overflow-y: auto;">
+							<ul class="timeline">
+								<li class="timeline-item bg-white rounded ml-3 py-0 px-3 border border-grey ">
+									<h6 class="mb-0 pt-2"><i class="fa fa-clock-o mr-1"></i>21 March, 2019</h6>
+									<p class="text-small  font-weight-light p-0 m-0 mb-2">barang dikirimkan</p>
 								</li>
-								<li class="timeline-item bg-white rounded ml-3 p-4 shadow">
-									<div class="timeline-arrow"></div>
-									<h2 class="h5 mb-0">Barang Dikirim</h2><span class="small text-gray"><i class="fa fa-clock-o mr-1"></i>5 April, 2019</span>
-									<p class="text-small mt-2 font-weight-light">PC Siemens dengan 9 pcs dikirim ke Gudang Surabaya</p>
+								<li class="timeline-item bg-white rounded ml-3 py-0 px-3 border border-grey ">
+
+									<h6 class="mb-0 pt-2"><i class="fa fa-clock-o mr-1"></i>21 March, 2019</h6>
+									<p class="text-small  font-weight-light p-0 m-0 mb-2">barang diterima</p>
 								</li>
+								<li class="timeline-item bg-white rounded ml-3 py-0 px-3  border border-grey">
+									<h6 class="mb-0 pt-2"><i class="fa fa-clock-o mr-1"></i>21 March, 2019</h6>
+									<p class="text-small  font-weight-light p-0 m-0 mb-2">Data PPB Dibuat</p>
+								</li>
+
 							</ul>
 
 						</div>

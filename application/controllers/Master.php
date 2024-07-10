@@ -211,6 +211,57 @@ class Master extends CI_Controller
 		$this->load->view('vfooter');
 	}
 	//end suplier
+
+	//barang
+	public function barang()
+	{
+		$this->mglobal->checkpermit(99);
+		$header['title'] = 'Barang';
+		$data = [];
+		// $res = $this->mglobal->get_table('barang');
+		// $data['row'] = $res;
+		$this->load->view('vheader', $header);
+		$this->mglobal->load_toast();
+		$this->load->view('admin/barang/vbarang', $data);
+		// $this->load->view('modal/reset_password');
+		$this->load->view('vfooter');
+	}
+	//end barang
+
+	//category
+	public function category()
+	{
+		$this->mglobal->checkpermit(99);
+		$header['title'] = 'Category';
+		$data = [];
+		// $res = $this->mglobal->get_table('category');
+		// $data['row'] = $res;
+		$this->load->view('vheader', $header);
+		$this->mglobal->load_toast();
+		$this->load->view('admin/category/vcategory', $data);
+		// $this->load->view('modal/reset_password');
+		$this->load->view('vfooter');
+	}
+	//end category
+
+	//stock gudang 
+	public function stockGudang()
+	{
+		$this->mglobal->checkpermit(99);
+		$header['title'] = 'Stock Gudang';
+		$data = [];
+		// $res = $this->mglobal->get_table('stock_gudang');
+		// $data['row'] = $res;
+		$this->load->view('vheader', $header);
+		// $this->mglobal->load_toast();
+		$this->load->view('admin/stock_gudang/vstock_gudang', $data);
+		// $this->load->view('modal/reset_password');
+		$this->load->view('vfooter');
+	}
+
+	//end stock gudang
+
+
 }
 
 /* End of file Master.php */

@@ -22,13 +22,13 @@
 			} ?>
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1 class="m-0">Data <?= $title ?> </h1>
+					<h1 class="m-0">Data <?= $title; ?></h1>
 				</div>
 				<div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">
 						<li class="breadcrumb-item"><a href="<?= base_url(); ?>">Main</a></li>
 						<li class="breadcrumb-item">Master</li>
-						<li class="breadcrumb-item active"><?= $title ?> </li>
+						<li class="breadcrumb-item active"><?= $title; ?></li>
 					</ol>
 				</div>
 			</div>
@@ -44,9 +44,9 @@
 					<div class="card">
 						<div class="card-header">
 							<div class="row">
-								<h5 class="m-0">Data <?= $title ?> </h5>
+								<h5 class="m-0">Data <?= $title; ?></h5>
 								<div class="ml-auto">
-									<a href="<?= base_url() . 'master/user_add' ?>" class="btn btn-primary mr-2 mb-2"><i class="fa fa-plus mr-2"></i> Add New Gudang</a>
+									<a href="" class="btn btn-primary mr-2 mb-2"><i class="fa fa-plus mr-2"></i> Add New Gudang</a>
 								</div>
 							</div>
 						</div>
@@ -54,26 +54,20 @@
 							<div class="table-responsive">
 								<table class="table table-bordered" id="datatable">
 									<thead>
-										<th class="w5">No.</th>
-										<th>Gudang</th>
-										<th>Lokasi</th>
-										<th class="text-center" width="8%">Action</th>
+										<th class="w5 text-center">No.</th>
+										<th class="text-center">Category</th>
+										<th class="text-center" style="width: 7%;">Action</th>
 									</thead>
 									<tbody>
-										<?php
-										foreach ($row as $key => $value) { ?>
-											<tr>
-												<td></td>
-												<td><?= $value['name'] ?></td>
-												<td><?= $value['location'] ?></td>
-												<td class="text-center">
-													<a href="" class="btn  btn-primary btn-sm"><i class="fa fa-edit"></i></a>
-													<a href="" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
-												</td>
-											</tr>
-										<?php
-										}
-										?>
+										<tr>
+											<td class="text-center">1</td>
+											<td class="text-center">Computer</td>
+											<td class="text-center">
+												<a href="" class="btn  btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+												<a href="" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+											</td>
+										</tr>
+
 									</tbody>
 								</table>
 							</div>
@@ -99,7 +93,7 @@
 			"iDisplayLength": 10,
 			"columnDefs": [{
 				"orderable": false,
-				"targets": [0, 3]
+				"targets": [0, 2]
 			}],
 			"order": [
 				[1, 'asc']

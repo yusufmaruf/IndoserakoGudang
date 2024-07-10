@@ -127,8 +127,8 @@
 		<aside class="main-sidebar sidebar-light-primary elevation-4">
 			<!-- Brand Logo -->
 			<a href="<?= base_url(); ?>" class="brand-link text-center">
-				<img src="<?= base_url('assets'); ?>/dist/img/wilmar-logo-only-trans.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-				<span class="brand-text font-weight-bold">Texturing Report <br> Data Logger</span>
+				<img src="<?= base_url('assets'); ?>/dist/img/logo-square.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+				<span class="brand-text font-weight-bold">Indoserako Utility</span>
 			</a>
 
 			<!-- Sidebar -->
@@ -172,15 +172,36 @@
 
 							<li class="nav-item">
 								<a href="<?= base_url() . 'pbb' ?>" class="nav-link <?php if ($this->uri->segment('1') == 'pbb') echo 'active'; ?>">
-									<i class="nav-icon fa fa-file"></i>
+									<i class="nav-icon fas fa-file-invoice"></i>
 									<p>PPB</p>
 								</a>
 							</li>
-							<li class="nav-item">
-								<a href="<?= base_url() . 'report' ?>" class="nav-link <?php if ($this->uri->segment('1') == 'distribusi') echo 'active'; ?>">
-									<i class="nav-icon fas fa-truck"></i>
-									<p>Distribusi PPB</p>
+							<li class="nav-item <?php if ($this->uri->segment('1') == 'stock') echo 'menu-open'; ?>">
+								<a href="#" class="nav-link <?php if ($this->uri->segment('1') == 'stock') echo 'active'; ?>">
+									<i class="nav-icon fas fa-warehouse"></i>
+									<p>Stock <i class="right fas fa-angle-left"></i></p>
 								</a>
+								<ul class="nav nav-treeview">
+									<li class="nav-item">
+										<a href="<?= base_url() . 'stock/inventarisProject'; ?>" class="nav-link <?php if ($this->uri->segment('2') == 'inventarisProject') echo 'active'; ?>">
+											<i class="fas fa-server  nav-icon"></i>
+											<p>Inventaris Project</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="<?= base_url() . 'master/user'; ?>" class="nav-link <?php if ($this->uri->segment('2') == 'user') echo 'active'; ?>">
+											<i class="fas fa-server  nav-icon"></i>
+											<p>Inventaris Company</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="<?= base_url() . 'master/user'; ?>" class="nav-link <?php if ($this->uri->segment('2') == 'user') echo 'active'; ?>">
+											<i class="fas fa-server  nav-icon"></i>
+											<p>Safety Stock</p>
+										</a>
+									</li>
+
+								</ul>
 							</li>
 
 						<?php } ?>
@@ -207,13 +228,13 @@
 										</a>
 									</li>
 									<li class="nav-item">
-										<a href="<?= base_url() . 'master/user'; ?>" class="nav-link <?php if ($this->uri->segment('2') == 'stock') echo 'active'; ?>">
-											<i class="fas fa-archive  nav-icon"></i>
-											<p>Stock Barang</p>
+										<a href="<?= base_url() . 'master/category'; ?>" class="nav-link <?php if ($this->uri->segment('2') == 'category') echo 'active'; ?>">
+											<i class="fas fa-cubes  nav-icon"></i>
+											<p>Category Barang</p>
 										</a>
 									</li>
 									<li class="nav-item">
-										<a href="<?= base_url() . 'master/user'; ?>" class="nav-link <?php if ($this->uri->segment('2') == 'user') echo 'active'; ?>">
+										<a href="<?= base_url() . 'master/barang'; ?>" class="nav-link <?php if ($this->uri->segment('2') == 'barang') echo 'active'; ?>">
 											<i class="fas fa-book  nav-icon"></i>
 											<p>Barang</p>
 										</a>
@@ -222,12 +243,6 @@
 										<a href="<?= base_url() . 'master/supplier'; ?>" class="nav-link <?php if ($this->uri->segment('2') == 'supplier') echo 'active'; ?>">
 											<i class="fas fa-users  nav-icon"></i>
 											<p>Suppliers</p>
-										</a>
-									</li>
-									<li class="nav-item">
-										<a href="<?= base_url() . 'master/user'; ?>" class="nav-link <?php if ($this->uri->segment('2') == 'user') echo 'active'; ?>">
-											<i class="fas fa-briefcase  nav-icon"></i>
-											<p>Project</p>
 										</a>
 									</li>
 								</ul>

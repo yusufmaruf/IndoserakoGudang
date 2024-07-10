@@ -16,37 +16,21 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 	<div class="content-header">
-		<div class="container-fluid">
-			<?php if ($this->session->flashdata('global')) {
-				unset($_SESSION['global']);
-			} ?>
-			<div class="row mb-2">
-				<div class="col-sm-6">
-					<h1 class="m-0">User Table</h1>
-				</div>
-				<div class="col-sm-6">
-					<ol class="breadcrumb float-sm-right">
-						<li class="breadcrumb-item"><a href="<?= base_url(); ?>">Main</a></li>
-						<li class="breadcrumb-item">Setting</li>
-						<li class="breadcrumb-item active">User</li>
-					</ol>
-				</div>
-			</div>
-		</div>
+
 	</div>
 
 	<div class="content">
 		<div class="container-fluid">
 			<div class="mb-2">
 			</div>
-			<div class="row">
-				<div class="col-12">
+			<div class="row p-0">
+				<div class="col-12 p-0">
 					<div class="card">
-						<div class="card-header">
-							<div class="row">
+						<div class="card-header py-2">
+							<div class="row p-0">
 								<h5 class="m-0">Data User</h5>
-								<div class="ml-auto">
-									<a href="<?= base_url() . 'master/user_add' ?>" class="btn btn-primary mr-2 mb-2"><i class="fa fa-plus mr-2"></i> Add New User</a>
+								<div class="ml-auto p-0">
+									<a href="<?= base_url() . 'master/user_add' ?>" class="btn btn-primary btn-sm mr-2 "><i class="fa fa-plus mr-2"></i> Add New User</a>
 								</div>
 							</div>
 						</div>

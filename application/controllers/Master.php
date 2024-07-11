@@ -259,6 +259,56 @@ class Master extends CI_Controller
 		$this->load->view('vfooter');
 	}
 
+	public function receiveStockCompany()
+	{
+		$this->mglobal->checkpermit(99);
+		$header['title'] = 'Receive Stock Company';
+		$data = [];
+		// $res = $this->mglobal->get_table('stock_gudang');
+		// $data['row'] = $res;
+		$this->load->view('vheader', $header);
+		// $this->mglobal->load_toast();
+		$this->load->view('admin/stock_gudang/vadd_stockCompany', $data);
+		// $this->load->view('modal/reset_password');
+		$this->load->view('vfooter');
+	}
+	public function subtractStockCompany()
+	{
+
+		$this->mglobal->checkpermit(99);
+		$header['title'] = 'Subtract Stock Company';
+		$data = [];
+		// $res = $this->mglobal->get_table('stock_gudang');
+		// $data['row'] = $res;
+		$this->load->view('vheader', $header);
+		// $this->mglobal->load_toast();
+		$this->load->view('admin/stock_gudang/vsubtract_stockCompany', $data);
+	}
+	public function receiveSafetyStock()
+	{
+
+		$this->mglobal->checkpermit(99);
+		$header['title'] = 'Receive Safety Stock';
+		$data = [];
+		// $res = $this->mglobal->get_table('stock_gudang');
+		// $data['row'] = $res;
+		$this->load->view('vheader', $header);
+		// $this->mglobal->load_toast();
+		$this->load->view('admin/stock_gudang/vaddSafety_stock', $data);
+	}
+	public function subtractSafetyStock()
+	{
+
+		$this->mglobal->checkpermit(99);
+		$header['title'] = 'Subtract Safety Stock';
+		$data = [];
+		// $res = $this->mglobal->get_table('stock_gudang');
+		// $data['row'] = $res;
+		$this->load->view('vheader', $header);
+		// $this->mglobal->load_toast();
+		$this->load->view('admin/stock_gudang/vsubtractSafety_stock', $data);
+	}
+
 	//end stock gudang
 
 

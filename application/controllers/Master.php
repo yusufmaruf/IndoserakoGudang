@@ -306,6 +306,8 @@ class Master extends CI_Controller
 		$this->mglobal->checkpermit(99);
 		$header['title'] = 'Subtract Safety Stock';
 		$data = [];
+		$data['barang'] =  $this->mdummy->productDummy();
+
 		// $res = $this->mglobal->get_table('stock_gudang');
 		// $data['row'] = $res;
 		$this->load->view('vheader', $header);

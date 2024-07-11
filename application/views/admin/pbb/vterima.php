@@ -244,12 +244,6 @@
 			$('#price').val('').trigger('change');
 
 		});
-
-
-		// Delete row
-		$(document).on('click', '.delete-row', function() {
-			$(this).closest('tr').remove();
-		});
 	});
 </script>
 <!-- /.content-wrapper -->

@@ -59,24 +59,18 @@
 				<div class="col-lg-12">
 					<div class="card">
 						<div class="card-header p-2 m-0">
-							<div class="row">
-								<div class="col-2">
-									<form action="">
-										<input type="month" name="from" class="form-control">
-									</form>
-
-								</div>
-
-
-
-								<div class="col-10">
-									<div class="float-right">
-										<a href="<?= base_url() . '/pbb/create' ?>" class="btn btn-primary"><i class="fa fa-plus mr-2"></i> Add New PBB</a>
-
-									</div>
+							<div class="row px-2">
+								<form action="">
+									<input type="month" name="from" class="form-control" value="<?= date('Y-m') ?>">
+								</form>
+								<div class="ml-auto">
+									<a href="<?= base_url() ?>pbb/create" class="btn btn-primary">
+										<i class="fa fa-plus mr-2"></i> Add New PBB
+									</a>
 								</div>
 							</div>
 						</div>
+
 						<div class="card-body p-1">
 							<div class="col-12">
 								<table class="table table-bordered" id="datatable">

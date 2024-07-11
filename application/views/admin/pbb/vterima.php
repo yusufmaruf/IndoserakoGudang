@@ -1,149 +1,130 @@
 <!-- Content Wrapper. Contains page content -->
+<link rel="stylesheet" href="<?= base_url('assets'); ?>/plugins/select2/css/select2.min.css">
+<link rel="stylesheet" href="<?= base_url('assets'); ?>/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+<script src="<?= base_url('assets'); ?>/plugins/select2/js/select2.full.min.js"></script>
+
 <div class="content-wrapper">
 	<div class="content-header">
-		<div class="container-fluid">
-			<div class="row mb-2">
-				<div class="col-sm-6">
-					<h1 class="m-0">Form Penerimaan Barang</h1>
-				</div>
-				<div class="col-sm-6">
-					<ol class="breadcrumb float-sm-right">
-						<li class="breadcrumb-item"><a href="<?= base_url(); ?>">Main</a></li>
-						<li class="breadcrumb-item active">PBB</li>
-					</ol>
-				</div>
-			</div>
-		</div>
 	</div>
 
 	<div class="content">
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-12">
+				<div class="col-lg-8">
 					<div class="card">
-						<div class="card-header">
-							<div class="row">
-								<div class="col-6">
-									<h5 class="m-0">Penerimaan Barang : PPB/01/09/07/2024</h5>
+						<div class="card-header py-1">
+							<h5 class="m-0">Form Penerimaan PBB</h5>
+						</div>
+						<div class="card-body p-2">
+							<form action="">
+								<div class="row mb-0">
+									<div class="col-6  mb-0">
+										<div class="form-group  mb-0">
+											<label for="">No. PBB</label>
+											<input type="text" class="form-control" placeholder="Masukan No. PBB" value="PBB/09/012/2024" name="NoForm" disabled>
+										</div>
+									</div>
+									<div class="col-6">
+										<div class="form-group  mb-0">
+											<label for="">Penerima</label>
+											<input type="text" class="form-control" placeholder="Masukan Nama Penerima" name="NoForm" value="">
+										</div>
+									</div>
 								</div>
-								<div class="col-6">
-									<div class="float-right">
-										<div class="row">
-
-											<h5>PC Siemens : </h5>
-											<h5 class="m-0">&nbsp; 4 Pcs</h5>
+								<div class="row mb-0">
+									<div class="col-6  mb-0">
+										<div class="form-group  mb-0">
+											<label for="">Tanggal</label>
+											<input type="date" class="form-control" placeholder="Masukan No. PBB" value="<?= date('Y-m-d') ?>" name="NoForm" disabled>
+										</div>
+									</div>
+									<div class="col-6">
+										<div class="form-group  mb-0">
+											<label for="">Catatan</label>
+											<input type="text" class="form-control" placeholder="Masukan Catatan" name="NoForm" value="">
 										</div>
 									</div>
 								</div>
 
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
-			<div class="row">
-				<div class="col-lg-8">
-					<div class="card">
-						<div class="card-body">
-							<form action="">
-								<div class="row">
-									<div class="col-lg-6 mb-3">
-										<h5>Data Penerimaan Barang PC Siemens</h5>
-									</div>
-								</div>
-								<table class="table table-bordered">
+								<table class="table table-bordered mt-2 mb-0">
 									<thead>
 										<tr>
 											<th style="width: 10px">No</th>
+											<th>Nama Barang</th>
 											<th>Qty</th>
 											<th>Sat</th>
-											<th>Sender</th>
-											<th>Tanggal Masuk</th>
+											<th>Supplier</th>
 											<th>Harga</th>
-											<th>Gudang</th>
-											<th>Penerima</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr>
 											<td>1</td>
+											<td>PC Siemens</td>
 											<td>2</td>
 											<td> pcs </td>
 											<td>Offical Siemens</td>
-											<td>01-01-2021</td>
 											<td>Rp. 50.000.000</td>
-											<td>Gudang Surabaya</td>
-											<td>Achmad</td>
-
 										</tr>
 									</tbody>
 
 								</table>
+								<div class="row mt-2 px-1">
+									<div class="ml-auto">
+										<button type="submit" class="btn btn-primary">Simpan</button>
+									</div>
+								</div>
 							</form>
 						</div>
 					</div>
 
-					<div class="card">
-						<div class="card-header">
-							<h5 class="m-0">Log Penggadaan</h5>
-						</div>
-						<div class="card-body">
-							<div class="timeline ">
-								<div>
-									<i class="fas fa-truck bg-blue"></i>
-									<div class="timeline-item">
-										<span class="time"><i class="fas fa-date"></i> 10 Feb. 2014</span>
-										<h3 class="timeline-header"><a href="#">Pengiriman Dibuat</a> sent you an email</h3>
-									</div>
-								</div>
-								<div>
-									<i class="fas fa-user bg-green"></i>
-									<div class="timeline-item">
-										<span class="time"><i class="fas fa-clock"></i>10 Feb. 2014</span>
-										<h3 class="timeline-header no-border"><a href="#">Pengiriman di terima</a> </h3>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
 
 				</div>
 				<div class="col-lg-4">
 					<div class="card">
-						<div class="card-header">
+						<div class="card-header py-2">
 							<h5 class="m-0">Buat Penerimaan</h5>
 						</div>
-						<div class="card-body">
+						<div class="card-body p-2">
 							<form action="">
-								<div class="form-group">
+								<div class="form-group mb-1">
 									<label for="">Nama Barang</label>
-									<input type="text" class="form-control" placeholder="Pilih Nama Barang" name="NoForm" value="PC Siemens" disabled>
+									<select autofocus="" id="barang" name="category" class="form-control select2">
+										<option value="">Pilih Barang</option>
+										<option value="unit">Barang 1</option>
+									</select>
 								</div>
-								<div class="form-group">
-									<label for="">Qty</label>
-									<input type="number" class="form-control" placeholder="Qty" name="NoForm">
+
+								<div class="row mb-1">
+									<div class="col-lg-6 mb-1">
+										<div class="form-group mb-1">
+											<label for="">Qty</label>
+											<input type="number" class="form-control" placeholder="" name="NoForm">
+										</div>
+									</div>
+									<div class="col-lg-6 mb-1">
+										<div class="form-group mb-1">
+											<label for="">Satuan</label>
+											<input type="text" class="form-control" placeholder="Pcs" name="NoForm" disabled>
+										</div>
+									</div>
 								</div>
-								<div class="form-group">
-									<label for="">Harga</label>
-									<input type="text" class="form-control" placeholder="Harga" name="NoForm">
+								<div class="row mb-1">
+									<div class="col-lg-6 mb-1">
+										<div class="form-group mb-1">
+											<label for="">Harga</label>
+											<input type="text" class="form-control" placeholder="Harga" name="NoForm">
+										</div>
+									</div>
+									<div class="col-lg-6 mb-1">
+										<div class="form-group mb-1">
+											<label for="">Supplier</label>
+											<input type="text" class="form-control" placeholder="Supplier" name="NoForm">
+										</div>
+									</div>
 								</div>
-								<div class="form-group">
-									<label for="">Supplier</label>
-									<input type="text" class="form-control" placeholder="Harga" name="NoForm">
-								</div>
-								<div class="form-group">
-									<label for="">Satuan</label>
-									<input type="text" class="form-control" placeholder="Pcs" name="NoForm" disabled>
-								</div>
-								<div class="form-group">
-									<label for="">Penyimpanan</label>
-									<input type="text" class="form-control" placeholder="Pilih Gudang" name="NoForm" value="">
-								</div>
-								<div class="form-group">
-									<label for="">Penerima</label>
-									<input type="text" class="form-control" placeholder="Nama Penerima" name="NoForm" value="">
-								</div>
+
+
 
 
 								<div class="form-group">
@@ -159,5 +140,11 @@
 		</div>
 	</div>
 </div>
-</div>
+<script>
+	$(document).ready(function() {
+		$('#barang').select2({
+			theme: 'bootstrap4',
+		});
+	});
+</script>
 <!-- /.content-wrapper -->

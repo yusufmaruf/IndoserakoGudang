@@ -55,7 +55,9 @@
 		box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 	}
 </style>
-<div class="content-wrapper mt-4">
+<div class="content-wrapper mt-3">
+	<!-- Content Header (Page header) -->
+
 	<div class="content">
 		<div class="container-fluid">
 			<div class="row">

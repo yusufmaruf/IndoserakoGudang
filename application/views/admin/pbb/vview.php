@@ -58,8 +58,14 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="card">
-						<div class="card-header p-2">
-							<h5 class="m-0">Data Inventaris Project PB/01/09/07/2024</h5>
+						<div class="card-header py-2">
+							<div class="row">
+								<h5 class="m-0">Data Inventaris Project PB/01/09/07/2024</h5>
+								<div class="ml-auto">
+									<a href="<?= base_url() ?>pbb/terima" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i>&nbsp; Terima</a>
+									<a href="<?= base_url() ?>pbb/kirim" class="btn btn-success btn-sm"><i class="fa fa-truck"></i>&nbsp; Kirim</a>
+								</div>
+							</div>
 						</div>
 						<div class="card-body p-2">
 							<table class="table table-bordered" id="datatable">
@@ -72,7 +78,6 @@
 										<th>PIC</th>
 										<th>Pengiriman</th>
 										<th>Status</th>
-										<th style="width: 10%;">Act</th>
 									</tr>
 								</thead>
 								<tbody class="text-center p-0">
@@ -91,12 +96,9 @@
 											</div>
 										</td>
 										<td class=" text-center  px-1">
-											<span class=" rounded-pill badge badge-success px-3 py-1">Open</span>
+											<span class=" rounded-pill badge badge-success px-3 py-2">Open</span>
 										</td>
-										<td class=" text-center  px-1">
-											<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-terima"> Terima</button>
-											<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-kirim"> Kirim</button>
-										</td>
+
 									</tr>
 								</tbody>
 							</table>

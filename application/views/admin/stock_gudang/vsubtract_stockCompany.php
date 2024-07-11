@@ -13,7 +13,7 @@
 				<div class="col-lg-8">
 					<div class="card">
 						<div class="card-header py-1">
-							<h5 class="m-0">Form Subtract Stock</h5>
+							<h5 class="m-0">Form Subtract Data Inventaris</h5>
 						</div>
 						<div class="card-body p-2">
 							<form action="">

@@ -19,7 +19,7 @@
 					<div class="card">
 						<div class="card-header py-2">
 							<div class="row">
-								<h5><?= $title; ?></h5>
+								<h5>Data Inventaris</h5>
 								<div class="ml-auto">
 									<a href="<?= base_url() ?>master/receiveStockCompany" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Receive</a>
 									<a href="<?= base_url() ?>master/subtractStockCompany" class="btn btn-sm btn-danger"><i class="fa fa-minus"></i> Subtract</a>

@@ -19,7 +19,7 @@
 				<div class="col-lg-12">
 					<div class="card">
 						<div class="card-header py-2">
-							Data Inventaris Project
+							Data Barang Project
 						</div>
 						<div class="card-body p-2">
 							<div class="table-responsive">

@@ -73,7 +73,6 @@
 	</div>
 
 	<div class="wrapper">
-
 		<!-- Navbar -->
 		<nav class="main-header navbar navbar-expand navbar-light shadow">
 			<!-- Left navbar links -->
@@ -122,7 +121,6 @@
 			</ul>
 		</nav>
 		<!-- /.navbar -->
-
 		<!-- Main Sidebar Container -->
 		<aside class="main-sidebar sidebar-light-primary elevation-4">
 			<!-- Brand Logo -->
@@ -179,25 +177,25 @@
 							<li class="nav-item <?php if ($this->uri->segment('1') == 'stock') echo 'menu-open'; ?>">
 								<a href="#" class="nav-link <?php if ($this->uri->segment('1') == 'stock') echo 'active'; ?>">
 									<i class="nav-icon fas fa-warehouse"></i>
-									<p>Stock <i class="right fas fa-angle-left"></i></p>
+									<p>Penyimpanan <i class="right fas fa-angle-left"></i></p>
 								</a>
 								<ul class="nav nav-treeview">
 									<li class="nav-item">
 										<a href="<?= base_url() . 'stock/inventarisProject'; ?>" class="nav-link <?php if ($this->uri->segment('2') == 'inventarisProject') echo 'active'; ?>">
 											<i class="fas fa-server  nav-icon"></i>
-											<p>Inventaris Project</p>
+											<p>Barang Project</p>
 										</a>
 									</li>
 									<li class="nav-item">
 										<a href="<?= base_url() . 'stock/inventarisCompany'; ?>" class="nav-link <?php if ($this->uri->segment('2') == 'inventarisCompany') echo 'active'; ?>">
 											<i class="fas fa-server  nav-icon"></i>
-											<p>Inventaris Company</p>
+											<p>Inventaris</p>
 										</a>
 									</li>
 									<li class="nav-item">
 										<a href="<?= base_url() . 'stock/safetyStock'; ?>" class="nav-link <?php if ($this->uri->segment('2') == 'safetyStock') echo 'active'; ?>">
 											<i class="fas fa-server  nav-icon"></i>
-											<p>Safety Stock</p>
+											<p>Stock</p>
 										</a>
 									</li>
 
@@ -238,6 +236,12 @@
 										<a href="<?= base_url() . 'master/supplier'; ?>" class="nav-link <?php if ($this->uri->segment('2') == 'supplier') echo 'active'; ?>">
 											<i class="fas fa-users  nav-icon"></i>
 											<p>Suppliers</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="<?= base_url() . 'master/consumer'; ?>" class="nav-link <?php if ($this->uri->segment('2') == 'consumer') echo 'active'; ?>">
+											<i class="fas fa-building  nav-icon"></i>
+											<p>Consumers</p>
 										</a>
 									</li>
 								</ul>

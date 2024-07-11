@@ -311,6 +311,22 @@ class Master extends CI_Controller
 
 	//end stock gudang
 
+	//master consumer
+	public function consumer()
+	{
+		$this->mglobal->checkpermit(99);
+		$header['title'] = 'Master Consumer';
+		$data = [];
+		// $res = $this->mglobal->get_table('stock_gudang');
+		// $data['row'] = $res;
+		$this->load->view('vheader', $header);
+		// $this->mglobal->load_toast();
+		$this->load->view('admin/master_consumer/vmaster_consumer', $data);
+		// $this->load->view('modal/reset_password');
+		$this->load->view('vfooter');
+	}
+	//end master consumer
+
 
 }
 

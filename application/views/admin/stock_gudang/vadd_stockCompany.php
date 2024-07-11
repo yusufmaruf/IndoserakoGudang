@@ -13,7 +13,7 @@
 				<div class="col-lg-8">
 					<div class="card">
 						<div class="card-header py-1">
-							<h5 class="m-0">Form Receive Stock</h5>
+							<h5 class="m-0">Form Receive Data Inventaris</h5>
 						</div>
 						<div class="card-body p-2">
 							<form action="">
@@ -31,19 +31,9 @@
 										</div>
 									</div>
 								</div>
-								<div class="row mb-0">
-									<div class="col-6  mb-0">
-										<div class="form-group  mb-0">
-											<label for="">Reason</label>
-											<input type="text" class="form-control" placeholder="Input Reason" name="NoForm">
-										</div>
-									</div>
-									<div class="col-6">
-										<div class="form-group  mb-0">
-											<label for="">Catatan</label>
-											<input type="text" class="form-control" placeholder="Masukan Catatan" name="NoForm" value="">
-										</div>
-									</div>
+								<div class="form-group  mb-0">
+									<label for="">Reason</label>
+									<input type="text" class="form-control" placeholder="Input Reason" name="NoForm">
 								</div>
 
 								<table class="table table-bordered mt-2 mb-0">
@@ -82,8 +72,8 @@
 				</div>
 				<div class="col-lg-4">
 					<div class="card">
-						<div class="card-header py-2">
-							<h5 class="m-0">Buat Penerimaan</h5>
+						<div class="card-header py-1">
+							<h5 class="m-0">Add Barang</h5>
 						</div>
 						<div class="card-body p-2">
 							<form action="">

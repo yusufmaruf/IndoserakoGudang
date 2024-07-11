@@ -7,9 +7,10 @@ class Master extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-
 		$this->load->library('upload');
-
+		$this->load->model('mglobal');
+		$this->load->model('mdummy');
+		$this->load->library('form_validation');
 		$this->load->model('mmaster');
 	}
 
@@ -264,6 +265,7 @@ class Master extends CI_Controller
 		$this->mglobal->checkpermit(99);
 		$header['title'] = 'Receive Stock Company';
 		$data = [];
+		$data['barang'] =  $this->mdummy->productDummy();
 		// $res = $this->mglobal->get_table('stock_gudang');
 		// $data['row'] = $res;
 		$this->load->view('vheader', $header);
@@ -278,6 +280,7 @@ class Master extends CI_Controller
 		$this->mglobal->checkpermit(99);
 		$header['title'] = 'Subtract Stock Company';
 		$data = [];
+		$data['barang'] =  $this->mdummy->productDummy();
 		// $res = $this->mglobal->get_table('stock_gudang');
 		// $data['row'] = $res;
 		$this->load->view('vheader', $header);
@@ -290,6 +293,7 @@ class Master extends CI_Controller
 		$this->mglobal->checkpermit(99);
 		$header['title'] = 'Receive Safety Stock';
 		$data = [];
+		$data['barang'] =  $this->mdummy->productDummy();
 		// $res = $this->mglobal->get_table('stock_gudang');
 		// $data['row'] = $res;
 		$this->load->view('vheader', $header);

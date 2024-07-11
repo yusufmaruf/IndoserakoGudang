@@ -53,17 +53,19 @@ class Pbb extends CI_Controller
 	public function kirim($id = null)
 	{
 		$header['title'] = 'Kirim Barang';
+		$data['barang'] = $this->mdummy->productDummy();
 		$this->load->view('vheader', $header);
 		$this->mglobal->load_toast();
-		$this->load->view('admin/pbb/vkirim');
+		$this->load->view('admin/pbb/vkirim', $data);
 		$this->load->view('vfooter');
 	}
 	public function terima($id = null)
 	{
 		$header['title'] = 'Terima Barang';
+		$data['barang'] = $this->mdummy->productDummy();
 		$this->load->view('vheader', $header);
 		$this->mglobal->load_toast();
-		$this->load->view('admin/pbb/vterima');
+		$this->load->view('admin/pbb/vterima', $data);
 		$this->load->view('vfooter');
 	}
 	public function detail($id = null)

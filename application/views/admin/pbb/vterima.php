@@ -46,25 +46,27 @@
 									</div>
 								</div>
 
-								<table class="table table-bordered mt-2 mb-0">
+								<table class="table table-bordered mt-2 mb-0" id="table-body">
 									<thead>
-										<tr>
-											<th style="width: 10px">No</th>
+										<tr class="text-center">
 											<th>Nama Barang</th>
-											<th>Qty</th>
+											<th width="15%">Qty</th>
 											<th>Sat</th>
 											<th>Supplier</th>
 											<th>Harga</th>
+											<th style="width: 10px;">Aksi</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>1</td>
+										<tr class="text-center">
 											<td>PC Siemens</td>
-											<td>2</td>
+											<td width="15%"><input type="number" class="form-control" style="max-height: 30px;" value="2" name="NoForm"></td>
 											<td> pcs </td>
 											<td>Offical Siemens</td>
-											<td>Rp. 50.000.000</td>
+											<td>200000</td>
+											<td>
+												<button type="button" class="btn btn-danger btn-sm delete-row"><i class="fas fa-trash"></i></button>
+											</td>
 										</tr>
 									</tbody>
 
@@ -86,12 +88,14 @@
 							<h5 class="m-0">Buat Penerimaan</h5>
 						</div>
 						<div class="card-body p-2">
-							<form action="">
+							<form id="add-item-form">
 								<div class="form-group mb-1">
 									<label for="">Nama Barang</label>
-									<select autofocus="" id="barang" name="category" class="form-control select2">
+									<select autofocus="" id="barang" name="barang" class="form-control select2">
 										<option value="">Pilih Barang</option>
-										<option value="unit">Barang 1</option>
+										<?php foreach ($barang as $key => $value) { ?>
+											<option value="<?= $value['id'] ?>" data-name="<?= $value['name'] ?>"><?= $value['name'] ?></option>
+										<?php } ?>
 									</select>
 								</div>
 
@@ -99,13 +103,15 @@
 									<div class="col-lg-6 mb-1">
 										<div class="form-group mb-1">
 											<label for="">Qty</label>
-											<input type="number" class="form-control" placeholder="" name="NoForm">
+											<input type="number" class="form-control" placeholder="" name="qty" id="qty">
 										</div>
 									</div>
 									<div class="col-lg-6 mb-1">
 										<div class="form-group mb-1">
 											<label for="">Satuan</label>
-											<input type="text" class="form-control" placeholder="Pcs" name="NoForm" disabled>
+											<select autofocus="" id="satuan" name="satuan" class="form-control select2 " disabled>
+
+											</select>
 										</div>
 									</div>
 								</div>
@@ -113,13 +119,13 @@
 									<div class="col-lg-6 mb-1">
 										<div class="form-group mb-1">
 											<label for="">Harga</label>
-											<input type="text" class="form-control" placeholder="Harga" name="NoForm">
+											<input type="text" class="form-control" placeholder="Harga" name="price" id="price">
 										</div>
 									</div>
 									<div class="col-lg-6 mb-1">
 										<div class="form-group mb-1">
 											<label for="">Supplier</label>
-											<input type="text" class="form-control" placeholder="Supplier" name="NoForm">
+											<input type="text" class="form-control" placeholder="Supplier" name="supplier" id="supplier">
 										</div>
 									</div>
 								</div>
@@ -144,6 +150,105 @@
 	$(document).ready(function() {
 		$('#barang').select2({
 			theme: 'bootstrap4',
+		});
+		$('#satuan').select2({
+			theme: 'bootstrap4',
+		});
+	});
+</script>
+<!-- get value satuan  -->
+<script>
+	$(document).ready(function() {
+
+		$('#barang').on('change', function() {
+			var selectedBarang = $(this).val();
+			console.log(selectedBarang);
+
+			// Clear satuan select options
+			$('#satuan').empty();
+
+			// Add default option
+			// $('#satuan').append('<option value="">Pilih Satuan</option>');
+
+			if (selectedBarang) {
+				// AJAX request to fetch satuan options
+				$.ajax({
+					url: '<?= base_url() ?>pbb/getsatuan/' + selectedBarang, // Adjust the URL to match your controller and method
+					type: 'GET',
+					success: function(response) {
+						var satuan = JSON.parse(response).satuan;
+						console.log(satuan);
+						// Append the retrieved satuan as the selected option
+						$('#satuan').append('<option value="' + satuan + '" selected>' + satuan + '</option>');
+					},
+					error: function(xhr, status, error) {
+						console.error('AJAX Error: ', status, error);
+					}
+				});
+			}
+		});
+
+	});
+</script>
+<script>
+	$(document).ready(function() {
+		$(document).on('click', '.delete-row', function() {
+			$(this).closest('tr').remove();
+		});
+	});
+</script>
+
+<script>
+	$(document).ready(function() {
+
+		// Handle form submission
+		$('#add-item-form').on('submit', function(event) {
+			event.preventDefault(); // Prevent form from submitting normally
+
+			// Get form values
+			var barangId = $('#barang').val();
+			var barangName = $('#barang option:selected').data('name');
+			var qty = $('#qty').val();
+			var satuan = $('#satuan').val();
+			var price = $('#price').val();
+			var supplier = $('#supplier').val();
+
+			// Validate form values
+			if (!barangId || !qty || !satuan || !price || !supplier) {
+				alert('Please fill in all fields.');
+				return;
+			}
+
+			// Append new row to the table
+			var newRow = `
+                    <tr class="text-center">
+                        <td class="text-center">${barangName}</td>
+                        <td class="text-center"><input type="number" class="form-control" style="max-height: 30px;" value="${qty}" name="NoForm"></td>
+                        <td class="text-center">${satuan}</td>
+                        <td class="text-center">${supplier}</td>
+                        <td class="text-center">${price}</td>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-danger btn-sm delete-row"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                `;
+
+			$('#table-body').append(newRow);
+
+
+			// Clear form
+			$('#add-item-form')[0].reset();
+			$('#barang').val('').trigger('change');
+			$('#satuan').empty().prop('disabled', true);
+			$('#supplier').val('').trigger('change');
+			$('#price').val('').trigger('change');
+
+		});
+
+
+		// Delete row
+		$(document).on('click', '.delete-row', function() {
+			$(this).closest('tr').remove();
 		});
 	});
 </script>

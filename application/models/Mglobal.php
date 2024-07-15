@@ -3,9 +3,47 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Mglobal extends CI_Model
 {
+	public function insert_data($table, $object)
+	{
+		$res = $this->db->insert($table, $object);
+		$insert_id = $this->db->insert_id();
+		return $res ? $insert_id : false;
+	}
+	public function update_data($table, $data, $where)
+	{
+		$this->db->where($where);
+		$this->db->update($table, $data);
 
+		return $this->db->affected_rows();
+	}
 
+	public function crud($table, $data, $crud_type)
+	{
+		$this->db->trans_start();
+		$this->db->trans_strict(false);
 
+		if ($crud_type == 1) {
+			//edit mode
+			$this->db->where('id', $data['id']);
+			$this->db->update($table, $data);
+		} else if ($crud_type == 2) {
+			//add mode
+			$this->db->insert($table, $data);
+		} else {
+			//delete mode
+			$this->db->where('id', $data);
+			$this->db->delete($table);
+		}
+
+		$this->db->trans_complete();
+
+		if ($this->db->trans_status() === false) {
+			$this->db->trans_rollback();
+			return false;
+		} else {
+			return true;
+		}
+	}
 
 	public function load_modal()
 	{
@@ -152,9 +190,9 @@ class Mglobal extends CI_Model
 
 
 
-	public function get_item($table, $where)
+	public function get_item($table, $where, $id)
 	{
-		$this->db->where($where);
+		$this->db->where($where, $id);
 		$res = $this->db->get($table);
 		return $res ? $res->row_array() : false;
 	}
@@ -172,6 +210,12 @@ class Mglobal extends CI_Model
 		$res = $this->db->get($table);
 		return $res ? $res->result_array() : false;
 	}
+	public function delete_item($table, $field, $value)
+	{
+		$this->db->where($field, $value);
+		return $this->db->delete($table);
+	}
+
 
 
 
@@ -275,16 +319,18 @@ class Mglobal extends CI_Model
 	}
 	public function parse_postdata()
 	{
-		// automatically fetch all post data
-		$post = [];
-		foreach ($_POST as $key => $val) {
-			$xss_check = $this->input->post($key, TRUE);
-			$key2 = substr($key, strpos($key, "_") + 1);
-			if (substr($key, 0, 2) == 'i_') $post[$key2] = $xss_check; // only return post data with input prefix 'i_ 
-			else if (substr($key, 0, 2) == 'p_') $post[$key] = $xss_check;
+		$post = $this->input->post(NULL, TRUE); // Get all POST data with XSS filtering
+		$filtered_data = [];
+
+		foreach ($post as $key => $value) {
+			if (strpos($key, 'i_') === 0) { // Check if key starts with 'i_'
+				$filtered_data[substr($key, 2)] = $value; // Remove 'i_' prefix
+			}
 		}
-		return $post;
+
+		return $filtered_data;
 	}
+
 
 	public function pre($data)
 	{

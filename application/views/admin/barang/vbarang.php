@@ -17,6 +17,13 @@
 		width: 5%;
 	}
 </style>
+<style>
+	.preview-image {
+		max-width: 100%;
+		height: auto;
+		margin-top: 10px;
+	}
+</style>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -48,6 +55,7 @@
 								<table class="table table-bordered" id="datatable">
 									<thead>
 										<th class="w5 text-center">No.</th>
+										<th class="text-center">Foto</th>
 										<th class="text-center">Nama Barang</th>
 										<th class="text-center">Satuan</th>
 										<th class="text-center">Brand</th>
@@ -56,19 +64,22 @@
 										<th class="text-center" style="width: 7%;">Action</th>
 									</thead>
 									<tbody>
-										<tr>
-											<td class="text-center">1</td>
-											<td class="text-center">PC Siemens</td>
-											<td class="text-center">Pcs</td>
-											<td class="text-center">Siemens</td>
-											<td class="text-center">PC</td>
-											<td class="text-center">Computer</td>
-											<td class="text-center">
-												<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-edit"><i class="fa fa-edit"> </i></button>
-												<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-delete"><i class="fa fa-trash"> </i></button>
-											</td>
-										</tr>
-
+										<?php $no = 1; ?>
+										<?php foreach ($barang as $b) : ?>
+											<tr>
+												<td class="text-center"><?= $no++; ?></td>
+												<td class="text-center"><img src="<?= base_url('uploads/equipment/') . $b['foto']; ?>" style="width: 200px;" class="img-fluid"></td>
+												<td class="text-center"><?= $b['name']; ?></td>
+												<td class="text-center"><?= $b['satuan']; ?></td>
+												<td class="text-center"><?= $b['brand']; ?></td>
+												<td class="text-center"><?= $b['type']; ?></td>
+												<td class="text-center"><?= $b['category']; ?></td>
+												<td class="text-center">
+													<button class="btn btn-primary btn-sm btn-edit" data-id="" data-toggle="modal" data-target="#modal-edit"><i class="fa fa-edit" onclick="edit(<?= $b['idBarang']; ?>)"> </i></button>
+													<button class="btn btn-danger btn-sm btn-delete" data-id="" data-toggle="modal" data-target="#modal-delete<?= $b['idBarang']; ?>"><i class="fa fa-trash"> </i></button>
+												</td>
+											</tr>
+										<?php endforeach; ?>
 									</tbody>
 								</table>
 							</div>
@@ -89,23 +100,23 @@
 					<span aria-hidden="true">×</span>
 				</button>
 			</div>
-			<form action="">
+			<form action="<?= base_url('barang/save'); ?>" method="POST" enctype="multipart/form-data">
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="">Nama Barang</label>
-						<input type="text" class="form-control" placeholder="Masukan Nama Barang" name="NoForm">
+						<input type="text" class="form-control" placeholder="Masukan Nama Barang" name="name">
 					</div>
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="">Brand</label>
-								<input type="text" class="form-control" placeholder="Masukan Nama Brand" name="NoForm">
+								<input type="text" class="form-control" placeholder="Masukan Nama Brand" name="brand">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="">Type</label>
-								<input type="text" class="form-control" placeholder="Masukan Nama Type" name="NoForm">
+								<input type="text" class="form-control" placeholder="Masukan Nama Type" name="type">
 							</div>
 						</div>
 					</div>
@@ -141,42 +152,53 @@
 								</select>
 							</div>
 						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="">Gambar</label>
+								<input type="file" class="form-control" name="foto" id="photoProduct" accept="image/*" onchange="previewImage(event)">
+							</div>
+							<div class=" preview">
+								<img id="previewImg" src="" alt="Preview Image" class="preview-image">
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="modal-footer justify-content-between">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
+					<button type="submit" class="btn btn-primary">Save changes</button>
 				</div>
 			</form>
 		</div>
 	</div>
 </div>
+
 <div class="modal fade" id="modal-edit" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Form Tambah Barang</h4>
+				<h4 class="modal-title">Form Edit Barang</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">×</span>
 				</button>
 			</div>
-			<form action="">
+			<form action="<?= base_url('barang/update'); ?>" method="POST" enctype="multipart/form-data">
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="">Nama Barang</label>
-						<input type="text" class="form-control" placeholder="Masukan Nama Barang" value="PC Siemens" name="NoForm">
+						<input type="hidden" class="form-control" id="idEdit" name="idBarang">
+						<input type=" text" class="form-control" id="nameedit" placeholder="Masukan Nama Barang" value="" name="name">
 					</div>
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="">Brand</label>
-								<input type="text" class="form-control" placeholder="Masukan Nama Brand" value="Siemens" name="NoForm">
+								<input type="text" class="form-control" id="brandedit" placeholder="Masukan Nama Brand" name="brand">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="">Type</label>
-								<input type="text" class="form-control" placeholder="Masukan Nama Type" value="Computer" name="NoForm">
+								<input type="text" class="form-control" id="typeedit" placeholder="Masukan Nama Type" name="type">
 							</div>
 						</div>
 					</div>
@@ -184,7 +206,7 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="">Satuan</label>
-								<select autofocus="" id="satuan" name="satuan" class="form-control select2">
+								<select autofocus="" id="satuanedit" name="satuan" id="satuan" class="form-control select2">
 									<option value="">Pilih Satuan</option>
 									<option value="unit">Unit</option>
 									<option value="buah">Buah</option>
@@ -206,21 +228,29 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="">Category</label>
-								<select autofocus="" id="category" name="category" class="form-control select2">
+								<select autofocus="" id="categoryedit" name="category" class="form-control select2">
 									<option value="">Pilih Category</option>
-									<option value="unit" selected>Category</option>
+									<option value="unit" selected>Unit</option>
 								</select>
 							</div>
 						</div>
+						<div class="col-md-12">
+							<div class="form-group">
+								<label for="">Gambar <span class="text-secondary">Upload Foto Product Jika Ingin Menghapus</span></label>
+								<input type="file" class="form-control" name="foto" id="photoProductedit" accept="image/*">
+							</div>
+						</div>
 					</div>
+
 				</div>
 				<div class="modal-footer justify-content-between">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
+					<button type="submit" class="btn btn-primary">Save changes</button>
 				</div>
-			</form>
 		</div>
+		</form>
 	</div>
+</div>
 </div>
 <div class="modal fade" id="modal-delete" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
@@ -243,7 +273,19 @@
 		</div>
 	</div>
 </div>
+
 <!-- /.content-wrapper -->
+
+<script>
+	function previewImage(event) {
+		var reader = new FileReader();
+		reader.onload = function() {
+			var output = document.getElementById('previewImg');
+			output.src = reader.result;
+		}
+		reader.readAsDataURL(event.target.files[0]);
+	}
+</script>
 
 <script>
 	$(document).ready(function() {
@@ -284,4 +326,46 @@
 			});
 		}).draw();
 	});
+</script>
+<script>
+	function edit(id) {
+		$.ajax({
+			url: "<?= base_url('barang/edit/') ?>" + id,
+			type: "GET",
+			success: function(data) {
+				console.log(data); // Log the server response
+				try {
+					var $obj;
+
+					// If the data is already an object, use it directly
+					if (typeof data === "object") {
+						$obj = data;
+					} else {
+						// Trim the data and parse it as JSON
+						data = data.trim();
+						$obj = JSON.parse(data);
+					}
+
+					if ($obj.error) {
+						alert($obj.error);
+					} else {
+						$('#idEdit').val($obj.idBarang);
+						$('#nameedit').val($obj.name);
+						$('#brandedit').val($obj.brand);
+						$('#typeedit').val($obj.type);
+						$('#categoryedit').val($obj.category);
+						$('#satuanedit').val($obj.satuan);
+						$('#modal-edit').modal('show');
+					}
+				} catch (e) {
+					console.error("Parsing error:", e);
+					alert("An error occurred while parsing the data.");
+				}
+			},
+			error: function(xhr, status, error) {
+				console.error("AJAX error:", status, error);
+				alert("An error occurred while fetching the data.");
+			}
+		});
+	}
 </script>

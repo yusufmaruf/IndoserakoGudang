@@ -47,11 +47,11 @@
 										<th>Lokasi</th>
 										<th>Contact Person</th>
 										<th>Phone</th>
-										<th class="text-center" style="width: 7%;">Action</th>
+										<th class="text-center" style="width: 10%;">Action</th>
 									</thead>
 									<tbody>
 										<?php
-										foreach ($row as $key => $value) { ?>
+										foreach ($suppliers as $key => $value) { ?>
 											<tr>
 												<td></td>
 												<td><?= $value['name'] ?></td>
@@ -59,8 +59,9 @@
 												<td><?= $value['cp'] ?></td>
 												<td><?= $value['phone'] ?></td>
 												<td class="text-center">
-													<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-edit"><i class="fa fa-edit"> </i></button>
-													<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-delete"><i class="fa fa-trash"> </i></button>
+													<a href="<?= $value['link'] ?>" class="btn btn-success btn-sm"><i class="fa fa-eye"> </i></a>
+													<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-edit" onclick="edit('<?= $value['id'] ?>')"><i class="fa fa-edit"> </i></button>
+													<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-delete"><i class="fa fa-trash" onclick="remove('<?= $value['id'] ?>')"> </i></button>
 												</td>
 											</tr>
 										<?php
@@ -86,19 +87,19 @@
 					<span aria-hidden="true">×</span>
 				</button>
 			</div>
-			<form action="">
+			<form action="<?= base_url('supplier/save') ?>" method="post">
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="">Name Supplier</label>
-								<input type="text" class="form-control" placeholder="Masukan Nama Supplier" name="NoForm">
+								<input type="text" class="form-control" placeholder="Masukan Nama Supplier" name="name">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="">Address</label>
-								<input type="text" class="form-control" placeholder="Masukan Address Supplier" name="NoForm">
+								<input type="text" class="form-control" placeholder="Masukan Address Supplier" name="address">
 							</div>
 						</div>
 					</div>
@@ -106,20 +107,27 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="">CP</label>
-								<input type="text" class="form-control" placeholder="Masukan Nama CP" name="NoForm">
+								<input type="text" class="form-control" placeholder="Masukan Nama CP" name="cp">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="">Phone</label>
-								<input type="text" class="form-control" placeholder="Masukan Nama Phone" name="NoForm">
+								<input type="text" class="form-control" placeholder="Masukan Nama Phone" name="phone">
 							</div>
 						</div>
 					</div>
+					<div class="col-md-12">
+						<div class="form-group">
+							<label for="">Link</label>
+							<input type="text" class="form-control" value="" name="link">
+						</div>
+					</div>
 				</div>
+
 				<div class="modal-footer justify-content-between">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
+					<button type="submit" class="btn btn-primary">Save changes</button>
 				</div>
 			</form>
 		</div>
@@ -140,13 +148,14 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="">Name Supplier</label>
-								<input type="text" class="form-control" value="PT. ABC" name="NoForm">
+								<input type="hidden" class="form-control" value="" name="id" id="id">
+								<input type="text" class="form-control" value="" name="name" id="nameedit">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="">Address</label>
-								<input type="text" class="form-control" value="Jl. ABC" name="NoForm">
+								<input type="text" class="form-control" value="" name="address" id="addressedit">
 							</div>
 						</div>
 					</div>
@@ -154,14 +163,20 @@
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="">CP</label>
-								<input type="text" class="form-control" value="ABC" name="NoForm">
+								<input type="text" class="form-control" value="" name="cp" id="cpedit">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="">Phone</label>
-								<input type="text" class="form-control" value="08123456789" name="NoForm">
+								<input type="text" class="form-control" value="" name="phone" id="phoneedit">
 							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="form-group">
+							<label for="">Link</label>
+							<input type="text" class="form-control" value="" name="link" id="linkedit">
 						</div>
 					</div>
 				</div>
@@ -177,18 +192,19 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Hapus Category</h4>
+				<h4 class="modal-title">Hapus Supplier</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">×</span>
 				</button>
 			</div>
-			<form action="">
+			<form action="<?= base_url('supplier/delete'); ?>" method="POST">
 				<div class="modal-body">
-					<p>Apakah anda yakin ingin menghapus data ini ?</p>
+					<p>Apakah anda yakin ingin menghapus data <span class="namedelete"></span> ?</p>
+					<input type="hidden" id="idDelete" name="id">
 				</div>
 				<div class="modal-footer justify-content-between">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
+					<button type="submit" class="btn btn-primary">Save changes</button>
 				</div>
 			</form>
 		</div>
@@ -233,5 +249,84 @@
 		event.preventDefault();
 		$("#reset_modal").modal();
 		$("#reset_pass").attr("href", "<?= base_url() ?>" + 'master/user_reset/' + params);
+	}
+</script>
+<script>
+	function edit(id) {
+		$.ajax({
+			url: "<?= base_url('supplier/edit/') ?>" + id,
+			type: "GET",
+			success: function(data) {
+				console.log(data); // Log the server response
+				try {
+					var $obj;
+
+					// If the data is already an object, use it directly
+					if (typeof data === "object") {
+						$obj = data;
+					} else {
+						// Trim the data and parse it as JSON
+						data = data.trim();
+						$obj = JSON.parse(data);
+					}
+
+					if ($obj.error) {
+						alert($obj.error);
+					} else {
+						$('#idEdit').val($obj.id);
+						$('#nameedit').val($obj.name);
+						$('#addressedit').val($obj.address);
+						$('#cpedit').val($obj.cp);
+						$('#phoneedit').val($obj.phone);
+						$('#linkedit').val($obj.link);
+						$('#modal-edit').modal('show');
+					}
+				} catch (e) {
+					console.error("Parsing error:", e);
+					alert("An error occurred while parsing the data.");
+				}
+			},
+			error: function(xhr, status, error) {
+				console.error("AJAX error:", status, error);
+				alert("An error occurred while fetching the data.");
+			}
+		});
+	}
+</script>
+<script>
+	function remove(id) {
+		$.ajax({
+			url: "<?= base_url('supplier/edit/') ?>" + id,
+			type: "GET",
+			success: function(data) {
+				console.log(data); // Log the server response
+				try {
+					var $obj;
+
+					// If the data is already an object, use it directly
+					if (typeof data === "object") {
+						$obj = data;
+					} else {
+						// Trim the data and parse it as JSON
+						data = data.trim();
+						$obj = JSON.parse(data);
+					}
+
+					if ($obj.error) {
+						alert($obj.error);
+					} else {
+						$('.namedelete').text($obj.name); // Target the span with class namedelete
+						$('#idDelete').val($obj.id); // Set the hidden input field with the id
+					}
+				} catch (e) {
+					console.error("Parsing error:", e);
+					alert("An error occurred while parsing the data.");
+				}
+			},
+			error: function(xhr, status, error) {
+				console.error("AJAX error:", status, error);
+				alert("An error occurred while fetching the data.");
+			}
+		});
 	}
 </script>

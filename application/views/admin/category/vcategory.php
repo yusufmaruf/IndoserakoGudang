@@ -47,14 +47,17 @@
 										<th class="text-center" style="width: 7%;">Action</th>
 									</thead>
 									<tbody>
-										<tr>
-											<td class="text-center">1</td>
-											<td class="text-center">Computer</td>
-											<td class="text-center">
-												<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-edit"><i class="fa fa-pencil"> </i> </button>
-												<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-delete"><i class="fa fa-trash "> </i> </button>
-											</td>
-										</tr>
+										<?php $i = 1; ?>
+										<?php foreach ($category as $c) : ?>
+											<tr>
+												<td class="text-center"><?= $i++; ?></td>
+												<td class="text-center"><?= $c['name'] ?></td>
+												<td class="text-center">
+													<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-edit" onclick="edit(<?= $c['idCategory'] ?>)"><i class="fa fa-pencil"> </i> </button>
+													<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-delete"><i class="fa fa-trash "> </i> </button>
+												</td>
+											</tr>
+										<?php endforeach; ?>
 
 									</tbody>
 								</table>
@@ -76,16 +79,16 @@
 					<span aria-hidden="true">×</span>
 				</button>
 			</div>
-			<form action="">
+			<form action="<?= base_url('category/save'); ?>" method="post">
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="">Nama Category</label>
-						<input type="text" class="form-control" placeholder="Masukan Nama Category" name="NoForm">
+						<input type="text" class="form-control" placeholder="Masukan Nama Category" name="name">
 					</div>
 				</div>
 				<div class="modal-footer justify-content-between">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
+					<button type="submit" class="btn btn-primary">Save changes</button>
 				</div>
 			</form>
 		</div>
@@ -101,11 +104,12 @@
 					<span aria-hidden="true">×</span>
 				</button>
 			</div>
-			<form action="">
+			<form action="<?= base_url('category/update'); ?>" method="post">
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="">Nama Category</label>
-						<input type="text" class="form-control" placeholder="Masukan Nama Category" name="NoForm" value="Computer">
+						<input type="hidden" class="form-control" name="idCategory" id="idEdit">
+						<input type="text" class="form-control" placeholder="Masukan Nama Category" name="name" id="nameEdit">
 					</div>
 				</div>
 				<div class="modal-footer justify-content-between">
@@ -171,4 +175,42 @@
 			});
 		}).draw();
 	});
+</script>
+<script>
+	function edit(id) {
+		$.ajax({
+			url: "<?= base_url('category/edit/') ?>" + id,
+			type: "GET",
+			success: function(data) {
+				console.log(data); // Log the server response
+				try {
+					var $obj;
+
+					// If the data is already an object, use it directly
+					if (typeof data === "object") {
+						$obj = data;
+					} else {
+						// Trim the data and parse it as JSON
+						data = data.trim();
+						$obj = JSON.parse(data);
+					}
+
+					if ($obj.error) {
+						alert($obj.error);
+					} else {
+						$('#idEdit').val($obj.idCategory);
+						$('#nameEdit').val($obj.name);
+						$('#modal-edit').modal('show');
+					}
+				} catch (e) {
+					console.error("Parsing error:", e);
+					alert("An error occurred while parsing the data.");
+				}
+			},
+			error: function(xhr, status, error) {
+				console.error("AJAX error:", status, error);
+				alert("An error occurred while fetching the data.");
+			}
+		});
+	}
 </script>

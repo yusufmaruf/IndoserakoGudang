@@ -1,0 +1,166 @@
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
+
+class Barang extends CI_Controller
+{
+
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->library('upload');
+		$this->load->model('mglobal');
+
+		$this->load->model('mdummy');
+		$this->load->library('form_validation');
+		$this->load->model('mmaster');
+	}
+
+	public function index()
+	{
+		$this->mglobal->checkpermit(99);
+		$header['title'] = 'Barang';
+		$data = [];
+		$res = $this->mglobal->get_table('barang');
+		$data['barang'] = $res;
+		$this->load->view('vheader', $header);
+		$this->mglobal->load_toast();
+		$this->load->view('admin/barang/vbarang', $data);
+		// $this->load->view('modal/reset_password');
+		$this->load->view('vfooter');
+	}
+
+	function upload_files($field, $type_name, $resize = false)
+	{
+		// $prefix = strtok($field, '_'); // get string before '_' 
+		// if($prefix == 'photo' || $prefix == 'std'){
+		// 	$path = "./uploads/".$prefix;
+		// } else {
+		// 	$path = "./uploads";
+		// }
+		$path = "./uploads/equipment";
+
+		//Configure upload.
+		$this->upload->initialize(array(
+			"upload_path"   => $path,
+			"allowed_types" => "jpg|jpeg|png",
+			"file_name"     => $type_name . date('YmdHis'),
+		));
+
+		//Perform upload.
+		if ($this->upload->do_upload($field)) {
+
+			$fileData = $this->upload->data();
+
+			if ($resize == true) {
+				$width = $fileData['image_width'];
+				$height = $fileData['image_height'];
+			}
+
+			$img_cfg_thumb['image_library'] = 'gd2';
+			$img_cfg_thumb['source_image'] = "../uploads/" . $fileData['raw_name'] . $fileData['file_ext'];
+			$img_cfg_thumb['maintain_ratio'] = FALSE;
+			$img_cfg_thumb['new_image'] = "../uploads/" . $fileData['raw_name'] . $fileData['file_ext'];
+			$img_cfg_thumb['width'] = $width;
+			$img_cfg_thumb['height'] = $height;
+			$img_cfg_thumb['quality'] = 80;
+			$this->load->library('image_lib');
+			$this->image_lib->initialize($img_cfg_thumb);
+			$this->image_lib->resize();
+
+			return $fileData['raw_name'] . $fileData['file_ext'];
+		} else {
+			return $this->upload->display_errors(); //check jika ada error pada upload file
+			//return "upload failed";
+		}
+	}
+
+
+	public function save()
+	{
+		$this->mglobal->checkpermit(99);
+		$data = [];
+		$this->form_validation->set_rules('name', 'name', 'required');
+		$this->form_validation->set_rules('brand', 'brand', 'required');
+		$this->form_validation->set_rules('type', 'type', 'required');
+		$this->form_validation->set_rules('satuan', 'satuan', 'required');
+		$this->form_validation->set_rules('category', 'category', 'required');
+		// $this->form_validation->set_rules('foto', 'foto', 'required');
+		if ($this->form_validation->run() == false) {
+			$this->mglobal->pre($this->form_validation->error_array());
+		} else {
+
+			$data = $this->input->post();
+			// $this->mglobal->pre($data);
+			$data['foto'] = $this->upload_files('foto', 'foto');
+			$this->mglobal->insert_data('barang', $data,);
+			$this->session->set_flashdata('ins_success', 'Insert data success!');
+			redirect('barang');
+		}
+	}
+	public function edit($id = null)
+	{
+		$data = $this->mglobal->get_item('barang', 'idBarang', $id);
+		header('Content-Type: application/json');
+		if ($data) {
+			echo json_encode($data);
+		} else {
+			echo json_encode(['error' => 'No data found']);
+		}
+	}
+
+	public function update($id = null)
+	{
+		$this->mglobal->checkpermit(99);
+
+		// Enable error reporting for debugging
+		ini_set('display_errors', 1);
+		ini_set('display_startup_errors', 1);
+		error_reporting(E_ALL);
+
+		$this->form_validation->set_rules('name', 'Name', 'required');
+		$this->form_validation->set_rules('brand', 'Brand', 'required');
+		$this->form_validation->set_rules('type', 'Type', 'required');
+		$this->form_validation->set_rules('satuan', 'Satuan', 'required');
+		$this->form_validation->set_rules('category', 'Category', 'required');
+
+		if ($this->form_validation->run() == false) {
+			// Display validation errors
+			$this->mglobal->pre($this->form_validation->error_array());
+		} else {
+			$data = $this->input->post();
+
+			// Handle file upload
+			// if (!empty($_FILES['foto']['name'])) {
+			// 	$config['upload_path'] = './uploads/';
+			// 	$config['allowed_types'] = 'gif|jpg|png';
+			// 	$config['max_size'] = 2048; // 2MB max
+			// 	$this->load->library('upload', $config);
+
+			// 	if (!$this->upload->do_upload('foto')) {
+			// 		$error = array('error' => $this->upload->display_errors());
+			// 		// Handle the error
+			// 		$this->mglobal->pre($error);
+			// 	} else {
+			// 		$file_data = $this->upload->data();
+			// 		$data['foto'] = $file_data['file_name'];
+			// 	}
+			// }
+
+			// // Update the data
+			$update_result = $this->mglobal->update_data('barang', $data, 'idBarang = ' . $data['idBarang']);
+			// $this->mglobal->pre($update_result);
+
+			if ($update_result) {
+				$this->session->set_flashdata('ins_success', 'Update data success!');
+				redirect('barang');
+			} else {
+				$this->session->set_flashdata('ins_failed', 'Update data failed!');
+			}
+
+			// redirect('barang');
+		}
+	}
+
+
+	/* End of file Master.php */
+}

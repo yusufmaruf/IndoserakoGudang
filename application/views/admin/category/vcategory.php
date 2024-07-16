@@ -54,7 +54,7 @@
 												<td class="text-center"><?= $c['name'] ?></td>
 												<td class="text-center">
 													<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-edit" onclick="edit(<?= $c['idCategory'] ?>)"><i class="fa fa-pencil"> </i> </button>
-													<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-delete"><i class="fa fa-trash "> </i> </button>
+													<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-delete" onclick="remove(<?= $c['idCategory'] ?>)"><i class="fa fa-trash "> </i> </button>
 												</td>
 											</tr>
 										<?php endforeach; ?>
@@ -129,13 +129,14 @@
 					<span aria-hidden="true">×</span>
 				</button>
 			</div>
-			<form action="">
+			<form action="<?= base_url('category/delete'); ?>" method="POST">
 				<div class="modal-body">
-					<p>Apakah anda yakin ingin menghapus data ini ?</p>
+					<p>Apakah anda yakin ingin menghapus data <span class="namedelete"></span> ?</p>
+					<input type="hidden" id="idDelete" name="idCategory">
 				</div>
 				<div class="modal-footer justify-content-between">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
+					<button type="submit" class="btn btn-primary">Save changes</button>
 				</div>
 			</form>
 		</div>
@@ -201,6 +202,43 @@
 						$('#idEdit').val($obj.idCategory);
 						$('#nameEdit').val($obj.name);
 						$('#modal-edit').modal('show');
+					}
+				} catch (e) {
+					console.error("Parsing error:", e);
+					alert("An error occurred while parsing the data.");
+				}
+			},
+			error: function(xhr, status, error) {
+				console.error("AJAX error:", status, error);
+				alert("An error occurred while fetching the data.");
+			}
+		});
+	}
+</script>
+<script>
+	function remove(id) {
+		$.ajax({
+			url: "<?= base_url('category/edit/') ?>" + id,
+			type: "GET",
+			success: function(data) {
+				console.log(data); // Log the server response
+				try {
+					var $obj;
+
+					// If the data is already an object, use it directly
+					if (typeof data === "object") {
+						$obj = data;
+					} else {
+						// Trim the data and parse it as JSON
+						data = data.trim();
+						$obj = JSON.parse(data);
+					}
+
+					if ($obj.error) {
+						alert($obj.error);
+					} else {
+						$('.namedelete').text($obj.name); // Target the span with class namedelete
+						$('#idDelete').val($obj.idCategory); // Set the hidden input field with the id
 					}
 				} catch (e) {
 					console.error("Parsing error:", e);

@@ -128,39 +128,32 @@ class Barang extends CI_Controller
 			$this->mglobal->pre($this->form_validation->error_array());
 		} else {
 			$data = $this->input->post();
+			$item = $this->mglobal->get_item('barang', 'idBarang', $data['idBarang']);
 
-			// Handle file upload
-			// if (!empty($_FILES['foto']['name'])) {
-			// 	$config['upload_path'] = './uploads/';
-			// 	$config['allowed_types'] = 'gif|jpg|png';
-			// 	$config['max_size'] = 2048; // 2MB max
-			// 	$this->load->library('upload', $config);
+			// Jika ada file gambar yang diunggah, lakukan proses upload baru
+			if (!empty($_FILES['foto']['name'])) {
+				// Hapus gambar lama
+				$old_image_path = "./uploads/equipment/" . $item['foto'];
+				if (file_exists($old_image_path)) {
+					unlink($old_image_path);
+				}
 
-			// 	if (!$this->upload->do_upload('foto')) {
-			// 		$error = array('error' => $this->upload->display_errors());
-			// 		// Handle the error
-			// 		$this->mglobal->pre($error);
-			// 	} else {
-			// 		$file_data = $this->upload->data();
-			// 		$data['foto'] = $file_data['file_name'];
-			// 	}
-			// }
+				// Upload gambar baru
+				$data['foto'] = $this->upload_files('foto', 'foto');
+			}
 
-			// // Update the data
+			// Lakukan update data barang
 			$update_result = $this->mglobal->update_data('barang', $data, 'idBarang = ' . $data['idBarang']);
-			// $this->mglobal->pre($update_result);
 
 			if ($update_result) {
 				$this->session->set_flashdata('ins_success', 'Update data success!');
-				redirect('barang');
 			} else {
 				$this->session->set_flashdata('ins_failed', 'Update data failed!');
 			}
 
-			// redirect('barang');
+			redirect('barang');
 		}
 	}
-
+}
 
 	/* End of file Master.php */
-}

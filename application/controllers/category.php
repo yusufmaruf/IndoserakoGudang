@@ -85,6 +85,14 @@ class Category extends CI_Controller
 			// redirect('barang');
 		}
 	}
+	public function delete()
+	{
+		$this->mglobal->checkpermit(99);
+		$id = $this->input->post('idCategory');
+		$this->mglobal->delete_item('category', 'idCategory', $id);
+		$this->session->set_flashdata('del_success', 'Delete data success!');
+		redirect('category');
+	}
 
 
 

@@ -75,7 +75,7 @@
 												<td class="text-center"><?= $b['type']; ?></td>
 												<td class="text-center"><?= $b['category']; ?></td>
 												<td class="text-center">
-													<button class="btn btn-primary btn-sm btn-edit" data-id="" data-toggle="modal" data-target="#modal-edit"><i class="fa fa-edit" onclick="edit(<?= $b['idBarang']; ?>)"> </i></button>
+													<button type="button" class="btn btn-primary btn-sm btn-edit" onclick="edit(<?= $b['idBarang']; ?>)"><i class="fa fa-edit"> </i></button>
 													<button class="btn btn-danger btn-sm btn-delete" data-id="" data-toggle="modal" data-target="#modal-delete<?= $b['idBarang']; ?>"><i class="fa fa-trash"> </i></button>
 												</td>
 											</tr>
@@ -157,7 +157,7 @@
 								<label for="">Gambar</label>
 								<input type="file" class="form-control" name="foto" id="photoProduct" accept="image/*" onchange="previewImage(event)">
 							</div>
-							<div class=" preview">
+							<div class="preview" id="previewArea" style="display: none;"> <!-- Tambahkan style display: none; -->
 								<img id="previewImg" src="" alt="Preview Image" class="preview-image">
 							</div>
 						</div>
@@ -237,7 +237,10 @@
 						<div class="col-md-12">
 							<div class="form-group">
 								<label for="">Gambar <span class="text-secondary">Upload Foto Product Jika Ingin Menghapus</span></label>
-								<input type="file" class="form-control" name="foto" id="photoProductedit" accept="image/*">
+								<input type="file" class="form-control" name="foto" id="photoProductedit" accept="image/*" onchange="previewImageedit(event)">
+							</div>
+							<div class="previewedit" id="previewAreaedit" style="display: none;"> <!-- Tambahkan style display: none; -->
+								<img id="previewImgedit" src="" alt="Preview Image" style="width: 200px;" class="preview-imageedit">
 							</div>
 						</div>
 					</div>
@@ -282,9 +285,46 @@
 		reader.onload = function() {
 			var output = document.getElementById('previewImg');
 			output.src = reader.result;
+			// Tampilkan area preview ketika gambar sudah diunggah
+			document.getElementById('previewArea').style.display = 'block';
+		};
+
+		var file = event.target.files[0]; // Ambil file yang diunggah
+		if (file) {
+			reader.readAsDataURL(file); // Jika ada file, baca sebagai data URL
+		} else {
+			// Jika tidak ada file yang dipilih, kosongkan preview dan sembunyikan area preview
+			document.getElementById('previewImg').src = "";
+			document.getElementById('previewArea').style.display = 'none';
 		}
-		reader.readAsDataURL(event.target.files[0]);
 	}
+</script>
+
+<script>
+	function previewImageedit(event) {
+		var reader = new FileReader();
+		reader.onload = function() {
+			var output = document.getElementById('previewImgedit');
+			output.src = reader.result;
+			// Tampilkan area preview ketika gambar sudah diunggah
+			document.getElementById('previewAreaedit').style.display = 'block';
+		};
+
+		var file = event.target.files[0]; // Ambil file yang diunggah
+		if (file) {
+			reader.readAsDataURL(file); // Jika ada file, baca sebagai data URL
+		} else {
+			// Jika tidak ada file yang dipilih, kosongkan preview dan sembunyikan area preview
+			document.getElementById('previewImgedit').src = "";
+			document.getElementById('previewAreaedit').style.display = 'none';
+		}
+
+	}
+	$('#modal-edit').on('hidden.bs.modal', function() {
+		// Kosongkan preview gambar dan sembunyikan area preview saat modal ditutup
+		document.getElementById('previewImgedit').src = "";
+		document.getElementById('previewAreaedit').style.display = 'none';
+	});
 </script>
 
 <script>
@@ -310,7 +350,7 @@
 				"targets": [0, 6]
 			}],
 			"order": [
-				[1, 'asc']
+				[2, 'asc']
 			]
 		});
 
@@ -329,6 +369,7 @@
 </script>
 <script>
 	function edit(id) {
+		$('#modal-edit').modal('show');
 		$.ajax({
 			url: "<?= base_url('barang/edit/') ?>" + id,
 			type: "GET",
@@ -355,7 +396,6 @@
 						$('#typeedit').val($obj.type);
 						$('#categoryedit').val($obj.category);
 						$('#satuanedit').val($obj.satuan);
-						$('#modal-edit').modal('show');
 					}
 				} catch (e) {
 					console.error("Parsing error:", e);

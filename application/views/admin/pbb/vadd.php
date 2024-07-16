@@ -141,7 +141,7 @@
 									<select autofocus="" id="barang" name="category" class="form-control select2">
 										<option value="">Pilih Barang</option>
 										<?php foreach ($barang as $key => $value) { ?>
-											<option value="<?= $value['id'] ?>" data-name="<?= $value['name'] ?>"><?= $value['name'] ?></option>
+											<option value="<?= $value['idBarang'] ?>" data-name="<?= $value['name'] ?>"><?= $value['name'] ?></option>
 										<?php } ?>
 									</select>
 								</div>

@@ -22,11 +22,14 @@ class Barang extends CI_Controller
 		$data = [];
 		$res = $this->mglobal->get_table('barang');
 		$data['barang'] = $res;
+		// $this->mglobal->pre($data['barang']);
+		$res = $this->mglobal->get_table('category');
+		$data['category'] = $res;
 		$this->load->view('vheader', $header);
 		$this->mglobal->load_toast();
 		$this->load->view('admin/barang/vbarang', $data);
-		// $this->load->view('modal/reset_password');
-		$this->load->view('vfooter');
+		// // $this->load->view('modal/reset_password');
+		// $this->load->view('vfooter');
 	}
 
 	function upload_files($field, $type_name, $resize = false)
@@ -153,6 +156,24 @@ class Barang extends CI_Controller
 
 			redirect('barang');
 		}
+	}
+
+	public function delete($id = null)
+	{
+		$this->mglobal->checkpermit(99);
+		$data = $this->input->post();
+		$this->mglobal->pre($data['idBarang']);
+		$item = $this->mglobal->get_item('barang', 'idBarang', $data['idBarang']);
+		$old_image_path = "./uploads/equipment/" . $item['foto'];
+		unlink($old_image_path);
+		$where = array('idBarang' => $data['idBarang']);
+		$delete_result = $this->mglobal->delete_data('barang', $where);
+		if ($delete_result > 0) {
+			$this->session->set_flashdata('del_success', 'Delete data success!');
+		} else {
+			$this->session->set_flashdata('del_failed', 'Delete data failed!');
+		}
+		redirect('barang');
 	}
 }
 

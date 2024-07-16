@@ -17,6 +17,13 @@ class Mglobal extends CI_Model
 		return $this->db->affected_rows();
 	}
 
+	public function delete_data($table, $where)
+	{
+		$this->db->where($where);
+		$this->db->delete($table);
+		return $this->db->affected_rows(); // Mengembalikan jumlah baris yang terpengaruh
+	}
+
 	public function crud($table, $data, $crud_type)
 	{
 		$this->db->trans_start();
@@ -240,58 +247,13 @@ class Mglobal extends CI_Model
 		}
 		return true;
 	}
-	public function get_table($table, $by_id = null, $spec_column = null)
+	public function get_table($table)
 	{
-
-		if ($by_id != null) {
-			if ($spec_column != null) {
-				if ($table == 'users') {
-					$this->db->select($spec_column)->from($table);
-					$this->db->join('plant', 'plant.id = users.id_plant');
-					$this->db->join('company', 'company.id = plant.id_company');
-					$this->db->where('users.id', $by_id);
-				} else {
-					$this->db->select($spec_column)->from($table)->where('id', $by_id);
-				}
-			} else {
-				$this->db->select('*')->from($table)->where('id', $by_id);
-			}
-
-			$res = $this->db->get();
-
-			return $res ? $res->row_array() : false;
-		} else {
-			switch ($table) {
-				case 'device':
-					$this->db->order_by('id', 'asc');
-					break;
-				case 'active_barcode':
-					$this->db->order_by('id', 'asc');
-					break;
-				case 'master_barcode':
-					$this->db->order_by('product_name', 'asc');
-					break;
-				case 'users': {
-						$this->db->select('users.*');
-						$this->db->order_by('users.id', 'asc');
-						break;
-					}
-				default:
-					break;
-			}
-			$res = $this->db->get($table);
-			return $res ? $res->result_array() : false;
+		if ($table == 'barang') {
+			$this->db->select('barang.*, category.name as category_name');
+			$this->db->join('category', 'category.idCategory = ' . $table . '.category');
 		}
-
-		if ($by_id != null) {
-			$this->db->select('velocity_json, ge_json');
-			$this->db->where('id', $by_id);
-			$res = $this->db->get($table);
-			return $res ? $res->row_array() : false;
-		} else {
-			$res = $this->db->get($table);
-			return $res ? $res->result_array() : false;
-		}
+		return $this->db->get($table)->result_array();
 	}
 	public function checkpermit($param = null)
 	{

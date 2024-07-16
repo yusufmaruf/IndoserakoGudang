@@ -21,8 +21,7 @@ class Pbb extends CI_Controller
 	public function create()
 	{
 		$header['title'] = 'Report';
-		$data['barang'] = $this->mdummy->productDummy();
-		// $this->mglobal->pre($data);
+		$data['barang'] = $this->mglobal->get_table('barang');
 		$this->load->view('vheader', $header);
 		$this->load->view('admin/pbb/vadd', $data);
 		$this->load->view('vfooter');
@@ -37,15 +36,9 @@ class Pbb extends CI_Controller
 	}
 	public function getsatuan($id = null)
 	{
-		$data = $this->mdummy->productDummy();
-		$satuan = 'pcs'; // Default satuan
+		$data = $this->mglobal->get_item('barang', 'idBarang', $id);
+		$satuan = $data['satuan'];
 
-		foreach ($data as $product) {
-			if ($product['id'] == $id) {
-				$satuan = $product['satuan'];
-				break;
-			}
-		}
 
 		// Return satuan in a format that can be used by JavaScript
 		echo json_encode(['satuan' => $satuan]);

@@ -73,10 +73,10 @@
 												<td class="text-center"><?= $b['satuan']; ?></td>
 												<td class="text-center"><?= $b['brand']; ?></td>
 												<td class="text-center"><?= $b['type']; ?></td>
-												<td class="text-center"><?= $b['category']; ?></td>
+												<td class="text-center"><?= $b['category_name']; ?></td>
 												<td class="text-center">
 													<button type="button" class="btn btn-primary btn-sm btn-edit" onclick="edit(<?= $b['idBarang']; ?>)"><i class="fa fa-edit"> </i></button>
-													<button class="btn btn-danger btn-sm btn-delete" data-id="" data-toggle="modal" data-target="#modal-delete<?= $b['idBarang']; ?>"><i class="fa fa-trash"> </i></button>
+													<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-delete" onclick="remove(<?= $b['idBarang'] ?>)"><i class="fa fa-trash "> </i> </button>
 												</td>
 											</tr>
 										<?php endforeach; ?>
@@ -148,7 +148,9 @@
 								<label for="">Category</label>
 								<select autofocus="" id="category" name="category" class="form-control select2">
 									<option value="">Pilih Category</option>
-									<option value="unit">Category</option>
+									<?php foreach ($category as $c) : ?>
+										<option value="<?= $c['idCategory'] ?>"><?= $c['name'] ?></option>
+									<?php endforeach; ?>
 								</select>
 							</div>
 						</div>
@@ -230,7 +232,9 @@
 								<label for="">Category</label>
 								<select autofocus="" id="categoryedit" name="category" class="form-control select2">
 									<option value="">Pilih Category</option>
-									<option value="unit" selected>Unit</option>
+									<?php foreach ($category as $c) : ?>
+										<option value="<?= $c['idCategory'] ?>"><?= $c['name'] ?></option>
+									<?php endforeach; ?>
 								</select>
 							</div>
 						</div>
@@ -259,18 +263,19 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Hapus Category</h4>
+				<h4 class="modal-title">Hapus Barang</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">×</span>
 				</button>
 			</div>
-			<form action="">
+			<form action="<?= base_url('barang/delete'); ?>" method="POST">
 				<div class="modal-body">
-					<p>Apakah anda yakin ingin menghapus data ini ?</p>
+					<p>Apakah anda yakin ingin menghapus data <span class="namedelete"></span> ?</p>
+					<input type="hidden" id="idDelete" name="idBarang" class="form-control">
 				</div>
 				<div class="modal-footer justify-content-between">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
+					<button type="submit" class="btn btn-primary">Save changes</button>
 				</div>
 			</form>
 		</div>
@@ -396,6 +401,43 @@
 						$('#typeedit').val($obj.type);
 						$('#categoryedit').val($obj.category);
 						$('#satuanedit').val($obj.satuan);
+					}
+				} catch (e) {
+					console.error("Parsing error:", e);
+					alert("An error occurred while parsing the data.");
+				}
+			},
+			error: function(xhr, status, error) {
+				console.error("AJAX error:", status, error);
+				alert("An error occurred while fetching the data.");
+			}
+		});
+	}
+</script>
+<script>
+	function remove(id) {
+		$.ajax({
+			url: "<?= base_url('barang/edit/') ?>" + id,
+			type: "GET",
+			success: function(data) {
+				console.log(data); // Log the server response
+				try {
+					var $obj;
+
+					// If the data is already an object, use it directly
+					if (typeof data === "object") {
+						$obj = data;
+					} else {
+						// Trim the data and parse it as JSON
+						data = data.trim();
+						$obj = JSON.parse(data);
+					}
+
+					if ($obj.error) {
+						alert($obj.error);
+					} else {
+						$('.namedelete').text($obj.name); // Target the span with class namedelete
+						$('#idDelete').val($obj.idBarang); // Set the hidden input field with the id
 					}
 				} catch (e) {
 					console.error("Parsing error:", e);

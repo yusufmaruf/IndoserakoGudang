@@ -16,28 +16,28 @@
 							<h5 class="m-0">Form Receive Data Inventaris</h5>
 						</div>
 						<div class="card-body p-2">
-							<form action="">
+							<form action="<?= base_url('stock/receiveStockCompany_add'); ?>" method="POST" enctype="multipart/form-data">
 								<div class="row mb-0">
 									<div class="col-6  mb-0">
 										<div class="form-group  mb-0">
 											<label for="">Tanggal</label>
-											<input type="date" class="form-control" placeholder="Masukan No. PBB" value="<?= date('Y-m-d') ?>" name="NoForm" disabled>
+											<input type="date" class="form-control" value=<?= date('Y-m-d') ?> name="tanggal" readonly>
 										</div>
 									</div>
 									<div class="col-6">
 										<div class="form-group  mb-0">
 											<label for="">Penerima</label>
-											<input type="text" class="form-control" placeholder="Masukan Nama Penerima" name="NoForm" value="">
+											<input type="text" class="form-control" placeholder="Masukan Nama Penerima" name="penerima" value="">
 										</div>
 									</div>
 								</div>
 								<div class="form-group  mb-0">
 									<label for="">Reason</label>
-									<input type="text" class="form-control" placeholder="Input Reason" name="NoForm">
+									<input type="text" class="form-control" placeholder="Input Reason" name="reason">
 								</div>
 
-								<table class="table table-bordered mt-2 mb-0" id="table-body">
-									<thead>
+								<table class="table table-bordered mt-2 mb-0">
+									<thead class="text-center">
 										<tr>
 											<th>Nama Barang</th>
 											<th style="width: 10%;">Qty</th>
@@ -47,18 +47,8 @@
 											<th style="width: 10px">Action</th>
 										</tr>
 									</thead>
-									<tbody>
-										<tr class="text-center">
-											<td>PC Siemens</td>
-											<td class="text-center"><input type="number" class="form-control" style="max-height: 30px;" value=2 name="NoForm"></td>
-											<td> pcs </td>
-											<td>Offical Siemens</td>
-											<td>
-												<?= "Rp. " . number_format(50000000, 0, ',', '.') ?>
-											<td>
-												<button type="button" class="btn btn-danger btn-sm delete-row"><i class="fas fa-trash"></i></button>
-											</td>
-										</tr>
+									<tbody id="table-body">
+
 									</tbody>
 
 								</table>
@@ -85,7 +75,7 @@
 									<select autofocus="" id="barang" name="barang" class="form-control select2">
 										<option value="">Pilih Barang</option>
 										<?php foreach ($barang as $key => $value) { ?>
-											<option value="<?= $value['id'] ?>" data-name="<?= $value['name'] ?>"><?= $value['name'] ?></option>
+											<option value="<?= $value['idBarang'] ?>" data-name="<?= $value['name'] ?>"><?= $value['name'] ?></option>
 										<?php } ?>
 									</select>
 								</div>
@@ -204,11 +194,11 @@
 			// Append new row to the table
 			var newRow = `
 				<tr class="text-center">
-					<td class="text-center">${barangName}</td>
-					<td class="text-center"><input type="number" class="form-control" style="max-height: 30px;" value="${qty}" name="NoForm"></td>
+					<td class="text-center"> <input type="hidden" class="form-control " style="max-height: 30px;" value="${barangId}" name="idBarang[]">${barangName}</td>
+					<td class="text-center"><input type="number" class="form-control" style="max-height: 30px;" value="${qty}" name="qty[]"></td>
 					<td class="text-center">${satuan}</td>
-					<td class="text-center">${supplier}</td>
-					<td class="text-center">Rp. ${new Intl.NumberFormat('id-ID').format(price)}</td>
+					<td class="text-center"><input type="hidden" class="form-control" style="max-height: 30px;" value="${supplier}" name="supplier[]"> ${supplier}</td>
+					<td class="text-center"><input type="hidden" class="form-control" style="max-height: 30px;" value="${price}" name="totalprice[]">Rp. ${new Intl.NumberFormat('id-ID').format(price)}</td>
 					<td class="text-center">
 						<button type="button" class="btn btn-danger btn-sm delete-row"><i class="fas fa-trash"></i></button>
 					</td>

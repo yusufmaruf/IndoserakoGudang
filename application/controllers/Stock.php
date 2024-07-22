@@ -6,7 +6,9 @@ class Stock extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
+
 		$this->load->model('mglobal');
+		$this->load->model('mdummy');
 
 		$this->load->library('form_validation');
 	}
@@ -33,5 +35,52 @@ class Stock extends CI_Controller
 		$this->mglobal->load_toast();
 		$this->load->view('admin/stock_gudang/vsafety_stock');
 		$this->load->view('vfooter');
+	}
+	public function receiveStockCompany()
+	{
+		$this->mglobal->checkpermit(99);
+		$header['title'] = 'Receive Stock Company';
+		$data = [];
+		$data['barang'] = $this->mglobal->get_table('barang');
+		$this->load->view('vheader', $header);
+		// $this->mglobal->load_toast();
+		$this->load->view('admin/stock_gudang/vadd_stockCompany', $data);
+		// $this->load->view('modal/reset_password');
+		$this->load->view('vfooter');
+	}
+	public function receiveStockCompany_add()
+	{
+		$this->mglobal->checkpermit(99);
+		$this->form_validation->set_rules('tanggal', 'tanggal', 'required');
+		$this->form_validation->set_rules('penerima', 'penerima', 'required');
+		$this->form_validation->set_rules('reason', 'reason', 'required');
+		$this->form_validation->set_rules('idBarang[]', 'idBarang[]', 'required');
+		$this->form_validation->set_rules('qty[]', 'qty[]', 'required');
+		$this->form_validation->set_rules('supplier[]', 'supplier[]', 'required');
+		$this->form_validation->set_rules('totalprice[]', 'totalprice[]', 'required');
+		if ($this->form_validation->run() == false) {
+			return $this->mglobal->pre($this->form_validation->error_array());
+		} else {
+			$data = $this->input->post();
+			// $this->mglobal->pre($data);
+			foreach ($data['idBarang'] as $key => $value) {
+				// $this->mglobal->pre($data['idBarang'][$key]);
+				// $this->mglobal->pre($data['qty'][$key]);
+				// $this->mglobal->pre($data['supplier'][$key]);
+				$this->mglobal->pre($value);
+
+				$this->mglobal->insert_data('inventoryStock', [
+					'idBarang' => $value,
+					'qty' => $data['qty'][$key],
+					'supplier' => $data['supplier'][$key],
+					'totalprice' => $data['totalprice'][$key],
+					'tanggal' => $data['tanggal'],
+					'penerima' => $data['penerima'],
+					'reason' => $data['reason'],
+					'jenis' => 1,
+					'timestamp' => date('Y-m-d H:i:s')
+				]);
+			}
+		}
 	}
 }

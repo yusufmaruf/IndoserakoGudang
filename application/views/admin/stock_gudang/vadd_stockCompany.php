@@ -99,7 +99,7 @@
 									<div class="col-lg-6 mb-1">
 										<div class="form-group mb-1">
 											<label for="">Harga</label>
-											<input type="text" class="form-control" id="price" placeholder="Harga" name="NoForm">
+											<input type="number" class="form-control" id="price" placeholder="Harga" name="NoForm">
 										</div>
 									</div>
 									<div class="col-lg-6 mb-1">

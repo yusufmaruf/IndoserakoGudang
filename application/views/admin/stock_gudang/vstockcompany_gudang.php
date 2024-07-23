@@ -41,15 +41,7 @@
 										</tr>
 									</thead>
 									<tbody class="text-center">
-										<tr>
-											<td>12-12-2020</td>
-											<td>Barang 1</td>
-											<td>Brand 1</td>
-											<td>100</td>
-											<td>pcs</td>
-											<td>Category 1</td>
-											<td><a href="" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a></td>
-										</tr>
+
 										<?php foreach ($inventaris as $key => $value) : ?>
 											<tr>
 												<td><?= $value['lastdate'] ?></td>

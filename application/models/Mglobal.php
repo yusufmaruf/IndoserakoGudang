@@ -248,13 +248,34 @@ class Mglobal extends CI_Model
 		}
 		return true;
 	}
-	public function get_table($table)
+	public function get_table($table, $id = null)
 	{
-		if ($table == 'barang') {
-			$this->db->select('barang.*, category.name as category_name');
-			$this->db->join('category', 'category.idCategory = ' . $table . '.category');
+		if ($id != null) {
+			switch ($table) {
+				case 'logInventoryStock':
+					$this->db->where('idBarang', $id);
+					$this->db->order_by('id', 'DESC');
+					break;
+				default:
+					break;
+			}
+		} else {
+			switch ($table) {
+				case 'barang':
+					$this->db->select('barang.*, category.name as category_name');
+					$this->db->join('category', 'category.idCategory = ' . $table . '.category');
+					break;
+				case 'inventoryStock':
+					$this->db->select('barang.*');
+					$this->db->join('barang', 'barang.idBarang = ' . $table . '.idBarang');
+					$this->db->group_by('barang.idBarang');
+					break;
+				default:
+					break;
+			}
 		}
-		return $this->db->get($table)->result_array();
+		$res = $this->db->get($table);
+		return $res ? $res->result_array() : false;
 	}
 	public function checkpermit($param = null)
 	{

@@ -104,10 +104,12 @@
 										</tr>
 									</thead>
 									<tbody class="text-center">
-										<tr>
-											<td>01-01-2024</td>
-											<td>Brand</td>
-										</tr>
+										<?php foreach ($log as $key => $value) : ?>
+											<tr>
+												<td><?= $value['date'] ?></td>
+												<td><?= $value['messages'] ?></td>
+											</tr>
+										<?php endforeach; ?>
 									</tbody>
 								</table>
 							</div>

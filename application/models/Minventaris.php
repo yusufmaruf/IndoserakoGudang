@@ -11,7 +11,7 @@ class Minventaris extends CI_Model
 		p.satuan as satuan,
 		p.name as namaProduk,
 		k.name as kategori,
-		SUM( i.qty ) - SUM(CASE WHEN i.jenis = 2 THEN i.qty ELSE 0 END) AS totalQty,
+		SUM( CASE WHEN i.jenis = 1 THEN i.qty ELSE 0 END) - SUM(CASE WHEN i.jenis = 2 THEN i.qty ELSE 0 END) AS totalQty,
 		MAX(i.tanggal) AS lastDate
 		');
 		$this->db->from('inventoryStock i');

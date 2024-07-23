@@ -16,23 +16,23 @@
 							<h5 class="m-0">Form Subtract Data Inventaris</h5>
 						</div>
 						<div class="card-body p-2">
-							<form action="">
+							<form action="<?= base_url('stock/subtractStockCompany_add'); ?>" enctype="multipart/form-data" method="POST">
 								<div class="row mb-0">
 									<div class="col-6  mb-0">
 										<div class="form-group  mb-0">
 											<label for="">Tanggal</label>
-											<input type="date" class="form-control" placeholder="Masukan No. PBB" value="<?= date('Y-m-d') ?>" name="NoForm" disabled>
+											<input type="date" class="form-control" placeholder="Masukan No. PBB" value="<?= date('Y-m-d') ?>" name="tanggal" readonly>
 										</div>
 									</div>
 									<div class="col-6">
 										<div class="form-group  mb-0">
 											<label for="">SO Number</label>
-											<input type="text" class="form-control" placeholder="Masukan No SO" name="NoForm" value="">
+											<input type="text" class="form-control" placeholder="Masukan No SO" name="soNumber" value="">
 										</div>
 									</div>
 								</div>
 
-								<table class="table table-bordered mt-2 mb-0" id="table-body">
+								<table class="table table-bordered mt-2 mb-0">
 									<thead class="text-center">
 										<tr>
 											<th>Nama Barang</th>
@@ -42,16 +42,8 @@
 											<th style="width: 10px">Action</th>
 										</tr>
 									</thead>
-									<tbody>
-										<tr class="text-center">
-											<td>PC Siemens</td>
-											<td class="text-center"><input type="number" class="form-control" style="max-height: 30px;" value=2 name="NoForm"></td>
-											<td> pcs </td>
-											<td>Unit rusak</td>
-											<td>
-												<button type="button" class="btn btn-danger btn-sm delete-row"><i class="fas fa-trash"></i></button>
-											</td>
-										</tr>
+									<tbody id="table-body">
+
 									</tbody>
 
 								</table>
@@ -78,7 +70,7 @@
 									<select autofocus="" id="barang" name="category" class="form-control select2">
 										<option value="">Pilih Barang</option>
 										<?php foreach ($barang as $key => $value) { ?>
-											<option value="<?= $value['id'] ?>" data-name="<?= $value['name'] ?>"><?= $value['name'] ?></option>
+											<option value="<?= $value['idBarang'] ?>" data-name="<?= $value['name'] ?>"><?= $value['name'] ?></option>
 										<?php } ?>
 									</select>
 								</div>
@@ -128,22 +120,14 @@
 		$('#barang').on('change', function() {
 			var selectedBarang = $(this).val();
 			console.log(selectedBarang);
-
-			// Clear satuan select options
 			$('#satuan').empty();
-
-			// Add default option
-			// $('#satuan').append('<option value="">Pilih Satuan</option>');
-
 			if (selectedBarang) {
-				// AJAX request to fetch satuan options
 				$.ajax({
 					url: '<?= base_url() ?>pbb/getsatuan/' + selectedBarang, // Adjust the URL to match your controller and method
 					type: 'GET',
 					success: function(response) {
 						var satuan = JSON.parse(response).satuan;
 						console.log(satuan);
-						// Append the retrieved satuan as the selected option
 						$('#satuan').append('<option value="' + satuan + '" selected>' + satuan + '</option>');
 					},
 					error: function(xhr, status, error) {
@@ -164,31 +148,23 @@
 </script>
 <script>
 	$(document).ready(function() {
-
-		// Handle form submission
 		$('#add-item-form').on('submit', function(event) {
-			event.preventDefault(); // Prevent form from submitting normally
-
-			// Get form values
+			event.preventDefault();
 			var barangId = $('#barang').val();
 			var barangName = $('#barang option:selected').data('name');
 			var qty = $('#qty').val();
 			var satuan = $('#satuan').val();
 			var reason = $('#reason').val();
-
-			// Validate form values
 			if (!barangId || !qty || !satuan || !reason) {
 				alert('Please fill in all fields.');
 				return;
 			}
-
-			// Append new row to the table
 			var newRow = `
                     <tr class="text-center">
-                        <td class="text-center">${barangName}</td>
-                        <td class="text-center"><input type="number" class="form-control" style="max-height: 30px;" value="${qty}" name="NoForm"></td>
+                        <td class="text-center"><input type="hidden" class="form-control"  value="${barangId}" name="idBarang[]">${barangName}</td>
+                        <td class="text-center"><input type="number" class="form-control" style="max-height: 30px;" value="${qty}" name="qty[]"></td>
                         <td class="text-center">${satuan}</td>
-                        <td class="text-center">${reason}</td>
+                        <td class="text-center"><input type="hidden" class="form-control"  value="${reason}" name="reason">${reason}</td>
                         <td class="text-center">
                             <button type="button" class="btn btn-danger btn-sm delete-row"><i class="fas fa-trash"></i></button>
                         </td>
@@ -197,14 +173,11 @@
 
 			$('#table-body').append(newRow);
 
-
-			// Clear form
 			$('#add-item-form')[0].reset();
 			$('#barang').val('').trigger('change');
 			$('#satuan').empty().prop('disabled', true);
 			$('#reason').val('').trigger('change');
 			$('#qty').val('').trigger('change');
-
 		});
 	});
 </script>

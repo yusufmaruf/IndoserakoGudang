@@ -36,6 +36,7 @@ class Stock extends CI_Controller
 		$this->mglobal->load_toast();
 		$data['receive'] = $this->minventaris->getDataReceive($id, 1);
 		$data['return'] = $this->minventaris->getDataReceive($id, 2);
+		$data['log'] = $this->mglobal->get_table('logInventoryStock', $id);
 		$this->load->view('admin/stock_gudang/vstockcompany_gudang_detail', $data);
 		$this->load->view('vfooter');
 	}
@@ -91,7 +92,15 @@ class Stock extends CI_Controller
 					'jenis' => 1,
 					'timestamp' => date('Y-m-d H:i:s')
 				]);
+				$this->mglobal->insert_data('logInventoryStock', [
+					'idBarang' => $value,
+					'messages' => 'Receive ' . $data['qty'][$key] . ' from ' . $data['penerima'],
+					'date' => date('Y-m-d'),
+					'jenis' => 1
+				]);
 			}
+			$this->session->set_flashdata('ins_success', 'Insert data success!');
+			redirect('stock/receiveStockCompany');
 		}
 	}
 	public function subtractStockCompany()
@@ -100,11 +109,47 @@ class Stock extends CI_Controller
 		$this->mglobal->checkpermit(99);
 		$header['title'] = 'Subtract Stock Company';
 		$data = [];
-		$data['barang'] =  $this->mdummy->productDummy();
-		// $res = $this->mglobal->get_table('stock_gudang');
-		// $data['row'] = $res;
+		$data['barang'] = $this->mglobal->get_table('inventoryStock');
 		$this->load->view('vheader', $header);
-		// $this->mglobal->load_toast();
+		$this->mglobal->load_toast();
 		$this->load->view('admin/stock_gudang/vsubtract_stockCompany', $data);
+	}
+	public function subtractStockCompany_add()
+	{
+
+		$this->mglobal->checkpermit(99);
+		$this->form_validation->set_rules('soNumber', 'soNumber', 'required');
+		$this->form_validation->set_rules('tanggal', 'tanggal', 'required');
+		$this->form_validation->set_rules('idBarang[]', 'idBarang[]', 'required');
+		$this->form_validation->set_rules('qty[]', 'qty[]', 'required');
+		if ($this->form_validation->run() == false) {
+			return $this->mglobal->pre($this->form_validation->error_array());
+		} else {
+			$data = $this->input->post();
+			foreach ($data['idBarang'] as $key => $value) {
+				// $this->mglobal->pre($data['idBarang'][$key]);
+				// $this->mglobal->pre($data['qty'][$key]);
+				// $this->mglobal->pre($data['supplier'][$key]);
+				$this->mglobal->pre($value);
+
+				$this->mglobal->insert_data('inventoryStock', [
+					'idBarang' => $value,
+					'qty' => $data['qty'][$key],
+					'tanggal' => $data['tanggal'],
+					'reason' => $data['reason'],
+					'jenis' => 2,
+					'soNumber' => $data['soNumber'],
+					'timestamp' => date('Y-m-d H:i:s')
+				]);
+				$this->mglobal->insert_data('logInventoryStock', [
+					'idBarang' => $value,
+					'messages' => 'Keluar Sejumlah ' . $data['qty'][$key] . ' Karena ' . $data['reason'],
+					'date' => date('Y-m-d'),
+					'jenis' => 2
+				]);
+			}
+			$this->session->set_flashdata('ins_success', 'Insert data success!');
+			redirect('stock/subtractStockCompany');
+		}
 	}
 }

@@ -9,7 +9,7 @@ class Stock extends CI_Controller
 
 		$this->load->model('mglobal');
 		$this->load->model('mdummy');
-
+		$this->load->model('minventaris');
 		$this->load->library('form_validation');
 	}
 	public function inventarisProject()
@@ -25,7 +25,18 @@ class Stock extends CI_Controller
 		$header['title'] = 'Inventaris Company Report';
 		$this->load->view('vheader', $header);
 		$this->mglobal->load_toast();
-		$this->load->view('admin/stock_gudang/vstockcompany_gudang');
+		$data['inventaris'] = $this->minventaris->getdata();
+		$this->load->view('admin/stock_gudang/vstockcompany_gudang', $data);
+		$this->load->view('vfooter');
+	}
+	public function detailInventarisCompany($id = null)
+	{
+		$header['title'] = 'Inventaris Company Report Detail';
+		$this->load->view('vheader', $header);
+		$this->mglobal->load_toast();
+		$data['receive'] = $this->minventaris->getDataReceive($id, 1);
+		$data['return'] = $this->minventaris->getDataReceive($id, 2);
+		$this->load->view('admin/stock_gudang/vstockcompany_gudang_detail', $data);
 		$this->load->view('vfooter');
 	}
 	public function safetyStock()

@@ -94,4 +94,17 @@ class Stock extends CI_Controller
 			}
 		}
 	}
+	public function subtractStockCompany()
+	{
+
+		$this->mglobal->checkpermit(99);
+		$header['title'] = 'Subtract Stock Company';
+		$data = [];
+		$data['barang'] =  $this->mdummy->productDummy();
+		// $res = $this->mglobal->get_table('stock_gudang');
+		// $data['row'] = $res;
+		$this->load->view('vheader', $header);
+		// $this->mglobal->load_toast();
+		$this->load->view('admin/stock_gudang/vsubtract_stockCompany', $data);
+	}
 }

@@ -22,7 +22,7 @@
 								<h5>Data Inventaris</h5>
 								<div class="ml-auto">
 									<a href="<?= base_url() ?>stock/receiveStockCompany" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Receive</a>
-									<a href="<?= base_url() ?>master/subtractStockCompany" class="btn btn-sm btn-danger"><i class="fa fa-minus"></i> Subtract</a>
+									<a href="<?= base_url() ?>stock/subtractStockCompany" class="btn btn-sm btn-danger"><i class="fa fa-minus"></i> Subtract</a>
 								</div>
 							</div>
 						</div>

@@ -126,18 +126,15 @@
 <script>
 	$(document).ready(function() {
 		const t = $('#datatable').DataTable({
-			"paging": true,
-			"lengthChange": true,
-			"searching": true,
-			"ordering": true,
-			"info": true,
-			"autoWidth": false,
-			"responsive": false,
 			"iDisplayLength": 10,
 			"columnDefs": [{
 				"orderable": false,
 				"targets": 6
 			}],
+
+			"order": [
+				[1, 'desc']
+			]
 
 		});
 	});
@@ -145,19 +142,17 @@
 <script>
 	$(document).ready(function() {
 		const t = $('#datatable2').DataTable({
-			"paging": true,
-			"lengthChange": true,
-			"searching": true,
-			"ordering": true,
-			"info": true,
-			"autoWidth": false,
-			"responsive": false,
-			"iDisplayLength": 10,
+
 			"columnDefs": [{
 				"orderable": false,
 				"targets": 4
 			}],
+
+			"order": [
+				[1, 'desc']
+			]
 		});
+
 	});
 </script>
 <!-- /.content-wrapper -->

@@ -36,7 +36,7 @@ class Pbb extends CI_Controller
 	}
 	public function getsatuan($id = null)
 	{
-		$data = $this->mglobal->get_item('barang', 'idBarang', $id);
+		$data = $this->mglobal->get_item('barang', 'id_barang', $id);
 		$satuan = $data['satuan'];
 
 

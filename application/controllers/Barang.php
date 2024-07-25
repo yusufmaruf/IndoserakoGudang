@@ -102,7 +102,7 @@ class Barang extends CI_Controller
 	}
 	public function edit($id = null)
 	{
-		$data = $this->mglobal->get_item('barang', 'idBarang', $id);
+		$data = $this->mglobal->get_item('barang', 'id_barang', $id);
 		header('Content-Type: application/json');
 		if ($data) {
 			echo json_encode($data);
@@ -131,7 +131,7 @@ class Barang extends CI_Controller
 			$this->mglobal->pre($this->form_validation->error_array());
 		} else {
 			$data = $this->input->post();
-			$item = $this->mglobal->get_item('barang', 'idBarang', $data['idBarang']);
+			$item = $this->mglobal->get_item('barang', 'id_barang', $data['id_barang']);
 
 			// Jika ada file gambar yang diunggah, lakukan proses upload baru
 			if (!empty($_FILES['foto']['name'])) {
@@ -146,7 +146,7 @@ class Barang extends CI_Controller
 			}
 
 			// Lakukan update data barang
-			$update_result = $this->mglobal->update_data('barang', $data, 'idBarang = ' . $data['idBarang']);
+			$update_result = $this->mglobal->update_data('barang', $data, 'id_barang = ' . $data['id_barang']);
 
 			if ($update_result) {
 				$this->session->set_flashdata('ins_success', 'Update data success!');
@@ -162,11 +162,11 @@ class Barang extends CI_Controller
 	{
 		$this->mglobal->checkpermit(99);
 		$data = $this->input->post();
-		$this->mglobal->pre($data['idBarang']);
-		$item = $this->mglobal->get_item('barang', 'idBarang', $data['idBarang']);
+		$this->mglobal->pre($data['id_barang']);
+		$item = $this->mglobal->get_item('barang', 'id_barang', $data['id_barang']);
 		$old_image_path = "./uploads/equipment/" . $item['foto'];
 		unlink($old_image_path);
-		$where = array('idBarang' => $data['idBarang']);
+		$where = array('id_barang' => $data['id_barang']);
 		$delete_result = $this->mglobal->delete_data('barang', $where);
 		if ($delete_result > 0) {
 			$this->session->set_flashdata('del_success', 'Delete data success!');

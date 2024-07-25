@@ -70,7 +70,7 @@
 									<select autofocus="" id="barang" name="category" class="form-control select2">
 										<option value="">Pilih Barang</option>
 										<?php foreach ($barang as $key => $value) { ?>
-											<option value="<?= $value['idBarang'] ?>" data-name="<?= $value['name'] ?>"><?= $value['name'] ?></option>
+											<option value="<?= $value['id_barang'] ?>" data-name="<?= $value['name'] ?>"><?= $value['name'] ?></option>
 										<?php } ?>
 									</select>
 								</div>
@@ -161,7 +161,7 @@
 			}
 			var newRow = `
                     <tr class="text-center">
-                        <td class="text-center"><input type="hidden" class="form-control"  value="${barangId}" name="idBarang[]">${barangName}</td>
+                        <td class="text-center"><input type="hidden" class="form-control"  value="${barangId}" name="id_barang[]">${barangName}</td>
                         <td class="text-center"><input type="number" class="form-control" style="max-height: 30px;" value="${qty}" name="qty[]"></td>
                         <td class="text-center">${satuan}</td>
                         <td class="text-center"><input type="hidden" class="form-control"  value="${reason}" name="reason">${reason}</td>

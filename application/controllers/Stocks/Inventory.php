@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Stock extends CI_Controller
+class Inventory extends CI_Controller
 {
 	public function __construct()
 	{
@@ -12,16 +12,9 @@ class Stock extends CI_Controller
 		$this->load->model('minventaris');
 		$this->load->library('form_validation');
 	}
-	public function inventarisProject()
+	public function index()
 	{
-		$header['title'] = 'Inventaris Project Report';
-		$this->load->view('vheader', $header);
-		$this->mglobal->load_toast();
-		$this->load->view('admin/stock_gudang/vstock_gudang');
-		$this->load->view('vfooter');
-	}
-	public function inventarisCompany()
-	{
+		$this->mglobal->checkpermit(99);
 		$header['title'] = 'Inventaris Company Report';
 		$this->load->view('vheader', $header);
 		$this->mglobal->load_toast();
@@ -38,14 +31,6 @@ class Stock extends CI_Controller
 		$data['return'] = $this->minventaris->getDataReceive($id, 2);
 		$data['log'] = $this->mglobal->get_table('log_inventory_stock', $id);
 		$this->load->view('admin/stock_gudang/vstockcompany_gudang_detail', $data);
-		$this->load->view('vfooter');
-	}
-	public function safetyStock()
-	{
-		$header['title'] = 'Safety Stock Report';
-		$this->load->view('vheader', $header);
-		$this->mglobal->load_toast();
-		$this->load->view('admin/stock_gudang/vsafety_stock');
 		$this->load->view('vfooter');
 	}
 	public function receiveStockCompany()
@@ -100,7 +85,7 @@ class Stock extends CI_Controller
 				]);
 			}
 			$this->session->set_flashdata('ins_success', 'Insert data success!');
-			redirect('stock/receiveStockCompany');
+			redirect('stocks/inventory/receiveStockCompany');
 		}
 	}
 	public function subtractStockCompany()
@@ -127,11 +112,6 @@ class Stock extends CI_Controller
 		} else {
 			$data = $this->input->post();
 			foreach ($data['id_barang'] as $key => $value) {
-				// $this->mglobal->pre($data['id_barang'][$key]);
-				// $this->mglobal->pre($data['qty'][$key]);
-				// $this->mglobal->pre($data['supplier'][$key]);
-				$this->mglobal->pre($value);
-
 				$this->mglobal->insert_data('inventoryStock', [
 					'id_barang' => $value,
 					'qty' => $data['qty'][$key],
@@ -149,7 +129,7 @@ class Stock extends CI_Controller
 				]);
 			}
 			$this->session->set_flashdata('ins_success', 'Insert data success!');
-			redirect('stock/subtractStockCompany');
+			redirect('stocks/inventory/subtractStockCompany');
 		}
 	}
 }

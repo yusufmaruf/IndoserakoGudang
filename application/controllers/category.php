@@ -30,7 +30,7 @@ class Category extends CI_Controller
 	}
 	public function edit($id = null)
 	{
-		$data = $this->mglobal->get_item('category', 'idCategory', $id);
+		$data = $this->mglobal->get_item('category', 'id_category', $id);
 		header('Content-Type: application/json');
 		if ($data) {
 			echo json_encode($data);
@@ -72,7 +72,7 @@ class Category extends CI_Controller
 
 
 			// // Update the data
-			$update_result = $this->mglobal->update_data('category', $data, 'idCategory = ' . $data['idCategory']);
+			$update_result = $this->mglobal->update_data('category', $data, 'id_category = ' . $data['id_category']);
 			// $this->mglobal->pre($update_result);
 
 			if ($update_result) {
@@ -88,8 +88,8 @@ class Category extends CI_Controller
 	public function delete()
 	{
 		$this->mglobal->checkpermit(99);
-		$id = $this->input->post('idCategory');
-		$this->mglobal->delete_item('category', 'idCategory', $id);
+		$id = $this->input->post('id_category');
+		$this->mglobal->delete_item('category', 'id_category', $id);
 		$this->session->set_flashdata('del_success', 'Delete data success!');
 		redirect('category');
 	}

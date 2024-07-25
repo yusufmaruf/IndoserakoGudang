@@ -53,8 +53,8 @@
 												<td class="text-center"><?= $i++; ?></td>
 												<td class="text-center"><?= $c['name'] ?></td>
 												<td class="text-center">
-													<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-edit" onclick="edit(<?= $c['idCategory'] ?>)"><i class="fa fa-pencil"> </i> </button>
-													<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-delete" onclick="remove(<?= $c['idCategory'] ?>)"><i class="fa fa-trash "> </i> </button>
+													<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-edit" onclick="edit(<?= $c['id_category'] ?>)"><i class="fa fa-pencil"> </i> </button>
+													<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-delete" onclick="remove(<?= $c['id_category'] ?>)"><i class="fa fa-trash "> </i> </button>
 												</td>
 											</tr>
 										<?php endforeach; ?>
@@ -108,7 +108,7 @@
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="">Nama Category</label>
-						<input type="hidden" class="form-control" name="idCategory" id="idEdit">
+						<input type="hidden" class="form-control" name="id_category" id="idEdit">
 						<input type="text" class="form-control" placeholder="Masukan Nama Category" name="name" id="nameEdit">
 					</div>
 				</div>
@@ -132,7 +132,7 @@
 			<form action="<?= base_url('category/delete'); ?>" method="POST">
 				<div class="modal-body">
 					<p>Apakah anda yakin ingin menghapus data <span class="namedelete"></span> ?</p>
-					<input type="hidden" id="idDelete" name="idCategory">
+					<input type="hidden" id="idDelete" name="id_category">
 				</div>
 				<div class="modal-footer justify-content-between">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -199,7 +199,7 @@
 					if ($obj.error) {
 						alert($obj.error);
 					} else {
-						$('#idEdit').val($obj.idCategory);
+						$('#idEdit').val($obj.id_category);
 						$('#nameEdit').val($obj.name);
 						$('#modal-edit').modal('show');
 					}
@@ -238,7 +238,7 @@
 						alert($obj.error);
 					} else {
 						$('.namedelete').text($obj.name); // Target the span with class namedelete
-						$('#idDelete').val($obj.idCategory); // Set the hidden input field with the id
+						$('#idDelete').val($obj.id_category); // Set the hidden input field with the id
 					}
 				} catch (e) {
 					console.error("Parsing error:", e);

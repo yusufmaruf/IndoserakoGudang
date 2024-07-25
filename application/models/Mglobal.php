@@ -7,7 +7,6 @@ class Mglobal extends CI_Model
 	{
 		$res = $this->db->insert($table, $object);
 		$insert_id = $this->db->insert_id();
-
 		return $res ? $insert_id : false;
 	}
 	public function update_data($table, $data, $where)
@@ -252,8 +251,8 @@ class Mglobal extends CI_Model
 	{
 		if ($id != null) {
 			switch ($table) {
-				case 'logInventoryStock':
-					$this->db->where('idBarang', $id);
+				case 'log_inventory_stock':
+					$this->db->where('id_barang', $id);
 					$this->db->order_by('id', 'DESC');
 					break;
 				default:
@@ -263,12 +262,12 @@ class Mglobal extends CI_Model
 			switch ($table) {
 				case 'barang':
 					$this->db->select('barang.*, category.name as category_name');
-					$this->db->join('category', 'category.idCategory = ' . $table . '.category');
+					$this->db->join('category', 'category.id_category = ' . $table . '.category');
 					break;
 				case 'inventoryStock':
 					$this->db->select('barang.*');
-					$this->db->join('barang', 'barang.idBarang = ' . $table . '.idBarang');
-					$this->db->group_by('barang.idBarang');
+					$this->db->join('barang', 'barang.id_barang = ' . $table . '.id_barang');
+					$this->db->group_by('barang.id_barang');
 					break;
 				default:
 					break;

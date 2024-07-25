@@ -75,8 +75,8 @@
 												<td class="text-center"><?= $b['type']; ?></td>
 												<td class="text-center"><?= $b['category_name']; ?></td>
 												<td class="text-center">
-													<button type="button" class="btn btn-primary btn-sm btn-edit" onclick="edit(<?= $b['idBarang']; ?>)"><i class="fa fa-edit"> </i></button>
-													<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-delete" onclick="remove(<?= $b['idBarang'] ?>)"><i class="fa fa-trash "> </i> </button>
+													<button type="button" class="btn btn-primary btn-sm btn-edit" onclick="edit(<?= $b['id_barang']; ?>)"><i class="fa fa-edit"> </i></button>
+													<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-delete" onclick="remove(<?= $b['id_barang'] ?>)"><i class="fa fa-trash "> </i> </button>
 												</td>
 											</tr>
 										<?php endforeach; ?>
@@ -149,7 +149,7 @@
 								<select autofocus="" id="category" name="category" class="form-control select2">
 									<option value="">Pilih Category</option>
 									<?php foreach ($category as $c) : ?>
-										<option value="<?= $c['idCategory'] ?>"><?= $c['name'] ?></option>
+										<option value="<?= $c['id_category'] ?>"><?= $c['name'] ?></option>
 									<?php endforeach; ?>
 								</select>
 							</div>
@@ -187,7 +187,7 @@
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="">Nama Barang</label>
-						<input type="hidden" class="form-control" id="idEdit" name="idBarang">
+						<input type="hidden" class="form-control" id="idEdit" name="id_barang">
 						<input type=" text" class="form-control" id="nameedit" placeholder="Masukan Nama Barang" value="" name="name">
 					</div>
 					<div class="row">
@@ -233,7 +233,7 @@
 								<select autofocus="" id="categoryedit" name="category" class="form-control select2">
 									<option value="">Pilih Category</option>
 									<?php foreach ($category as $c) : ?>
-										<option value="<?= $c['idCategory'] ?>"><?= $c['name'] ?></option>
+										<option value="<?= $c['id_category'] ?>"><?= $c['name'] ?></option>
 									<?php endforeach; ?>
 								</select>
 							</div>
@@ -271,7 +271,7 @@
 			<form action="<?= base_url('barang/delete'); ?>" method="POST">
 				<div class="modal-body">
 					<p>Apakah anda yakin ingin menghapus data <span class="namedelete"></span> ?</p>
-					<input type="hidden" id="idDelete" name="idBarang" class="form-control">
+					<input type="hidden" id="idDelete" name="id_barang" class="form-control">
 				</div>
 				<div class="modal-footer justify-content-between">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -395,7 +395,7 @@
 					if ($obj.error) {
 						alert($obj.error);
 					} else {
-						$('#idEdit').val($obj.idBarang);
+						$('#idEdit').val($obj.id_barang);
 						$('#nameedit').val($obj.name);
 						$('#brandedit').val($obj.brand);
 						$('#typeedit').val($obj.type);
@@ -437,7 +437,7 @@
 						alert($obj.error);
 					} else {
 						$('.namedelete').text($obj.name); // Target the span with class namedelete
-						$('#idDelete').val($obj.idBarang); // Set the hidden input field with the id
+						$('#idDelete').val($obj.id_barang); // Set the hidden input field with the id
 					}
 				} catch (e) {
 					console.error("Parsing error:", e);

@@ -50,7 +50,7 @@
 												<td><?= $value['totalqty'] ?></td>
 												<td><?= $value['satuan'] ?></td>
 												<td><?= $value['kategori'] ?></td>
-												<td><a href="<?= base_url() ?>stock/detailInventarisCompany/<?= $value['idProduk'] ?>" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a></td>
+												<td><a href="<?= base_url() ?>stocks/inventory/detailInventarisCompany/<?= $value['idProduk'] ?>" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a></td>
 											</tr>
 										<?php endforeach; ?>
 									</tbody>

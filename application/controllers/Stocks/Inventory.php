@@ -16,21 +16,21 @@ class Inventory extends CI_Controller
 	{
 		$this->mglobal->checkpermit(99);
 		$header['title'] = 'Inventaris Company Report';
-		$this->load->view('vheader', $header);
 		$this->mglobal->load_toast();
 		$data['inventaris'] = $this->minventaris->getdata();
-		$this->load->view('admin/stock_gudang/vstockcompany_gudang', $data);
+		$this->load->view('vheader', $header);
+		$this->load->view('admin/stock/inventaris/vstock', $data);
 		$this->load->view('vfooter');
 	}
 	public function detailInventarisCompany($id = null)
 	{
 		$header['title'] = 'Inventaris Company Report Detail';
-		$this->load->view('vheader', $header);
 		$this->mglobal->load_toast();
 		$data['receive'] = $this->minventaris->getDataReceive($id, 1);
 		$data['return'] = $this->minventaris->getDataReceive($id, 2);
 		$data['log'] = $this->mglobal->get_table('log_inventory_stock', $id);
-		$this->load->view('admin/stock_gudang/vstockcompany_gudang_detail', $data);
+		$this->load->view('vheader', $header);
+		$this->load->view('admin/stock/inventaris/vdetail', $data);
 		$this->load->view('vfooter');
 	}
 	public function receiveStockCompany()
@@ -39,9 +39,9 @@ class Inventory extends CI_Controller
 		$header['title'] = 'Receive Stock Company';
 		$data = [];
 		$data['barang'] = $this->mglobal->get_table('barang');
+		$this->mglobal->load_toast();
 		$this->load->view('vheader', $header);
-		// $this->mglobal->load_toast();
-		$this->load->view('admin/stock_gudang/vadd_stockCompany', $data);
+		$this->load->view('admin/stock/inventaris/vadd', $data);
 		// $this->load->view('modal/reset_password');
 		$this->load->view('vfooter');
 	}
@@ -97,7 +97,7 @@ class Inventory extends CI_Controller
 		$data['barang'] = $this->mglobal->get_table('inventoryStock');
 		$this->load->view('vheader', $header);
 		$this->mglobal->load_toast();
-		$this->load->view('admin/stock_gudang/vsubtract_stockCompany', $data);
+		$this->load->view('admin/stock/inventaris/vsubtract', $data);
 	}
 	public function subtractStockCompany_add()
 	{

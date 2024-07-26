@@ -19,7 +19,7 @@
 					<div class="col-lg-12">
 						<div class="card">
 							<div class="card-header py-2">
-								Detail Data Inventaris Project Receive
+								Inventaris Receive
 							</div>
 							<div class="card-body p-2">
 								<div class="table-responsive">
@@ -58,7 +58,7 @@
 					<div class="col-lg-12">
 						<div class="card">
 							<div class="card-header py-2">
-								Detail Data Inventaris Project Substrack
+								Inventaris Decrease
 							</div>
 							<div class="card-body p-2">
 								<div class="table-responsive">

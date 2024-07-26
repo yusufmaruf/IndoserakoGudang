@@ -169,7 +169,7 @@
 							<li class="nav-header">MAIN</li>
 
 							<li class="nav-item">
-								<a href="<?= base_url() . 'pbb' ?>" class="nav-link <?php if ($this->uri->segment('1') == 'pbb') echo 'active'; ?>">
+								<a href="<?= base_url() . 'bpp/bppproject' ?>" class="nav-link <?php if ($this->uri->segment('1') == 'pbb') echo 'active'; ?>">
 									<i class="nav-icon fas fa-file-invoice"></i>
 									<p>PPB</p>
 								</a>

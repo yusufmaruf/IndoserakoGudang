@@ -28,7 +28,7 @@
 			<div class="mb-2">
 			</div>
 			<div class="row">
-				<div class="col-12">
+				<div class="col-lg-5">
 					<div class="card">
 						<div class="card-header py-2">
 							<div class="row">
@@ -44,7 +44,7 @@
 									<thead>
 										<th class="w5 text-center">No.</th>
 										<th class="text-center">Category</th>
-										<th class="text-center" style="width: 7%;">Action</th>
+										<th class="text-center" style="width: 20%;">Action</th>
 									</thead>
 									<tbody>
 										<?php $i = 1; ?>

@@ -9,6 +9,7 @@ class Mglobal extends CI_Model
 		$insert_id = $this->db->insert_id();
 		return $res ? $insert_id : false;
 	}
+
 	public function update_data($table, $data, $where)
 	{
 		$this->db->where($where);

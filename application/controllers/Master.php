@@ -17,6 +17,12 @@ class Master extends CI_Controller
 	public function index()
 	{
 	}
+	public function getsatuan($id = null)
+	{
+		$data = $this->mglobal->get_item('barang', 'id_barang', $id);
+		$satuan = $data['satuan'];
+		echo json_encode(['satuan' => $satuan]);
+	}
 
 	function upload_files($field, $type_name, $resize = false)
 	{

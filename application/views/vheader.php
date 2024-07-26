@@ -168,11 +168,33 @@
 							</li>
 							<li class="nav-header">MAIN</li>
 
-							<li class="nav-item">
-								<a href="<?= base_url() . 'bpp/bppproject' ?>" class="nav-link <?php if ($this->uri->segment('1') == 'pbb') echo 'active'; ?>">
-									<i class="nav-icon fas fa-file-invoice"></i>
-									<p>PPB</p>
+							<li class="nav-item <?php if ($this->uri->segment('1') == 'bpp') echo 'menu-open'; ?>">
+								<a href="#" class="nav-link <?php if ($this->uri->segment('1') == 'bpp') echo 'active'; ?>">
+									<i class="nav-icon fas fa-file"></i>
+									<p>BPP <i class="right fas fa-angle-left"></i></p>
 								</a>
+								<ul class="nav nav-treeview">
+									<li class="nav-item">
+										<a href="<?= base_url() . 'bpp/bppproject'; ?>" class="nav-link <?php if ($this->uri->segment('1') == 'bpp' && $this->uri->segment('2') == 'bppproject') echo 'active'; ?>">
+											<i class="fas fa-file-invoice  nav-icon"></i>
+											<p>BPP Project</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="<?= base_url() . 'stocks/inventory'; ?>" class="nav-link <?php if ($this->uri->segment('1') == 'bpp' && $this->uri->segment('2') == 'inventory') echo 'active'; ?>">
+											<i class="fas fa-file-invoice  nav-icon"></i>
+											<p>BPP Inventaris</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="<?= base_url() . 'stocks/stock'; ?>" class="nav-link <?php if ($this->uri->segment('1') == 'bpp' && $this->uri->segment('2') == 'stock') echo 'active'; ?>">
+											<i class="fas fa-file-invoice  nav-icon"></i>
+											<p>BPP Stock</p>
+										</a>
+									</li>
+
+
+								</ul>
 							</li>
 							<li class="nav-item <?php if ($this->uri->segment('1') == 'stocks') echo 'menu-open'; ?>">
 								<a href="#" class="nav-link <?php if ($this->uri->segment('1') == 'stocks') echo 'active'; ?>">

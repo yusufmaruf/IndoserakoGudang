@@ -64,7 +64,7 @@
 									<input type="month" name="from" class="form-control" value="<?= date('Y-m') ?>">
 								</form>
 								<div class="ml-auto">
-									<a href="<?= base_url() ?>pbb/create" class="btn btn-primary">
+									<a href="<?= base_url() ?>bpp/bppproject/create" class="btn btn-primary">
 										<i class="fa fa-plus mr-2"></i> Add New PBB
 									</a>
 								</div>
@@ -105,7 +105,7 @@
 												<h5><span class="badge badge-success">Open</span></h5>
 											</td>
 											<td class="text-center">
-												<a type="button" href="<?= base_url() . 'pbb/view' ?>" title="Reset Password"><i class="fa fa-eye fa-gold"></i></a>
+												<a type="button" href="<?= base_url() . '' ?>" title="Reset Password"><i class="fa fa-eye fa-gold"></i></a>
 											</td>
 											<td class="text-center">
 												<a href="" title="Edit"><i class="fa fa-print"></i></a>

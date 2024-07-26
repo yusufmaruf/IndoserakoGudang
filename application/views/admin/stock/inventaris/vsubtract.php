@@ -123,7 +123,7 @@
 			$('#satuan').empty();
 			if (selectedBarang) {
 				$.ajax({
-					url: '<?= base_url() ?>pbb/getsatuan/' + selectedBarang, // Adjust the URL to match your controller and method
+					url: '<?= base_url() ?>master/getsatuan/' + selectedBarang, // Adjust the URL to match your controller and method
 					type: 'GET',
 					success: function(response) {
 						var satuan = JSON.parse(response).satuan;

@@ -81,15 +81,7 @@ class Bppproject extends CI_Controller
 		$this->load->view('admin/pbb/project/vview');
 		$this->load->view('vfooter');
 	}
-	public function getsatuan($id = null)
-	{
-		$data = $this->mglobal->get_item('barang', 'id_barang', $id);
-		$satuan = $data['satuan'];
 
-
-		// Return satuan in a format that can be used by JavaScript
-		echo json_encode(['satuan' => $satuan]);
-	}
 	public function kirim($id = null)
 	{
 		$header['title'] = 'Kirim Barang';

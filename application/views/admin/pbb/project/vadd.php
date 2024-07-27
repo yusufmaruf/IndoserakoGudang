@@ -1,9 +1,5 @@
 <style>
-	.preview-image {
-		max-width: 100%;
-		height: auto;
-		margin-top: 10px;
-	}
+
 </style>
 <link rel="stylesheet" href="<?= base_url('assets'); ?>/plugins/select2/css/select2.min.css">
 <link rel="stylesheet" href="<?= base_url('assets'); ?>/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
@@ -15,19 +11,19 @@
 				<div class="col-lg-8">
 					<div class="card p-0">
 						<div class="card-header">
-							<h5 class="m-0">Form PBB Project</h5>
+							<h5 class="m-0">Form BPP Project</h5>
 						</div>
-						<div class="card-body mb-0 p-3">
-							<form action="<?= base_url('pbb/savepbb'); ?>" method="POST" mb-0 enctype="multipart/form-data">
+						<div class="card-body ">
+							<form action="<?= base_url('bpp/bppproject/savepbb'); ?>" method="POST" mb-0 enctype="multipart/form-data">
 								<div class="row">
 									<div class="col-lg-6 px-1">
-										<div class="form-group d-flex mb-1">
+										<div class="form-group d-flex mb-1 align-items-center">
 											<label class="col-lg-4 p-0" for=""> No Form</label>
 											<input class="col-lg-8 form-control" type="text" placeholder="Masukan No Form" name="noform">
 										</div>
 									</div>
 									<div class="col-lg-6 px-1">
-										<div class="form-group d-flex mb-1">
+										<div class="form-group d-flex mb-1 align-items-center">
 											<label class="col-lg-4" for=""> No SO</label>
 											<input class="col-lg-8 form-control" type="text" placeholder="Masukan No SO" name="noso">
 
@@ -36,16 +32,16 @@
 								</div>
 								<div class="row">
 									<div class="col-lg-6 px-1">
-										<div class="form-group d-flex  mb-1">
+										<div class="form-group d-flex  mb-1 align-items-center">
 											<label class="col-lg-4 p-0" for=""> Nama Perusahaan</label>
 											<select autofocus="" id="customers" name="customers" class="form-control select2">
 												<option value="">Pilih Perusahaan</option>
-												<option value="unit">Perusahaan 2</option>
+												<option value="1">Perusahaan 2</option>
 											</select>
 										</div>
 									</div>
 									<div class="col-lg-6 px-1">
-										<div class="form-group d-flex mb-1">
+										<div class="form-group d-flex mb-1 align-items-center">
 											<label class="col-lg-4" for=""> Nama Project</label>
 											<input class="col-lg-8 form-control" type="text" placeholder="Masukan Nama Project" name="nameproject">
 										</div>
@@ -53,31 +49,61 @@
 								</div>
 								<div class="row">
 									<div class="col-lg-6 px-1">
-										<div class="form-group d-flex mb-1">
+										<div class="form-group d-flex mb-1 align-items-center">
 											<label class="col-lg-4 p-0" for=""> No PO</label>
 											<input class="col-lg-8 form-control" type="text" placeholder="Masukan No PO" name="nopo">
 										</div>
 
 									</div>
 									<div class="col-lg-6 px-1">
-										<div class="form-group d-flex mb-1">
+										<div class="form-group d-flex mb-1 align-items-center">
 											<label class="col-lg-4" for=""> Tanggal </label>
 											<input class="col-lg-8 form-control" type="date" placeholder="Masukan Tanggal" name="duedate">
 										</div>
 
 									</div>
 								</div>
-								<div class="row mb-0">
-									<div class="col-lg-12 px-1 mb-0">
-										<div class="form-group d-flex mb-0">
-											<table class="table table-bordered mb-0 ">
+								<div class="row">
+									<div class="col-lg-6 px-1">
+										<div class="form-group d-flex mb-1 align-items-center">
+											<label for="" class="col-lg-4 p-0">Gambar</label>
+											<div class="input-group">
+												<div class="custom-file">
+													<input type="file" class="custom-file-input" id="previewImgedit" name="ttd" accept="image/*" onchange="previewImageedit(event)">
+													<label class="custom-file-label" for="exampleInputFile">Choose file</label>
+												</div>
+												<div class="input-group-append">
+													<button type="button" class="btn btn-block input-group-text" data-toggle="modal" data-target="#myModal">
+														<i class="fa fa-eye"></i>
+													</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-6 px-1">
+										<div class="form-group d-flex align-items-center ">
+											<label for="" class="col-lg-4"> Status</label>
+											<select autofocus="" id="status" name="status" class="form-control select2">
+												<option value="">Pilih Status</option>
+												<option value="Open">Open</option>
+												<option value="Progress">Progress</option>
+												<option value="Closed">Closed</option>
+											</select>
+										</div>
+
+									</div>
+								</div>
+								<div class="row mb-1">
+									<div class="col-lg-12 px-1 ">
+										<div class="form-group d-flex mb-2 ">
+											<table class="table table-bordered mb-0 text-center ">
 												<thead>
-													<tr>
+													<tr class="text-center">
 														<th>Nama Barang</th>
-														<th>Qty</th>
+														<th width="10%">Qty</th>
 														<th>Sat</th>
 														<th>PIC</th>
-														<th>Act</th>
+														<th width="10%">Act</th>
 													</tr>
 												</thead>
 												<tbody class="text-center" id="table-body">
@@ -89,36 +115,42 @@
 									</div>
 
 								</div>
-								<div class="row">
-									<div class="col-md-12 px-1">
-										<div class="previewedit" id="previewAreaedit" style="display: none;"> <!-- Tambahkan style display: none; -->
-											<img id="previewImgedit" src="" alt="Preview Image" style="width: 200px;" class="preview-imageedit">
-										</div>
-										<div class="form-group">
-											<label for="">Gambar</label>
-											<input type="file" class="form-control" name="ttd" id="photoProductedit" accept="image/*" onchange="previewImageedit(event)">
-										</div>
+								<div class="row px-0">
+									<div class="col-lg-12 px-1 text-right">
+										<button type="submit" class="btn  btn-primary">Submit</button>
 									</div>
 
+								</div>
 
+								<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+
+											<div class="modal-body">
+												<img class="modal-content" src="<?= base_url() ?>assets/no-preview.png" id="img01">
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+											</div>
+										</div>
+									</div>
 								</div>
-								<div class="form-group text-right mb-0">
-									<button type="submit" class="btn btn-primary">Submit</button>
-								</div>
+
+
 							</form>
 						</div>
 					</div>
 				</div>
 				<div class="col-lg-4">
 					<div class="card">
-						<div class="card-header py-2">
+						<div class="card-header">
 							<h5 class="m-0">Tambah Barang Pengadaan</h5>
 						</div>
-						<div class="card-body px-3 py-0">
+						<div class="card-body">
 							<form id="add-item-form">
 								<div class="row">
 									<div class="col-lg-12">
-										<div class="form-group mb-1">
+										<div class="form-group">
 											<label for="">Nama Barang</label>
 											<select autofocus="" id="barang" name="category" class="form-control select2">
 												<option value="">Pilih Barang</option>
@@ -131,13 +163,13 @@
 								</div>
 								<div class="row ">
 									<div class="col-lg-6">
-										<div class="form-group mb-1">
+										<div class="form-group">
 											<label for="">Qty</label>
 											<input type="number" class="form-control" placeholder="Qty" id="qty" name="NoForm">
 										</div>
 									</div>
 									<div class="col-lg-6">
-										<div class="form-group mb-1">
+										<div class="form-group">
 											<label for="">Satuan</label>
 											<select autofocus="" id="satuan" name="satuan" class="form-control select2 " disabled>
 											</select>
@@ -145,18 +177,19 @@
 									</div>
 								</div>
 
-								<div class="form-group mb-2">
+								<div class="form-group">
 									<label for="">PIC</label>
-									<select autofocus="" id="pic" name="category" class="form-control select2">
+									<select autofocus="" id="pic" name="pic" class="form-control select2">
 										<option value="">Pilih User</option>
-										<option value="unit" data-name="User 1">User 1</option>
+										<option value="1" data-name="User 1">User 1</option>
+										<option value="2" data-name="User 1">User 2</option>
 									</select>
 								</div>
-								<div class="form-group mb-2">
-									<button type="submit" class="btn btn-primary btn-block">Tambahkan
 
-									</button>
-								</div>
+								<button type="submit" class="btn btn-primary btn-block">Tambahkan
+
+								</button>
+
 							</form>
 						</div>
 					</div>
@@ -171,7 +204,7 @@
 		$('#satuan').select2({
 			theme: 'bootstrap4',
 		});
-		$('#perusahaan').select2({
+		$('#customers').select2({
 			theme: 'bootstrap4',
 		});
 		$('#gudang').select2({
@@ -184,6 +217,9 @@
 			theme: 'bootstrap4',
 		});
 		$('#barang').select2({
+			theme: 'bootstrap4',
+		});
+		$('#status').select2({
 			theme: 'bootstrap4',
 		});
 
@@ -246,7 +282,7 @@
 						<td class="text-center"> <input type="hidden" class="form-control " style="max-height: 30px;" value="${barangId}" name="id_barang[]">${barangName}</td>
                         <td class="text-center"><input type="number" class="form-control" style="max-height: 30px;" value="${qty}" name="qty[]"></td>
                         <td class="text-center">${satuan}</td>
-						<td class="text-center"><input type="hidden" class="form-control" style="max-height: 30px;" value="${picName}" name="iduser[]"> ${picName}</td>
+						<td class="text-center"><input type="hidden" class="form-control" style="max-height: 30px;" value="${picId}" name="iduser[]"> ${picName}</td>
                         <td class="text-center">
                             <button type="button" class="btn btn-danger btn-sm delete-row"><i class="fas fa-trash"></i></button>
                         </td>
@@ -271,19 +307,22 @@
 	function previewImageedit(event) {
 		var reader = new FileReader();
 		reader.onload = function() {
-			var output = document.getElementById('previewImgedit');
+			var output = document.getElementById('img01');
 			output.src = reader.result;
-			// Tampilkan area preview ketika gambar sudah diunggah
-			document.getElementById('previewAreaedit').style.display = 'block';
 		};
 
 		var file = event.target.files[0]; // Ambil file yang diunggah
 		if (file) {
 			reader.readAsDataURL(file); // Jika ada file, baca sebagai data URL
+		} else {}
+		const input = event.target;
+		const label = input.nextElementSibling; // This gets the <label> element
+
+		if (input.files.length > 0) {
+			const fileName = input.files[0].name;
+			label.textContent = fileName;
 		} else {
-			// Jika tidak ada file yang dipilih, kosongkan preview dan sembunyikan area preview
-			document.getElementById('previewImgedit').src = "";
-			document.getElementById('previewAreaedit').style.display = 'none';
+			label.textContent = 'Choose file';
 		}
 
 	}

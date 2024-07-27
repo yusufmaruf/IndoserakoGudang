@@ -77,40 +77,35 @@
 									<thead class="text-center p-1">
 										<tr>
 											<th>No.</th>
-											<th>Date Required</th>
-											<th>No. PPB</th>
-											<th>Nama Perusahaan</th>
-											<th>Nama Project</th>
-											<th>Delivered</th>
+											<th>Due Date</th>
+											<th>No. BPP</th>
+											<th>Customer</th>
+											<th>Project</th>
 											<th>Status</th>
-											<th colspan="2">Action</th>
+											<th colspan="3">Action</th>
 										</tr>
 									</thead>
 									<tbody class="text-center p-1">
-										<tr>
-											<td>1</td>
-											<td>01-07-2024</td>
-											<td>PPB/001/07/09/2024</td>
-											<td>PT. ABC</td>
-											<td>Project ABC</td>
-											<td class=" text-center">
-												<div class="progress-outer">
-													<div class="progress">
-														<div class="progress-bar progress-bar-info progress-bar-striped active" style="width:80%;"></div>
-														<div class="progress-value">80%</div>
-													</div>
-												</div>
-											</td>
-											<td>
-												<h5><span class="badge badge-success">Open</span></h5>
-											</td>
-											<td class="text-center">
-												<a type="button" href="<?= base_url() . '' ?>" title="Reset Password"><i class="fa fa-eye fa-gold"></i></a>
-											</td>
-											<td class="text-center">
-												<a href="" title="Edit"><i class="fa fa-print"></i></a>
-											</td>
-										</tr>
+										<?php $no = 1; ?>
+										<?php foreach ($bpp as $row) : ?>
+											<tr>
+												<td><?= $no++; ?></td>
+												<td><?= $row['duedate'] ?></td>
+												<td><?= $row['noform'] ?></td>
+												<td><?= $row['customers'] ?></td>
+												<td><?= $row['nameproject'] ?></td>
+												<td><span class="badge badge-primary px-2 py-2"><?= $row['status'] ?></span> </td>
+
+												<td> <a class="text-primary" type="button" onclick="show(<?= $row['id']; ?>)"><i class="fa fa-image fa-gold"> </i></a>
+												</td>
+												<td>
+													<a type="button" href="<?= base_url() . 'bpp/bppproject/edit/' . $row['id'] ?>" title="Edit"><i class="fa fa-eye fa-gold"></i></a>
+												</td>
+												<td>
+													<a type="button" href="<?= base_url() . 'bpp/bppproject/delete/' . $row['id'] ?>" title="Delete"><i class="fa fa-edit fa-gold"></i></a>
+												</td>
+											</tr>
+										<?php endforeach; ?>
 									</tbody>
 								</table>
 
@@ -118,6 +113,21 @@
 
 						</div>
 					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="modal-edit" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-body">
+						<img src="<?= base_url() ?>assets/" alt="" id="viewbpp" width="100%">
+					</div>
+					<div class="modal-footer justify-content-between">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+
+
+
 				</div>
 			</div>
 		</div>
@@ -157,5 +167,42 @@
 			});
 		}).draw();
 	});
+</script>
+<script>
+	function show(id) {
+		$('#modal-edit').modal('show');
+		$.ajax({
+			url: "<?= base_url('bpp/bppproject/show/') ?>" + id,
+			type: "GET",
+			success: function(data) {
+				console.log(data); // Log the server response
+				try {
+					var $obj;
+
+					// If the data is already an object, use it directly
+					if (typeof data === "object") {
+						$obj = data;
+					} else {
+						// Trim the data and parse it as JSON
+						data = data.trim();
+						$obj = JSON.parse(data);
+					}
+
+					if ($obj.error) {
+						alert($obj.error);
+					} else {
+						$('#viewbpp').attr('src', '<?= base_url() ?>' + $obj.imagepath);
+					}
+				} catch (e) {
+					console.error("Parsing error:", e);
+					alert("An error occurred while parsing the data.");
+				}
+			},
+			error: function(xhr, status, error) {
+				console.error("AJAX error:", status, error);
+				alert("An error occurred while fetching the data.");
+			}
+		});
+	}
 </script>
 <!-- /.content-wrapper -->

@@ -14,7 +14,7 @@ class Minventaris extends CI_Model
 		SUM( CASE WHEN i.jenis = 1 THEN i.qty ELSE 0 END) - SUM(CASE WHEN i.jenis = 2 THEN i.qty ELSE 0 END) AS totalQty,
 		MAX(i.tanggal) AS lastDate
 		');
-		$this->db->from('inventoryStock i');
+		$this->db->from('inventory_stock i');
 		$this->db->join('barang p', 'i.id_barang = p.id_barang');
 		$this->db->join('category k', 'p.category = k.id_category');
 		$this->db->group_by(['p.id_barang', 'p.brand', 'p.satuan', 'p.name', 'k.name']);
@@ -26,7 +26,7 @@ class Minventaris extends CI_Model
 	{
 		if ($id != null) {
 			$this->db->select('i.*, p.name as namaProduk, p.satuan as satuan, k.name as kategori');
-			$this->db->from('inventoryStock i');
+			$this->db->from('inventory_stock i');
 			$this->db->where('jenis', $jenis);
 			$this->db->where('p.id_barang' . ' = ' . $id);
 			$this->db->join('barang p', 'i.id_barang = p.id_barang');
@@ -35,7 +35,7 @@ class Minventaris extends CI_Model
 			$query = $this->db->get();
 		} else {
 			$this->db->select('i.*, p.name as namaProduk, k.name as kategori');
-			$this->db->from('inventoryStock i');
+			$this->db->from('inventory_stock i');
 			$this->db->where('jenis', $jenis);
 			// $this->db->where('p.id_barang' . ' = ' . $id);
 			$this->db->join('barang p', 'i.id_barang = p.id_barang');

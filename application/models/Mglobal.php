@@ -3,6 +3,26 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Mglobal extends CI_Model
 {
+	function format_dateIndo($date)
+	{
+		// Buat array untuk bulan dalam bahasa Indonesia
+		$bulan = array(
+			1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April',
+			5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus',
+			9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember'
+		);
+
+		// Konversi string tanggal menjadi objek DateTime
+		$dateObj = new DateTime($date);
+
+		// Ambil tanggal, bulan, dan tahun dari objek DateTime
+		$day = $dateObj->format('d');
+		$month = $dateObj->format('n'); // Bulan tanpa leading zero
+		$year = $dateObj->format('Y');
+
+		// Format tanggal ke format yang diinginkan
+		return $day . ' ' . $bulan[$month] . ' ' . $year;
+	}
 	public function insert_data($table, $object)
 	{
 		$res = $this->db->insert($table, $object);
@@ -265,10 +285,13 @@ class Mglobal extends CI_Model
 					$this->db->select('barang.*, category.name as category_name');
 					$this->db->join('category', 'category.id_category = ' . $table . '.category');
 					break;
-				case 'inventoryStock':
+				case 'inventory_stock':
 					$this->db->select('barang.*');
 					$this->db->join('barang', 'barang.id_barang = ' . $table . '.id_barang');
 					$this->db->group_by('barang.id_barang');
+					break;
+				case 'bppproject':
+					$this->db->order_by('duedate', 'ASC');
 					break;
 				default:
 					break;

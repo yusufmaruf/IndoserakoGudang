@@ -12,57 +12,35 @@ class Bppproject extends CI_Controller
 		$this->load->library('form_validation');
 		$this->load->model('mmaster');
 	}
-	function upload_files($field, $type_name, $resize = false)
+	function upload_files($field, $type_name)
 	{
-		// $prefix = strtok($field, '_'); // get string before '_' 
-		// if($prefix == 'photo' || $prefix == 'std'){
-		// 	$path = "./uploads/".$prefix;
-		// } else {
-		// 	$path = "./uploads";
-		// }
-		$path = "./uploads/equipment";
-
+		$path = "./uploads/bppproject";
+		$loc = "uploads/bppproject/";
 		//Configure upload.
 		$this->upload->initialize(array(
 			"upload_path"   => $path,
 			"allowed_types" => "jpg|jpeg|png",
 			"file_name"     => $type_name . date('YmdHis'),
 		));
-
 		//Perform upload.
 		if ($this->upload->do_upload($field)) {
-
 			$fileData = $this->upload->data();
-
-			if ($resize == true) {
-				$width = $fileData['image_width'];
-				$height = $fileData['image_height'];
-				$img_cfg_thumb['image_library'] = 'gd2';
-				$img_cfg_thumb['source_image'] = "../uploads/" . $fileData['raw_name'] . $fileData['file_ext'];
-				$img_cfg_thumb['maintain_ratio'] = FALSE;
-				$img_cfg_thumb['new_image'] = "../uploads/" . $fileData['raw_name'] . $fileData['file_ext'];
-				$img_cfg_thumb['width'] = $width;
-				$img_cfg_thumb['height'] = $height;
-				$img_cfg_thumb['quality'] = 80;
-				$this->load->library('image_lib');
-				$this->image_lib->initialize($img_cfg_thumb);
-				$this->image_lib->resize();
-			}
-
-
-
-			return $fileData['raw_name'] . $fileData['file_ext'];
+			return $loc . $fileData['raw_name'] . $fileData['file_ext'];
 		} else {
 			return $this->upload->display_errors(); //check jika ada error pada upload file
-			//return "upload failed";
 		}
 	}
 	public function index()
 	{
 		$header['title'] = 'Report';
-		$this->load->view('vheader', $header);
 		$this->mglobal->load_toast();
-		$this->load->view('admin/pbb/project/vpbb');
+		$data = [];
+		$data['bpp'] = $this->mglobal->get_table('bppproject');
+		foreach ($data['bpp'] as $key => $value) {
+			$data['bpp'][$key]['duedate'] = $this->mglobal->format_dateIndo($value['duedate']);
+		}
+		$this->load->view('vheader', $header);
+		$this->load->view('admin/pbb/project/vpbb', $data);
 		$this->load->view('vfooter');
 	}
 	public function create()
@@ -126,8 +104,41 @@ class Bppproject extends CI_Controller
 			$this->mglobal->pre($this->form_validation->error_array());
 		} else {
 			$data = $this->input->post();
+			$this->mglobal->pre($data);
 			$data['ttd'] = $this->upload_files('ttd', 'ttd');
-			$data->mglobal->pre($data);
+			$this->mglobal->pre($data);
+			$insert_data = $this->mglobal->insert_data('bppproject', [
+				'noform' => $data['noform'],
+				'noso' => $data['noso'],
+				'customers' => $data['customers'],
+				'nopo' => $data['nopo'],
+				'nameproject' => $data['nameproject'],
+				'duedate' => $data['duedate'],
+				'imagepath' => $data['ttd'],
+				'status' => $data['status']
+			]);
+			foreach ($data['id_barang'] as $item => $value) {
+				$itemdetail[$item] = [
+					'id_bpp' => $insert_data,
+					'id_barang' => $value,
+					'qty' => $data['qty'][$item],
+					'pic' => $data['iduser'][$item],
+					'status' => $data['status']
+				];
+				$this->mglobal->insert_data('detail_bpp_project', $itemdetail[$item]);
+			}
+			$this->session->set_flashdata('global', 'ins_success');
+			redirect('bpp/bppproject');
+		}
+	}
+	public function show($id = null)
+	{
+		$data = $this->mglobal->get_item('bppproject', 'id', $id);
+		header('Content-Type: application/json');
+		if ($data) {
+			echo json_encode($data);
+		} else {
+			echo json_encode(['error' => 'No data found']);
 		}
 	}
 }

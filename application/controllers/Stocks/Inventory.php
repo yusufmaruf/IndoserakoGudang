@@ -66,7 +66,7 @@ class Inventory extends CI_Controller
 				// $this->mglobal->pre($data['supplier'][$key]);
 				$this->mglobal->pre($value);
 
-				$this->mglobal->insert_data('inventoryStock', [
+				$this->mglobal->insert_data('inventory_stock', [
 					'id_barang' => $value,
 					'qty' => $data['qty'][$key],
 					'supplier' => $data['supplier'][$key],
@@ -94,7 +94,7 @@ class Inventory extends CI_Controller
 		$this->mglobal->checkpermit(99);
 		$header['title'] = 'Subtract Stock Company';
 		$data = [];
-		$data['barang'] = $this->mglobal->get_table('inventoryStock');
+		$data['barang'] = $this->mglobal->get_table('inventory_stock');
 		$this->load->view('vheader', $header);
 		$this->mglobal->load_toast();
 		$this->load->view('admin/stock/inventaris/vsubtract', $data);
@@ -112,7 +112,7 @@ class Inventory extends CI_Controller
 		} else {
 			$data = $this->input->post();
 			foreach ($data['id_barang'] as $key => $value) {
-				$this->mglobal->insert_data('inventoryStock', [
+				$this->mglobal->insert_data('inventory_stock', [
 					'id_barang' => $value,
 					'qty' => $data['qty'][$key],
 					'tanggal' => $data['tanggal'],

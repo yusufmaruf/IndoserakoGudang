@@ -81,7 +81,7 @@ class Stock extends CI_Controller
 				// $this->mglobal->pre($data['supplier'][$key]);
 				$this->mglobal->pre($value);
 
-				$this->mglobal->insert_data('inventoryStock', [
+				$this->mglobal->insert_data('inventory_stock', [
 					'id_barang' => $value,
 					'qty' => $data['qty'][$key],
 					'supplier' => $data['supplier'][$key],
@@ -109,7 +109,7 @@ class Stock extends CI_Controller
 		$this->mglobal->checkpermit(99);
 		$header['title'] = 'Subtract Stock Company';
 		$data = [];
-		$data['barang'] = $this->mglobal->get_table('inventoryStock');
+		$data['barang'] = $this->mglobal->get_table('inventory_stock');
 		$this->load->view('vheader', $header);
 		$this->mglobal->load_toast();
 		$this->load->view('admin/stock_gudang/vsubtract_stockCompany', $data);
@@ -132,7 +132,7 @@ class Stock extends CI_Controller
 				// $this->mglobal->pre($data['supplier'][$key]);
 				$this->mglobal->pre($value);
 
-				$this->mglobal->insert_data('inventoryStock', [
+				$this->mglobal->insert_data('inventory_stock', [
 					'id_barang' => $value,
 					'qty' => $data['qty'][$key],
 					'tanggal' => $data['tanggal'],

@@ -46,6 +46,17 @@ class Minventaris extends CI_Model
 
 		return $query->result_array();
 	}
+	public function progressbppproject($idbpp)
+	{
+		$this->db->select('((COALESCE(detail_bpp_project.qty) - COALESCE(SUM(stock_receive_project.qty), 0)) / COALESCE(detail_bpp_project.qty)) * 100 as progress');
+		$this->db->from('detail_bpp_project');
+		$this->db->join('stock_receive_project', 'detail_bpp_project.id = stock_receive_project.id_detail_bpp', 'left'); // Menggunakan left join jika ada kemungkinan tidak ada stock_receive_project
+		$this->db->where('detail_bpp_project.id_bpp', $idbpp);
+		$this->db->group_by('detail_bpp_project.id');
+
+		$query = $this->db->get();
+		return $query->result_array();
+	}
 }
 
 /* End of file Mdummy.php */

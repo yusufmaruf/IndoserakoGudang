@@ -276,6 +276,11 @@ class Mglobal extends CI_Model
 					$this->db->where('id_barang', $id);
 					$this->db->order_by('id', 'DESC');
 					break;
+				case 'detail_bpp_project':
+					$this->db->where('id_bpp', $id);
+					$this->db->order_by('detail_bpp_project.id', 'DESC');
+					$this->db->join('barang', 'barang.id_barang = detail_bpp_project.id_barang');
+					break;
 				default:
 					break;
 			}

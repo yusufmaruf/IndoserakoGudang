@@ -260,15 +260,13 @@
 											<p>User</p>
 										</a>
 									</li>
-
-
-
+									<!--
 									<li class="nav-item">
 										<a href="<?= base_url() . 'master/consumer'; ?>" class="nav-link <?php if ($this->uri->segment('2') == 'consumer') echo 'active'; ?>">
 											<i class="fas fa-building  nav-icon"></i>
 											<p>Consumers</p>
 										</a>
-									</li>
+									</li> -->
 								</ul>
 							</li>
 						<?php } ?>

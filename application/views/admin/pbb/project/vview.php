@@ -58,48 +58,56 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="card">
-						<div class="card-header py-2">
+						<div class="card-body p-2">
 							<div class="row">
-								<h5 class="m-0">Data Inventaris Project PB/01/09/07/2024</h5>
-								<div class="ml-auto">
-									<a href="<?= base_url() ?>pbb/terima" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i>&nbsp; Terima</a>
-									<a href="<?= base_url() ?>pbb/kirim" class="btn btn-success btn-sm"><i class="fa fa-truck"></i>&nbsp; Kirim</a>
+								<div class="col-lg-4">
+									<h5 class="text-bold">Detail Project</h5>
+									<div class="row">
+										<div class="col-lg-6">
+											<h5>No. PBB : <?= $bpp['noform'] ?></h5>
+											<h5>No. SO : <?= $bpp['noso'] ?></h5>
+										</div>
+										<div class="col-lg-6">
+											<h5>NO. PO : <?= $bpp['nopo'] ?></h5>
+											<h5>Due Date : <?= $bpp['duedate'] ?></h5>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<h5 class="text-bold">Detail Customers</h5>
+									<div class="row">
+										<div class="col-lg-6">
+											<h5>Customers : <?= $bpp['customers'] ?></h5>
+										</div>
+										<div class="col-lg-6">
+											<h5>Name Project : <?= $bpp['nameproject'] ?></h5>
+										</div>
+									</div>
 								</div>
 							</div>
-						</div>
-						<div class="card-body p-2">
 							<table class="table table-bordered" id="datatable">
 								<thead class="text-center">
 									<tr>
-										<th style="width: 10px">No</th>
 										<th>Nama Barang</th>
 										<th>Qty</th>
 										<th>Sat</th>
 										<th>PIC</th>
-										<th>Pengiriman</th>
+										<th>Progress</th>
 										<th>Status</th>
 									</tr>
 								</thead>
 								<tbody class="text-center p-0">
-									<tr>
-										<td class=" text-center px-1">1</td>
-										<td class=" text-center px-1"> <a href="<?= base_url() ?>pbb/detail" class="text-dark">PC Siemens</a></td>
-										<td class=" text-center px-1">4 </td>
-										<td class=" text-center px-1"> Pcs </td>
-										<td class=" text-center px-1">Achmad </td>
-										<td class=" text-center px-1 ">
-											<div class="progress-outer px-1">
-												<div class="progress">
-													<div class="progress-bar progress-bar-info progress-bar-striped active" style="width:80%;"></div>
-													<div class="progress-value">80%</div>
-												</div>
-											</div>
-										</td>
-										<td class=" text-center  px-1">
-											<span class=" rounded-pill badge badge-success px-3 py-2">Open</span>
-										</td>
+									<?php foreach ($detailbpp as $key => $value) : ?>
+										<tr>
+											<td> <a href="<?= base_url() ?>bpp/bppproject/detail/<?= $value['id'] ?>"><?= $value['name'] ?></a></td>
+											<td><?= $value['qty'] ?></td>
+											<td><?= $value['satuan'] ?></td>
+											<td><?= $value['pic'] ?></td>
+											<td></td>
+											<td><?= $value['status'] ?></td>
+										</tr>
+									<?php endforeach; ?>
 
-									</tr>
 								</tbody>
 							</table>
 
@@ -238,38 +246,4 @@
 </div>
 
 
-
-<script>
-	$(document).ready(function() {
-		const t = $('#datatable').DataTable({
-			"paging": true,
-			"lengthChange": true,
-			"searching": true,
-			"ordering": true,
-			"info": true,
-			"autoWidth": false,
-			"responsive": false,
-			"iDisplayLength": 10,
-			"columnDefs": [{
-				"orderable": false,
-				"targets": [0, 7]
-			}],
-			"order": [
-				[1, 'asc']
-			]
-		});
-
-		t.on('order.dt search.dt', function() {
-			let i = 1;
-
-			t.cells(null, 0, {
-				search: 'applied',
-				order: 'applied'
-			}).every(function(cell) {
-				this.data(i + ". ");
-				i++;
-			});
-		}).draw();
-	});
-</script>
 <!-- /.content-wrapper -->

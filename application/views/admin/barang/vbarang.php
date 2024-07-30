@@ -340,7 +340,6 @@
 		$('#category').select2({
 			theme: 'bootstrap4',
 		});
-
 		const t = $('#datatable').DataTable({
 			"paging": true,
 			"lengthChange": true,

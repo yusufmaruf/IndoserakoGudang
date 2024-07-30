@@ -9,6 +9,7 @@ class Bppproject extends CI_Controller
 		$this->load->library('upload');
 		$this->load->model('mglobal');
 		$this->load->model('mdummy');
+		$this->load->model('minventaris');
 		$this->load->library('form_validation');
 		$this->load->model('mmaster');
 	}
@@ -54,9 +55,12 @@ class Bppproject extends CI_Controller
 	public function view($id = null)
 	{
 		$header['title'] = 'Report View';
+		$data = [];
+		$data['bpp'] = $this->mglobal->get_item('bppproject', 'id', $id);
+		$data['detailbpp'] = $this->mglobal->get_table('detail_bpp_project', $data['bpp']['id']);
 		$this->load->view('vheader', $header);
 		$this->mglobal->load_toast();
-		$this->load->view('admin/pbb/project/vview');
+		$this->load->view('admin/pbb/project/vview', $data);
 		$this->load->view('vfooter');
 	}
 

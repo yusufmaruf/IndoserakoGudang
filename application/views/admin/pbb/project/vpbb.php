@@ -77,29 +77,45 @@
 									<thead class="text-center p-1">
 										<tr>
 											<th>No.</th>
-											<th>Due Date</th>
+											<th width="10%">Due Date</th>
 											<th>No. BPP</th>
 											<th>Customer</th>
 											<th>Project</th>
-											<th>Status</th>
-											<th colspan="3">Action</th>
+											<th width="5%">Status</th>
+											<th width="10%" colspan="3">Action</th>
 										</tr>
 									</thead>
 									<tbody class="text-center p-1">
 										<?php $no = 1; ?>
 										<?php foreach ($bpp as $row) : ?>
-											<tr>
+											<tr class="justify-content-center align-items-center">
 												<td><?= $no++; ?></td>
 												<td><?= $row['duedate'] ?></td>
 												<td><?= $row['noform'] ?></td>
 												<td><?= $row['customers'] ?></td>
 												<td><?= $row['nameproject'] ?></td>
-												<td><span class="badge badge-primary px-2 py-2"><?= $row['status'] ?></span> </td>
-
+												<td>
+													<?php
+													switch ($row['status']) {
+														case 1:
+															echo '<span class="badge badge-primary px-2 py-2" style="color:white; line-height:10px;">Open</span>';
+															break;
+														case 2:
+															echo '<span class="badge badge-success px-2 py-2">Progress</span>';
+															break;
+														case 3:
+															echo '<span class="badge badge-danger px-2 py-2">Close</span>';
+															break;
+														default:
+															echo '<span class="badge badge-primary px-2 py-2">Open</span>';
+															break;
+													}
+													?>
+												</td>
 												<td> <a class="text-primary" type="button" onclick="show(<?= $row['id']; ?>)"><i class="fa fa-image fa-gold"> </i></a>
 												</td>
 												<td>
-													<a type="button" href="<?= base_url() . 'bpp/bppproject/edit/' . $row['id'] ?>" title="Edit"><i class="fa fa-eye fa-gold"></i></a>
+													<a type="button" href="<?= base_url() . 'bpp/bppproject/view/' . $row['id'] ?>" title="View"><i class="fa fa-eye fa-gold"></i></a>
 												</td>
 												<td>
 													<a type="button" href="<?= base_url() . 'bpp/bppproject/delete/' . $row['id'] ?>" title="Delete"><i class="fa fa-edit fa-gold"></i></a>

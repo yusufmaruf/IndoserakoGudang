@@ -85,9 +85,9 @@
 											<label for="" class="col-lg-4"> Status</label>
 											<select autofocus="" id="status" name="status" class="form-control select2">
 												<option value="">Pilih Status</option>
-												<option value="Open">Open</option>
-												<option value="Progress">Progress</option>
-												<option value="Closed">Closed</option>
+												<option value="1">Open</option>
+												<option value="2">Progress</option>
+												<option value="3">Closed</option>
 											</select>
 										</div>
 

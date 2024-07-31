@@ -28,8 +28,7 @@ class Barang extends CI_Controller
 		$this->load->view('vheader', $header);
 		$this->mglobal->load_toast();
 		$this->load->view('admin/barang/vbarang', $data);
-		// // $this->load->view('modal/reset_password');
-		// $this->load->view('vfooter');
+		$this->load->view('vfooter');
 	}
 
 	function upload_files($field, $type_name, $resize = false)

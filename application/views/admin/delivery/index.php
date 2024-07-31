@@ -47,7 +47,7 @@
 											<td>65000204891</td>
 											<td>12 Januari 2024</td>
 											<td>SJ Dibuat</td>
-											<td><a href="" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a></td>
+											<td><a href="<?= base_url() ?>delivery/delivery/detail" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a></td>
 										</tr>
 									</tbody>
 								</table>

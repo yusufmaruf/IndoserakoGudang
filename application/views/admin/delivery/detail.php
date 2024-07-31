@@ -60,9 +60,9 @@
 							<div class="row">
 								<h5 class="m-0">Detail Delivery</h5>
 								<div class="ml-auto">
-									<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-add"> &nbsp; Terima Barang</button>
-									<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-add"> &nbsp; Kirim Cust</button>
-									<button class="btn btn-warning text-white btn-sm" data-toggle="modal" data-target="#modal-add"> &nbsp; Kirim JKT</button>
+									<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-terima"> &nbsp; Terima Barang</button>
+									<button class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-kirimCust"> &nbsp; Kirim Cust</button>
+									<button class="btn btn-warning text-white btn-sm" data-toggle="modal" data-target="#modal-kirimJKT"> &nbsp; Kirim JKT</button>
 								</div>
 							</div>
 						</div>
@@ -220,7 +220,7 @@
 
 								<h5 class="m-0">Log Pengiriman</h5>
 								<div class="ml-auto">
-									<a href="<?= base_url() ?>delivery/delivery/create" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add</a>
+									<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-addLog"> &nbsp; Add Log</button>
 								</div>
 							</div>
 						</div>
@@ -248,138 +248,154 @@
 		</div>
 	</div>
 </div>
-</div>
-<script>
-	$(document).ready(function() {
-		$('#satuan').select2({
-			theme: 'bootstrap4',
-		});
-		$('#customers').select2({
-			theme: 'bootstrap4',
-		});
-		$('#gudang').select2({
-			theme: 'bootstrap4',
-		});
-		$('#pemohon').select2({
-			theme: 'bootstrap4',
-		});
-		$('#pic').select2({
-			theme: 'bootstrap4',
-		});
-		$('#barang').select2({
-			theme: 'bootstrap4',
-		});
-		$('#status').select2({
-			theme: 'bootstrap4',
-		});
-
-
-		$('#barang').on('change', function() {
-			var selectedBarang = $(this).val();
-			console.log(selectedBarang);
-
-			// Clear satuan select options
-			$('#satuan').empty();
-
-			// Add default option
-			// $('#satuan').append('<option value="">Pilih Satuan</option>');
-
-			if (selectedBarang) {
-				// AJAX request to fetch satuan options
-				$.ajax({
-					url: '<?= base_url() ?>master/getsatuan/' + selectedBarang, // Adjust the URL to match your controller and method
-					type: 'GET',
-					success: function(response) {
-						var satuan = JSON.parse(response).satuan;
-						console.log(satuan);
-						// Append the retrieved satuan as the selected option
-						$('#satuan').append('<option value="' + satuan + '" selected>' + satuan + '</option>');
-					},
-					error: function(xhr, status, error) {
-						console.error('AJAX Error: ', status, error);
-					}
-				});
-			}
-		});
-
-
-	});
-</script>
-<script>
-	$(document).ready(function() {
-
-		// Handle form submission
-		$('#add-item-form').on('submit', function(event) {
-			event.preventDefault(); // Prevent form from submitting normally
-
-			// Get form values
-			var barangId = $('#barang').val();
-			var barangName = $('#barang option:selected').data('name');
-			var qty = $('#qty').val();
-			var satuan = $('#satuan').val();
-			var picId = $('#pic').val();
-			var picName = $('#pic option:selected').data('name');
-
-			// Validate form values
-			if (!barangId || !qty || !satuan || !picId) {
-				alert('Please fill in all fields.');
-				return;
-			}
-
-			// Append new row to the table
-			var newRow = `
-                    <tr class="text-center">
-						<td class="text-center"> <input type="hidden" class="form-control " style="max-height: 30px;" value="${barangId}" name="id_barang[]">${barangName}</td>
-                        <td class="text-center"><input type="number" class="form-control" style="max-height: 30px;" value="${qty}" name="qty[]"></td>
-                        <td class="text-center">${satuan}</td>
-						<td class="text-center"><input type="hidden" class="form-control" style="max-height: 30px;" value="${picId}" name="iduser[]"> ${picName}</td>
-                        <td class="text-center">
-                            <button type="button" class="btn btn-danger btn-sm delete-row"><i class="fas fa-trash"></i></button>
-                        </td>
-                    </tr>
-                `;
-			$('#table-body').append(newRow);
-			// Clear form
-			$('#add-item-form')[0].reset();
-			$('#barang').val('').trigger('change');
-			$('#satuan').empty().prop('disabled', true);
-			$('#pic').val('').trigger('change');
-		});
-
-
-		// Delete row
-		$(document).on('click', '.delete-row', function() {
-			$(this).closest('tr').remove();
-		});
-	});
-</script>
-<script>
-	function previewImageedit(event) {
-		var reader = new FileReader();
-		reader.onload = function() {
-			var output = document.getElementById('img01');
-			output.src = reader.result;
-		};
-
-		var file = event.target.files[0]; // Ambil file yang diunggah
-		if (file) {
-			reader.readAsDataURL(file); // Jika ada file, baca sebagai data URL
-		} else {}
-		const input = event.target;
-		const label = input.nextElementSibling; // This gets the <label> element
-
-		if (input.files.length > 0) {
-			const fileName = input.files[0].name;
-			label.textContent = fileName;
-		} else {
-			label.textContent = 'Choose file';
-		}
-
-	}
-	$('#modal-edit').on('hidden.bs.modal', function() {
-		// Kosongkan preview gambar dan sembunyikan area preview saat modal ditutup
-		document.getElementById('previewImgedit').src = "";
-		document.getElementById('previewAreaedit').style.display = 'none';
-	});
-</script>
 <!-- /.content-wrapper -->
+
+
+<!-- modal Terima -->
+<div class="modal fade" id="modal-terima" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Terima Barang</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<form action="<?= base_url('category/save'); ?>" method="post">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="">Tanggal Terima Barang</label>
+								<input type="date" class="form-control" placeholder="Masukan Nama Category" name="name">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<label for="">Penerima Barang</label>
+							<select name="" class="form-control" id="selectPenerima">
+								<option value="">-- Pilih Penerima --</option>
+								<option value="penerima 1">Rosa</option>
+							</select>
+
+						</div>
+					</div>
+
+				</div>
+				<div class="modal-footer justify-content-between">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Save changes</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- end modal terima  -->
+<!-- modal kirim cust  -->
+<div class="modal fade" id="modal-kirimCust" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Terima Barang</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<form action="<?= base_url('category/save'); ?>" method="post">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="">Tanggal Terima Barang</label>
+								<input type="date" class="form-control" placeholder="Masukan Nama Category" name="name">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<label for="">Nama Pengirim </label>
+							<select name="" class="form-control" id="selectPenerima">
+								<option value="">-- Pilih Penerima --</option>
+								<option value="penerima 1">Salim</option>
+							</select>
+
+						</div>
+					</div>
+
+				</div>
+				<div class="modal-footer justify-content-between">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Save changes</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- end modal kirim cust  -->
+<!-- modal add kirim jkt  -->
+<div class="modal fade" id="modal-kirimJKT" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Kirim Ke Jakarta</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<form action="<?= base_url('category/save'); ?>" method="post">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="">Tanggal Kirim</label>
+								<input type="date" class="form-control" placeholder="Masukan Nama Category" name="name">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<label for="">Nomor Memo </label>
+							<input type="text" class="form-control" placeholder="Masukan Nomor Memo" name="name">
+						</div>
+					</div>
+
+				</div>
+				<div class="modal-footer justify-content-between">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Save changes</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- end modal add kirim jkt  -->
+<!-- modal add log  -->
+<div class="modal fade" id="modal-addLog" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Kirim Ke Jakarta</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<form action="<?= base_url('category/save'); ?>" method="post">
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="">Log</label>
+						<input type="text" name="log" class="form-control" id="">
+					</div>
+				</div>
+				<div class="modal-footer justify-content-between">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Save changes</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- end modal log  -->
+
+
+<script>
+	$(document).ready(function() {
+		$('#selectPenerima').select2({
+			theme: 'bootstrap4',
+		});
+	})
+</script>

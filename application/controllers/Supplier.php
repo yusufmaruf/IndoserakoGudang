@@ -19,8 +19,8 @@ class Supplier extends CI_Controller
 		$this->mglobal->checkpermit(12);
 		$header['title'] = 'Supplier';
 		$data = [];
-		$res = $this->mglobal->get_table('suppliers');
-		$data['suppliers'] = $res;
+		// $res = $this->mglobal->get_table('suppliers');
+		// $data['suppliers'] = $res;
 		$this->load->view('vheader', $header);
 		$this->mglobal->load_toast();
 		$this->load->view('admin/supplier/vsupplier', $data);

@@ -83,7 +83,6 @@
 														<th>Nama Barang</th>
 														<th width="10%">Qty</th>
 														<th>Desc</th>
-
 														<th width="10%">Act</th>
 													</tr>
 												</thead>
@@ -108,7 +107,6 @@
 									<div class="col-lg-12 px-1 text-right">
 										<button type="submit" class="btn  btn-primary">Submit</button>
 									</div>
-
 								</div>
 
 								<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

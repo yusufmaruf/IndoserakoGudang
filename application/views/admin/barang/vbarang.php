@@ -64,22 +64,7 @@
 										<th class="text-center" style="width: 7%;">Action</th>
 									</thead>
 									<tbody>
-										<?php $no = 1; ?>
-										<?php foreach ($barang as $b) : ?>
-											<tr>
-												<td class="text-center"><?= $no++; ?></td>
-												<td class="text-center"><img src="<?= base_url('uploads/equipment/') . $b['foto']; ?>" style="width: 200px;" class="img-fluid"></td>
-												<td class="text-center"><?= $b['name']; ?></td>
-												<td class="text-center"><?= $b['satuan']; ?></td>
-												<td class="text-center"><?= $b['brand']; ?></td>
-												<td class="text-center"><?= $b['type']; ?></td>
-												<td class="text-center"><?= $b['category_name']; ?></td>
-												<td class="text-center">
-													<button type="button" class="btn btn-primary btn-sm btn-edit" onclick="edit(<?= $b['id_barang']; ?>)"><i class="fa fa-edit"> </i></button>
-													<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-delete" onclick="remove(<?= $b['id_barang'] ?>)"><i class="fa fa-trash "> </i> </button>
-												</td>
-											</tr>
-										<?php endforeach; ?>
+
 									</tbody>
 								</table>
 							</div>

@@ -20,11 +20,11 @@ class Barang extends CI_Controller
 		$this->mglobal->checkpermit(12);
 		$header['title'] = 'Barang';
 		$data = [];
-		$res = $this->mglobal->get_table('barang');
-		$data['barang'] = $res;
+		// $res = $this->mglobal->get_table('barang');
+		// $data['barang'] = $res;
 		// $this->mglobal->pre($data['barang']);
-		$res = $this->mglobal->get_table('category');
-		$data['category'] = $res;
+		// $res = $this->mglobal->get_table('category');
+		// $data['category'] = $res;
 		$this->load->view('vheader', $header);
 		$this->mglobal->load_toast();
 		$this->load->view('admin/barang/vbarang', $data);

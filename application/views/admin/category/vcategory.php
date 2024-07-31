@@ -47,18 +47,14 @@
 										<th class="text-center" style="width: 20%;">Action</th>
 									</thead>
 									<tbody>
-										<?php $i = 1; ?>
-										<?php foreach ($category as $c) : ?>
-											<tr>
-												<td class="text-center"><?= $i++; ?></td>
-												<td class="text-center"><?= $c['name'] ?></td>
-												<td class="text-center">
-													<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-edit" onclick="edit(<?= $c['id_category'] ?>)"><i class="fa fa-pencil"> </i> </button>
-													<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-delete" onclick="remove(<?= $c['id_category'] ?>)"><i class="fa fa-trash "> </i> </button>
-												</td>
-											</tr>
-										<?php endforeach; ?>
-
+										<td>1</td>
+										<td>K3</td>
+										<td>
+											<div class="btn-group">
+												<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-edit"><i class="fa fa-edit"></i></button>
+												<button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-delete"><i class="fa fa-trash"></i></button>
+											</div>
+										</td>
 									</tbody>
 								</table>
 							</div>

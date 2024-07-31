@@ -36,10 +36,10 @@ class Bppproject extends CI_Controller
 		$header['title'] = 'Report';
 		$this->mglobal->load_toast();
 		$data = [];
-		$data['bpp'] = $this->mglobal->get_table('bppproject');
-		foreach ($data['bpp'] as $key => $value) {
-			$data['bpp'][$key]['duedate'] = $this->mglobal->format_dateIndo($value['duedate']);
-		}
+		// $data['bpp'] = $this->mglobal->get_table('bppproject');
+		// foreach ($data['bpp'] as $key => $value) {
+		// 	$data['bpp'][$key]['duedate'] = $this->mglobal->format_dateIndo($value['duedate']);
+		// }
 		$this->load->view('vheader', $header);
 		$this->load->view('admin/pbb/project/vpbb', $data);
 		$this->load->view('vfooter');
@@ -47,7 +47,8 @@ class Bppproject extends CI_Controller
 	public function create()
 	{
 		$header['title'] = 'Report';
-		$data['barang'] = $this->mglobal->get_table('barang');
+		$data = [];
+		// $data['barang'] = $this->mglobal->get_table('barang');
 		$this->load->view('vheader', $header);
 		$this->load->view('admin/pbb/project/vadd', $data);
 		$this->load->view('vfooter');

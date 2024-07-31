@@ -50,23 +50,18 @@
 										<th class="text-center" style="width: 10%;">Action</th>
 									</thead>
 									<tbody>
-										<?php
-										foreach ($suppliers as $key => $value) { ?>
-											<tr>
-												<td></td>
-												<td><?= $value['name'] ?></td>
-												<td><?= $value['address'] ?></td>
-												<td><?= $value['cp'] ?></td>
-												<td><?= $value['phone'] ?></td>
-												<td class="text-center">
-													<a href="<?= $value['link'] ?>" class="btn btn-success btn-sm"><i class="fa fa-eye"> </i></a>
-													<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-edit" onclick="edit('<?= $value['id'] ?>')"><i class="fa fa-edit"> </i></button>
-													<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-delete"><i class="fa fa-trash" onclick="remove('<?= $value['id'] ?>')"> </i></button>
-												</td>
-											</tr>
-										<?php
-										}
-										?>
+										<tr>
+											<td> 1 </td>
+											<td>Supplier 1</td>
+											<td>Jakarta</td>
+											<td>CP 1</td>
+											<td>Phone 1</td>
+											<td class="text-center">
+												<button class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-edit"><i class="fa fa-edit"></i></button>
+												<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-delete"><i class="fa fa-trash"></i></button>
+											</td>
+										</tr>
+
 									</tbody>
 								</table>
 							</div>

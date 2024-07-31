@@ -77,7 +77,7 @@
 								<table class="table table-bordered" id="datatable">
 									<thead class="text-center p-1">
 										<tr>
-											<th>No.</th>
+											<th width="5%">No.</th>
 											<th width="10%">Due Date</th>
 											<th>No. BPP</th>
 											<th>Customer</th>
@@ -87,42 +87,17 @@
 										</tr>
 									</thead>
 									<tbody class="text-center p-1">
-										<?php $no = 1; ?>
-										<?php foreach ($bpp as $row) : ?>
-											<tr class="justify-content-center align-items-center">
-												<td><?= $no++; ?></td>
-												<td><?= $row['duedate'] ?></td>
-												<td><?= $row['noform'] ?></td>
-												<td><?= $row['customers'] ?></td>
-												<td><?= $row['nameproject'] ?></td>
-												<td>
-													<?php
-													switch ($row['status']) {
-														case 1:
-															echo '<span class="badge badge-primary px-2 py-2" style="color:white; line-height:10px;">Open</span>';
-															break;
-														case 2:
-															echo '<span class="badge badge-success px-2 py-2">Progress</span>';
-															break;
-														case 3:
-															echo '<span class="badge badge-danger px-2 py-2">Close</span>';
-															break;
-														default:
-															echo '<span class="badge badge-primary px-2 py-2">Open</span>';
-															break;
-													}
-													?>
-												</td>
-												<td> <a class="text-primary" type="button" onclick="show(<?= $row['id']; ?>)"><i class="fa fa-image fa-gold"> </i></a>
-												</td>
-												<td>
-													<a type="button" href="<?= base_url() . 'bpp/bppproject/view/' . $row['id'] ?>" title="View"><i class="fa fa-eye fa-gold"></i></a>
-												</td>
-												<td>
-													<a type="button" href="<?= base_url() . 'bpp/bppproject/delete/' . $row['id'] ?>" title="Delete"><i class="fa fa-edit fa-gold"></i></a>
-												</td>
-											</tr>
-										<?php endforeach; ?>
+										<td>1</td>
+										<td>12/12/2020</td>
+										<td>123</td>
+										<td>PT. ABC</td>
+										<td>Project 1</td>
+										<td>
+											Open
+										</td>
+										<td><a href="" class="btn btn-primary btn-sm"><i class="fa fa-eye"></i></a></td>
+										<td><a href="" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a></td>
+										<td><a href="" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a></td>
 									</tbody>
 								</table>
 

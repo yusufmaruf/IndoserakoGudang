@@ -17,7 +17,7 @@ class Category extends CI_Controller
 
 	public function index()
 	{
-		$this->mglobal->checkpermit(99);
+		$this->mglobal->checkpermit(12);
 		$header['title'] = 'Category';
 		$data = [];
 		$res = $this->mglobal->get_table('category');
@@ -41,7 +41,7 @@ class Category extends CI_Controller
 
 	public function save()
 	{
-		$this->mglobal->checkpermit(99);
+		$this->mglobal->checkpermit(12);
 		$data = [];
 		$this->form_validation->set_rules('name', 'Name', 'required');
 		if ($this->form_validation->run() == false) {
@@ -55,7 +55,7 @@ class Category extends CI_Controller
 	}
 	public function update($id = null)
 	{
-		$this->mglobal->checkpermit(99);
+		$this->mglobal->checkpermit(12);
 
 		// Enable error reporting for debugging
 		ini_set('display_errors', 1);
@@ -87,7 +87,7 @@ class Category extends CI_Controller
 	}
 	public function delete()
 	{
-		$this->mglobal->checkpermit(99);
+		$this->mglobal->checkpermit(12);
 		$id = $this->input->post('id_category');
 		$this->mglobal->delete_item('category', 'id_category', $id);
 		$this->session->set_flashdata('del_success', 'Delete data success!');

@@ -71,7 +71,7 @@ class Master extends CI_Controller
 
 	public function user()
 	{
-		$this->mglobal->checkpermit(99);
+		$this->mglobal->checkpermit(12);
 		$header['title'] = 'User';
 		$data = [];
 		$res = $this->mglobal->get_table('users');
@@ -121,7 +121,7 @@ class Master extends CI_Controller
 
 	public function user_edit($id)
 	{
-		$this->mglobal->checkpermit(99);
+		$this->mglobal->checkpermit(12);
 		$header['title'] = 'Edit User';
 		$data = [];
 
@@ -163,7 +163,7 @@ class Master extends CI_Controller
 
 	public function user_delete($id)
 	{
-		$this->mglobal->checkpermit(99);
+		$this->mglobal->checkpermit(12);
 		$header['title'] = 'Delete User';
 
 		$delete = $this->mmaster->crud('users', $id, 3);
@@ -176,7 +176,7 @@ class Master extends CI_Controller
 
 	public function user_reset($id)
 	{
-		$this->mglobal->checkpermit(99);
+		$this->mglobal->checkpermit(12);
 		$header['title'] = 'Reset Password User';
 
 		$reset = $this->mglobal->change_password($id, true);
@@ -190,7 +190,7 @@ class Master extends CI_Controller
 	// gudang 
 	public function gudang()
 	{
-		$this->mglobal->checkpermit(99);
+		$this->mglobal->checkpermit(12);
 		$header['title'] = 'Gudang';
 		$data = [];
 		$res = $this->mglobal->get_table('gudang');
@@ -206,7 +206,7 @@ class Master extends CI_Controller
 	//suplier
 	public function supplier()
 	{
-		$this->mglobal->checkpermit(99);
+		$this->mglobal->checkpermit(12);
 		$header['title'] = 'Supplier';
 		$data = [];
 		$res = $this->mglobal->get_table('suppliers');
@@ -222,7 +222,7 @@ class Master extends CI_Controller
 	//barang
 	public function barang()
 	{
-		$this->mglobal->checkpermit(99);
+		$this->mglobal->checkpermit(12);
 		$header['title'] = 'Barang';
 		$data = [];
 		// $res = $this->mglobal->get_table('barang');
@@ -238,7 +238,7 @@ class Master extends CI_Controller
 	//category
 	public function category()
 	{
-		$this->mglobal->checkpermit(99);
+		$this->mglobal->checkpermit(12);
 		$header['title'] = 'Category';
 		$data = [];
 		// $res = $this->mglobal->get_table('category');
@@ -254,7 +254,7 @@ class Master extends CI_Controller
 	//stock gudang 
 	public function stockGudang()
 	{
-		$this->mglobal->checkpermit(99);
+		$this->mglobal->checkpermit(12);
 		$header['title'] = 'Stock Gudang';
 		$data = [];
 		// $res = $this->mglobal->get_table('stock_gudang');
@@ -268,7 +268,7 @@ class Master extends CI_Controller
 
 	public function receiveStockCompany()
 	{
-		$this->mglobal->checkpermit(99);
+		$this->mglobal->checkpermit(12);
 		$header['title'] = 'Receive Stock Company';
 		$data = [];
 		$data['barang'] =  $this->mdummy->productDummy();
@@ -284,7 +284,7 @@ class Master extends CI_Controller
 	public function receiveSafetyStock()
 	{
 
-		$this->mglobal->checkpermit(99);
+		$this->mglobal->checkpermit(12);
 		$header['title'] = 'Receive Safety Stock';
 		$data = [];
 		$data['barang'] =  $this->mdummy->productDummy();
@@ -297,7 +297,7 @@ class Master extends CI_Controller
 	public function subtractSafetyStock()
 	{
 
-		$this->mglobal->checkpermit(99);
+		$this->mglobal->checkpermit(12);
 		$header['title'] = 'Subtract Safety Stock';
 		$data = [];
 		$data['barang'] =  $this->mdummy->productDummy();
@@ -314,7 +314,7 @@ class Master extends CI_Controller
 	//master consumer
 	public function consumer()
 	{
-		$this->mglobal->checkpermit(99);
+		$this->mglobal->checkpermit(12);
 		$header['title'] = 'Master Consumer';
 		$data = [];
 		// $res = $this->mglobal->get_table('stock_gudang');

@@ -92,7 +92,7 @@ class Bppproject extends CI_Controller
 	}
 	public function savepbb()
 	{
-		$this->mglobal->checkpermit(99);
+		$this->mglobal->checkpermit(12);
 		$data = [];
 		$this->form_validation->set_rules('noform', 'No PBB', 'required');
 		$this->form_validation->set_rules('noso', 'No SO', 'required');

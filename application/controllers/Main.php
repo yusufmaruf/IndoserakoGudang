@@ -24,10 +24,10 @@ class Main extends CI_Controller
 				if ($res['password'] == $post['password']) {
 					$data = $res;
 					$this->session->set_userdata('user', $data['username']);
-					$this->session->set_userdata('name', $data['name']);
+					$this->session->set_userdata('name', $data['nama']);
 					$this->session->set_userdata('id', $data['id']);
-					$this->session->set_userdata('level', $data['level']);
-					redirect('report');
+					$this->session->set_userdata('level', $data['jabatan']);
+					redirect('barang');
 				} else {
 					$this->session->set_flashdata('login', 'Wrong Password');
 					redirect('main/login');

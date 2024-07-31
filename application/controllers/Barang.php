@@ -17,7 +17,7 @@ class Barang extends CI_Controller
 
 	public function index()
 	{
-		$this->mglobal->checkpermit(99);
+		$this->mglobal->checkpermit(12);
 		$header['title'] = 'Barang';
 		$data = [];
 		$res = $this->mglobal->get_table('barang');
@@ -73,7 +73,7 @@ class Barang extends CI_Controller
 
 	public function save()
 	{
-		$this->mglobal->checkpermit(99);
+		$this->mglobal->checkpermit(12);
 		$data = [];
 		$this->form_validation->set_rules('name', 'name', 'required');
 		$this->form_validation->set_rules('brand', 'brand', 'required');
@@ -106,7 +106,7 @@ class Barang extends CI_Controller
 
 	public function update($id = null)
 	{
-		$this->mglobal->checkpermit(99);
+		$this->mglobal->checkpermit(12);
 
 		// Enable error reporting for debugging
 		ini_set('display_errors', 1);
@@ -153,7 +153,7 @@ class Barang extends CI_Controller
 
 	public function delete($id = null)
 	{
-		$this->mglobal->checkpermit(99);
+		$this->mglobal->checkpermit(12);
 		$data = $this->input->post();
 		$this->mglobal->pre($data['id_barang']);
 		$item = $this->mglobal->get_item('barang', 'id_barang', $data['id_barang']);

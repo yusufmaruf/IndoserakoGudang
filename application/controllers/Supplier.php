@@ -16,7 +16,7 @@ class Supplier extends CI_Controller
 
 	public function index()
 	{
-		$this->mglobal->checkpermit(99);
+		$this->mglobal->checkpermit(12);
 		$header['title'] = 'Supplier';
 		$data = [];
 		$res = $this->mglobal->get_table('suppliers');
@@ -29,7 +29,7 @@ class Supplier extends CI_Controller
 	}
 	public function save()
 	{
-		$this->mglobal->checkpermit(99);
+		$this->mglobal->checkpermit(12);
 		$data = [];
 		$this->form_validation->set_rules('name', 'Name', 'required');
 		$this->form_validation->set_rules('address', 'Address', 'required');
@@ -58,7 +58,7 @@ class Supplier extends CI_Controller
 	}
 	public function delete()
 	{
-		$this->mglobal->checkpermit(99);
+		$this->mglobal->checkpermit(12);
 		$id = $this->input->post('id');
 		$this->mglobal->pre($id);
 		$this->mglobal->delete_item('suppliers', 'id', $id);

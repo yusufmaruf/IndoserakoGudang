@@ -320,9 +320,9 @@ class Mglobal extends CI_Model
 			case 'manager':
 				if ($this->session->userdata('level') < 20) redirect('main/show403', 'refresh');
 				break;
-			case 99:
+			case 12:
 			case 'admin';
-				if ($this->session->userdata('level') < 99) redirect('main/show403', 'refresh');
+				if ($this->session->userdata('level') < 12) redirect('main/show403', 'refresh');
 				break;
 			default:
 				return true;

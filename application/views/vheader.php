@@ -143,7 +143,7 @@
 								0 => 'Not assigned',
 								//1 => 'Viewer',
 								1 => 'Viewer',
-								99 => 'Administrator',
+								12 => 'Administrator',
 								//99 => 'Administrator'
 							); ?>
 							<p class="text-muted text-xs m-0"><?= $level[$this->session->userdata('level')] ?></p>
@@ -159,7 +159,7 @@
 				<!-- Sidebar Menu -->
 				<nav class="mt-2">
 					<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-						<?php if (in_array($this->session->userdata('level'), [99])) { ?>
+						<?php if (in_array($this->session->userdata('level'), [12])) { ?>
 							<li class="nav-item">
 								<a href="<?= base_url() . 'report' ?>" class="nav-link <?php if ($this->uri->segment('1') == 'dashboard') echo 'active'; ?>">
 									<i class="nav-icon fas fa-home"></i>
@@ -244,7 +244,7 @@
 
 						<?php } ?>
 
-						<?php if (in_array($this->session->userdata('level'), [99])) { ?>
+						<?php if (in_array($this->session->userdata('level'), [12])) { ?>
 							<li class="nav-header">Data Master</li>
 							<li class="nav-item">
 								<a href="<?= base_url() . 'barang'; ?>" class="nav-link <?php if ($this->uri->segment('1') == 'barang') echo 'active'; ?>">

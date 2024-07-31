@@ -50,7 +50,7 @@ class Stock extends CI_Controller
 	}
 	public function receiveStockCompany()
 	{
-		$this->mglobal->checkpermit(99);
+		$this->mglobal->checkpermit(12);
 		$header['title'] = 'Receive Stock Company';
 		$data = [];
 		$data['barang'] = $this->mglobal->get_table('barang');
@@ -62,7 +62,7 @@ class Stock extends CI_Controller
 	}
 	public function receiveStockCompany_add()
 	{
-		$this->mglobal->checkpermit(99);
+		$this->mglobal->checkpermit(12);
 		$this->form_validation->set_rules('tanggal', 'tanggal', 'required');
 		$this->form_validation->set_rules('penerima', 'penerima', 'required');
 		$this->form_validation->set_rules('reason', 'reason', 'required');
@@ -106,7 +106,7 @@ class Stock extends CI_Controller
 	public function subtractStockCompany()
 	{
 
-		$this->mglobal->checkpermit(99);
+		$this->mglobal->checkpermit(12);
 		$header['title'] = 'Subtract Stock Company';
 		$data = [];
 		$data['barang'] = $this->mglobal->get_table('inventory_stock');
@@ -117,7 +117,7 @@ class Stock extends CI_Controller
 	public function subtractStockCompany_add()
 	{
 
-		$this->mglobal->checkpermit(99);
+		$this->mglobal->checkpermit(12);
 		$this->form_validation->set_rules('soNumber', 'soNumber', 'required');
 		$this->form_validation->set_rules('tanggal', 'tanggal', 'required');
 		$this->form_validation->set_rules('id_barang[]', 'id_barang[]', 'required');

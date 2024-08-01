@@ -226,15 +226,29 @@ class Mglobal extends CI_Model
 
 	public function get_items($table, $where)
 	{
-		$this->db->where($where);
-		switch ($table) {
-			case 'master_barcode':
-				$this->db->order_by('product_name', 'asc');
-				break;
-			default:
-				break;
+		if ($where) {
+			$this->db->where($where);
 		}
 		$res = $this->db->get($table);
+		return $res ? $res->result_array() : false;
+	}
+	public function get_customs($table, $column, $id)
+	{
+
+		if ($table == 'po_list_detail') {
+			$this->db->select('po_list_detail.*, po_list.nama_brand as brand_name');
+			// Join condition
+			$this->db->join('po_list', 'po_list.id = po_list_detail.id_po_list');
+		}
+		if ($table == 'po_list') {
+			$this->db->where('year', date('Y'));
+		}
+		$this->db->from($table);
+		$this->db->where($column, $id);
+
+
+
+		$res = $this->db->get();
 		return $res ? $res->result_array() : false;
 	}
 	public function delete_item($table, $field, $value)

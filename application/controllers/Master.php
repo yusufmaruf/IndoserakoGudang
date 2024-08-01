@@ -24,6 +24,20 @@ class Master extends CI_Controller
 		echo json_encode(['satuan' => $satuan]);
 	}
 
+	public function getcustom()
+	{
+		// Ambil data dari POST
+		$table = $this->input->post('table');
+		$column = $this->input->post('field');
+		$id = $this->input->post('nomor_po');
+		if ($table && $column && $id) {
+			$data = $this->mglobal->get_customs($table, $column, $id);
+			echo json_encode($data);
+		} else {
+			echo json_encode([]); // Return empty array if parameters are not valid
+		}
+	}
+
 	function upload_files($field, $type_name, $resize = false)
 	{
 		// $prefix = strtok($field, '_'); // get string before '_' 

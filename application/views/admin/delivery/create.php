@@ -17,27 +17,30 @@
 							<form action="<?= base_url('bpp/bppproject/savepbb'); ?>" method="POST" mb-0 enctype="multipart/form-data">
 								<div class="row">
 									<div class="col-lg-6 px-1">
-										<div class="form-group d-flex mb-1 align-items-center">
-											<label class="col-lg-4 p-0" for=""> No PO</label>
-											<input class="col-lg-8 form-control" type="text" placeholder="Masukan No PO" name="noform">
+										<div class="form-group d-flex  mb-1 align-items-center">
+											<label class="col-lg-4 p-0" for="">Customer</label>
+											<select autofocus="" id="nama_customer" name="nama_customer" class="form-control select2">
+												<option value="">Pilih Customer</option>
+												<?php foreach ($customer as $key => $value) : ?>
+													<option value="<?= $value['id']; ?>"><?= $value['nickname']; ?></option>
+												<?php endforeach; ?>
+											</select>
 										</div>
 									</div>
-									<div class="col-lg-6 px-1">
+									<div class="col-lg-6">
 										<div class="form-group d-flex mb-1 align-items-center">
-											<label class="col-lg-4" for=""> No SJ</label>
-											<input class="col-lg-8 form-control" type="text" placeholder="Masukan No SJ" name="noso">
+											<label class="col-lg-4 p-0" for=""> No PO</label>
+											<select name="nomor_po" id="nomor_po" class="form-control">
 
+											</select>
 										</div>
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-lg-6 px-1">
-										<div class="form-group d-flex  mb-1 align-items-center">
-											<label class="col-lg-4 p-0" for=""> Nama Perusahaan</label>
-											<select autofocus="" id="customers" name="customers" class="form-control select2">
-												<option value="">Pilih Perusahaan</option>
-												<option value="1">Perusahaan 2</option>
-											</select>
+										<div class="form-group d-flex mb-1 align-items-center">
+											<label class="col-lg-4" for=""> No SJ</label>
+											<input class="col-lg-8 form-control" type="text" placeholder="Masukan No SJ" name="noso">
 										</div>
 									</div>
 									<div class="col-lg-6 px-1">
@@ -66,7 +69,7 @@
 														<td>10</td>
 														<td>e70213</td>
 														<td>
-															<button type="button" class="btn btn-sm btn-danger" onclick="addRow()"><i class="fa fa-trash"></i></button>
+															<button type="button" class="btn btn-sm btn-danger" title="Delete"><i class="fa fa-xmark"></i></button>
 														</td>
 													</tr>
 
@@ -110,26 +113,21 @@
 						<div class="card-body">
 							<form id="add-item-form">
 								<div class="row">
-									<div class="col-lg-6">
+									<div class="col-lg-9">
 										<div class="form-group">
-											<label for="">Brand</label>
-											<select autofocus="" id="barang" name="category" class="form-control select2">
+											<label for="">Item</label>
+											<select autofocus="" id="id_brand" name="id_brand" class="form-control select2">
 												<option value="">Pilih Brand</option>
 											</select>
 										</div>
 									</div>
-									<div class="col-lg-6">
+									<div class="col-lg-3">
 										<div class="form-group">
 											<label for="">Qty</label>
-											<input type="number" class="form-control" placeholder="Qty" id="qty" name="NoForm">
+											<input type="number" class="form-control" id="qty_item" name="qty">
 										</div>
 									</div>
 								</div>
-								<div class="form-group">
-									<label for="">Description</label>
-									<input type="text" class="form-control" placeholder="Description" id="qty" name="NoForm">
-								</div>
-
 								<button type="submit" class="btn btn-primary btn-block">Tambahkan
 
 								</button>
@@ -145,59 +143,90 @@
 </div>
 <script>
 	$(document).ready(function() {
-		$('#satuan').select2({
+		$('#nomor_po').select2({
 			theme: 'bootstrap4',
 		});
-		$('#customers').select2({
+		$('#id_brand').select2({
 			theme: 'bootstrap4',
 		});
-		$('#gudang').select2({
+		$('#nama_customer').select2({
 			theme: 'bootstrap4',
 		});
-		$('#pemohon').select2({
-			theme: 'bootstrap4',
-		});
-		$('#pic').select2({
-			theme: 'bootstrap4',
-		});
-		$('#barang').select2({
-			theme: 'bootstrap4',
-		});
-		$('#status').select2({
-			theme: 'bootstrap4',
-		});
+		$('#nama_customer').on('change', function() {
+			getnomor_po($(this).val());
 
+		});
+		$('#nomor_po').on('change', function() {
+			console.log($(this).val());
+		})
+	});
 
-		$('#barang').on('change', function() {
-			var selectedBarang = $(this).val();
-			console.log(selectedBarang);
-
-			// Clear satuan select options
-			$('#satuan').empty();
-
-			// Add default option
-			// $('#satuan').append('<option value="">Pilih Satuan</option>');
-
-			if (selectedBarang) {
-				// AJAX request to fetch satuan options
-				$.ajax({
-					url: '<?= base_url() ?>master/getsatuan/' + selectedBarang, // Adjust the URL to match your controller and method
-					type: 'GET',
-					success: function(response) {
-						var satuan = JSON.parse(response).satuan;
-						console.log(satuan);
-						// Append the retrieved satuan as the selected option
-						$('#satuan').append('<option value="' + satuan + '" selected>' + satuan + '</option>');
-					},
-					error: function(xhr, status, error) {
-						console.error('AJAX Error: ', status, error);
+	function getProduk(id) {
+		$.ajax({
+			url: '<?= base_url() ?>master/getcustom',
+			type: 'POST',
+			data: {
+				nomor_po: id,
+				table: 'po_list_detail',
+				field: 'id_po_list'
+			},
+			success: function(response) {
+				try {
+					var data = JSON.parse(response);
+					console.log(data);
+					$('#id_brand').empty();
+					if (Array.isArray(data) && data.length) {
+						data.forEach(function(value) {
+							$('#id_brand').append('<option value="' + value['id'] + '" >' + value['brand_name'] + ' | ' + value['description'] + ' | ' + value['qty'] + '</option>'); // Use forEach to iterate over the array
+						});
 					}
-				});
+					$('#qty').attr('max', data[0]['qty']);
+				} catch (e) {
+					console.error('Parsing Error:', e);
+				}
+			},
+			error: function(xhr, status, error) {
+				console.error('AJAX Error: ', status, error);
 			}
 		});
 
+	}
 
-	});
+	function getnomor_po(id) {
+		$('#nomor_po').empty();
+		$('#id_brand').empty();
+		$('#id_brand').append('<option value="">Tidak Ada Data</option>');
+
+		$.ajax({
+			url: '<?= base_url() ?>master/getcustom',
+			type: 'POST',
+			data: {
+				nomor_po: id,
+				table: 'po_list',
+				field: 'id_customer'
+			},
+			success: function(response) {
+				try {
+					var data = JSON.parse(response);
+					if (Array.isArray(data) && data.length) {
+						data.forEach(function(value) { // Use forEach to iterate over the array
+							$('#nomor_po').append('<option value="' + value['id'] + '" >' + value['nomor_po'] + '</option>');
+
+						});
+						getProduk(data[0]['id']);
+					} else {
+						// Handle the case where datas is empty or not an array
+						$('#nomor_po').append('<option value="">Tidak Ada Data</option>');
+					}
+				} catch (e) {
+					console.error('Parsing Error:', e);
+				}
+			},
+			error: function(xhr, status, error) {
+				console.error('AJAX Error: ', status, error);
+			}
+		})
+	}
 </script>
 <script>
 	$(document).ready(function() {

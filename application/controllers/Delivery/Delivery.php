@@ -37,8 +37,10 @@ class Delivery extends CI_Controller
 	{
 		$this->mglobal->checkpermit(12);
 		$header['title'] = 'Create Delivery';
+		$data = [];
+		$data['customer'] = $this->mglobal->get_table('customer', 'nama', 'ASC');
 		$this->load->view('vheader', $header);
-		$this->load->view('admin/delivery/create');
+		$this->load->view('admin/delivery/create', $data);
 		$this->load->view('vfooter');
 	}
 	public function detail()

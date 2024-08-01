@@ -19,7 +19,7 @@
 									<div class="col-lg-6 px-1">
 										<div class="form-group d-flex  mb-1 align-items-center">
 											<label class="col-lg-4 p-0" for="">Customer</label>
-											<select autofocus="" id="nama_customer" name="nama_customer" class="form-control select2">
+											<select autofocus="" id="nama_customer" name="id_customer" class="form-control select2">
 												<option value="">Pilih Customer</option>
 												<?php foreach ($customer as $key => $value) : ?>
 													<option value="<?= $value['id']; ?>"><?= $value['nickname']; ?></option>
@@ -43,9 +43,9 @@
 											<input class="col-lg-8 form-control" type="text" placeholder="Masukan No SJ" name="noso">
 										</div>
 									</div>
-									<div class="col-lg-6 px-1">
+									<div class="col-lg-6">
 										<div class="form-group d-flex mb-1 align-items-center">
-											<label class="col-lg-4" for=""> Tanggal </label>
+											<label class="col-lg-4 p-0" for=""> Tanggal </label>
 											<input class="col-lg-8 form-control" type="date" placeholder="Masukan Tanggal" name="duedate">
 										</div>
 									</div>
@@ -64,14 +64,7 @@
 													</tr>
 												</thead>
 												<tbody class="text-center" id="table-body">
-													<tr>
-														<td>IMF</td>
-														<td>10</td>
-														<td>e70213</td>
-														<td>
-															<button type="button" class="btn btn-sm btn-danger" title="Delete"><i class="fa fa-xmark"></i></button>
-														</td>
-													</tr>
+
 
 												</tbody>
 
@@ -177,7 +170,7 @@
 					$('#id_brand').empty();
 					if (Array.isArray(data) && data.length) {
 						data.forEach(function(value) {
-							$('#id_brand').append('<option value="' + value['id'] + '" >' + value['brand_name'] + ' | ' + value['description'] + ' | ' + value['qty'] + '</option>'); // Use forEach to iterate over the array
+							$('#id_brand').append('<option value="' + value['id'] + '" data-name="' + value['brand_name'] + '" data-desc="' + value['description'] + '" >' + value['brand_name'] + ' | ' + value['description'] + ' | ' + value['qty'] + '</option>'); // Use forEach to iterate over the array
 						});
 					}
 					$('#qty').attr('max', data[0]['qty']);
@@ -236,37 +229,30 @@
 			event.preventDefault(); // Prevent form from submitting normally
 
 			// Get form values
-			var barangId = $('#barang').val();
-			var barangName = $('#barang option:selected').data('name');
-			var qty = $('#qty').val();
-			var satuan = $('#satuan').val();
-			var picId = $('#pic').val();
-			var picName = $('#pic option:selected').data('name');
-
-			// Validate form values
-			if (!barangId || !qty || !satuan || !picId) {
+			var id_po_list_detail = $('#id_brand').val();
+			var name_po_list_detail = $('#id_brand option:selected').data('name');
+			var desc_po_list_detail = $('#id_brand option:selected').data('desc');
+			var qty = $('#qty_item').val(); // Validate form values
+			if (!id_po_list_detail || !name_po_list_detail || !qty) {
 				alert('Please fill in all fields.');
 				return;
 			}
-
 			// Append new row to the table
 			var newRow = `
                     <tr class="text-center">
-						<td class="text-center"> <input type="hidden" class="form-control " style="max-height: 30px;" value="${barangId}" name="id_barang[]">${barangName}</td>
+						<td class="text-center"> <input type="hidden" class="form-control " style="max-height: 30px;" value="${id_po_list_detail}" name="id_po_list_detail[]">${name_po_list_detail}</td>
                         <td class="text-center"><input type="number" class="form-control" style="max-height: 30px;" value="${qty}" name="qty[]"></td>
-                        <td class="text-center">${satuan}</td>
-						<td class="text-center"><input type="hidden" class="form-control" style="max-height: 30px;" value="${picId}" name="iduser[]"> ${picName}</td>
+						<td class="text-center">${desc_po_list_detail}</td>
                         <td class="text-center">
-                            <button type="button" class="btn btn-danger btn-sm delete-row"><i class="fas fa-trash"></i></button>
+                            <button type="button" class="btn btn-danger btn-sm delete-row" title="Delete"><i class="fa fa-xmark"></i></button>
                         </td>
                     </tr>
                 `;
 			$('#table-body').append(newRow);
 			// Clear form
 			$('#add-item-form')[0].reset();
-			$('#barang').val('').trigger('change');
-			$('#satuan').empty().prop('disabled', true);
-			$('#pic').val('').trigger('change');
+			$('#id_brand').val('').trigger('change');
+			$('#qty_item').val('');
 		});
 
 
@@ -276,33 +262,6 @@
 		});
 	});
 </script>
-<script>
-	function previewImageedit(event) {
-		var reader = new FileReader();
-		reader.onload = function() {
-			var output = document.getElementById('img01');
-			output.src = reader.result;
-		};
 
-		var file = event.target.files[0]; // Ambil file yang diunggah
-		if (file) {
-			reader.readAsDataURL(file); // Jika ada file, baca sebagai data URL
-		} else {}
-		const input = event.target;
-		const label = input.nextElementSibling; // This gets the <label> element
 
-		if (input.files.length > 0) {
-			const fileName = input.files[0].name;
-			label.textContent = fileName;
-		} else {
-			label.textContent = 'Choose file';
-		}
-
-	}
-	$('#modal-edit').on('hidden.bs.modal', function() {
-		// Kosongkan preview gambar dan sembunyikan area preview saat modal ditutup
-		document.getElementById('previewImgedit').src = "";
-		document.getElementById('previewAreaedit').style.display = 'none';
-	});
-</script>
 <!-- /.content-wrapper -->

@@ -86,79 +86,62 @@
 								<div class="row">
 									<div class="col-lg-6 px-1">
 										<div class="form-group d-flex  mb-1 align-items-center">
-											<label class="col-lg-4 p-0" for=""> Nama Perusahaan</label>
+											<label class="col-lg-4 p-0" for=""> Customer</label>
 											<select autofocus="" id="customers" name="customers" class="form-control select2" disabled>
 												<option value="" selected>Mega Surya</option>
 											</select>
 										</div>
 									</div>
 									<div class="col-lg-6 px-1">
-										<div class="form-group d-flex mb-1 align-items-center">
-											<label class="col-lg-4 " for=""> Nama Project</label>
-											<select autofocus="" id="Project" name="projects" class="form-control select2" disabled>
-												<option value="" selected>Migration and Humadity</option>
-											</select>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-lg-6 px-1">
 										<div class="input-group m-0">
 											<label class="col-lg-4 p-0" for=""> Foto SJ</label>
-											<input type="text" class="form-control" style="border-radius: 5px 0 0 5px;" value="logo.png" readonly>
+											<input type="text" class="form-control" style="border-radius: 5px 0 0 5px;" value="logo.png">
 											<div class=" input-group-append">
 												<span class="input-group-text"><i class="fas fa-eye"></i></span>
 											</div>
 										</div>
 									</div>
-									<div class="col-lg-6 px-1">
-										<div class="form-group d-flex mb-1 align-items-center">
-											<label class="col-lg-4 " for=""> Due Date </label>
-											<input class="col-lg-8 form-control" type="date" value="12/12/2024" name="duedate">
-										</div>
-
-									</div>
 								</div>
 								<div class="row">
 									<div class="col-lg-6 px-1">
 										<div class="form-group d-flex mb-1 align-items-center">
-											<label class="col-lg-4 p-0" for=""> Tanggal Terima</label>
+											<label class="col-lg-4 " for=""> Date Created </label>
+											<input class="col-lg-8 form-control" type="date" value="12/12/2024" name="duedate">
+										</div>
+									</div>
+									<div class="col-lg-6 px-1">
+										<div class="form-group d-flex mb-1 align-items-center">
+											<label class="col-lg-4 p-0" for=""> Receipt Date</label>
 											<input class="col-lg-8 form-control" type="date" placeholder="Masukan Tanggal" name="duedate">
 										</div>
 									</div>
+								</div>
+								<div class="row">
 									<div class="col-lg-6 px-1">
 										<div class="form-group d-flex mb-1 align-items-center">
 											<label class="col-lg-4" for=""> Penerima </label>
 											<input class="col-lg-8 form-control" type="text" placeholder="Nama Penerima" name="duedate">
 										</div>
 									</div>
-								</div>
-
-								<div class="row">
 									<div class="col-lg-6 px-1">
 										<div class="form-group d-flex mb-1 align-items-center">
-											<label class="col-lg-4 p-0" for=""> Tanggal Pengiriman</label>
+											<label class="col-lg-4 p-0" for=""> Delivery Date</label>
 											<input class="col-lg-8 form-control" type="date" placeholder="Masukan Tanggal" name="duedate">
 										</div>
 									</div>
+								</div>
+
+								<div class="row">
 									<div class="col-lg-6 px-1">
 										<div class="form-group d-flex mb-1 align-items-center">
 											<label class="col-lg-4" for=""> Pengirim</label>
 											<input class="col-lg-8 form-control" type="text" placeholder="Nama Pengirim" name="duedate">
 										</div>
 									</div>
-								</div>
-								<div class="row">
 									<div class="col-lg-6 px-1">
 										<div class="form-group d-flex mb-1 align-items-center">
-											<label class="col-lg-4 p-0" for=""> Tanggal Kirim </label>
+											<label class="col-lg-4 p-0" for=""> Report Date </label>
 											<input class="col-lg-8 form-control" type="date" placeholder="Masukan Tanggal" name="duedate">
-										</div>
-									</div>
-									<div class="col-lg-6 px-1">
-										<div class="form-group d-flex mb-1 align-items-center">
-											<label class="col-lg-4" for="">No Memo </label>
-											<input class="col-lg-8 form-control" type="text" placeholder="Masukan No Memo" name="duedate">
 										</div>
 									</div>
 								</div>

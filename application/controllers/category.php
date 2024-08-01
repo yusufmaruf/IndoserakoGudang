@@ -20,12 +20,11 @@ class Category extends CI_Controller
 		$this->mglobal->checkpermit(12);
 		$header['title'] = 'Category';
 		$data = [];
-		// $res = $this->mglobal->get_table('category');
-		// $data['category'] = $res;
+		$res = $this->mglobal->get_table('category', 'name', 'DESC');
+		$data['category'] = $res;
 		$this->load->view('vheader', $header);
 		$this->mglobal->load_toast();
 		$this->load->view('admin/category/vcategory', $data);
-		// $this->load->view('modal/reset_password');
 		$this->load->view('vfooter');
 	}
 	public function edit($id = null)
@@ -42,6 +41,7 @@ class Category extends CI_Controller
 	public function save()
 	{
 		$this->mglobal->checkpermit(12);
+		$this->mglobal->load_toast();
 		$data = [];
 		$this->form_validation->set_rules('name', 'Name', 'required');
 		if ($this->form_validation->run() == false) {
@@ -49,40 +49,26 @@ class Category extends CI_Controller
 		} else {
 			$data = $this->input->post();
 			$this->mglobal->insert_data('category', $data);
-			$this->session->set_flashdata('ins_success', 'Insert data success!');
+			$this->session->set_flashdata('global', 'ins_success');
 			redirect('category');
 		}
 	}
 	public function update($id = null)
 	{
 		$this->mglobal->checkpermit(12);
-
-		// Enable error reporting for debugging
-		ini_set('display_errors', 1);
-		ini_set('display_startup_errors', 1);
-		error_reporting(E_ALL);
-
 		$this->form_validation->set_rules('name', 'Name', 'required');
-
 		if ($this->form_validation->run() == false) {
-			// Display validation errors
 			$this->mglobal->pre($this->form_validation->error_array());
 		} else {
 			$data = $this->input->post();
-
-
-			// // Update the data
 			$update_result = $this->mglobal->update_data('category', $data, 'id_category = ' . $data['id_category']);
-			// $this->mglobal->pre($update_result);
-
 			if ($update_result) {
-				$this->session->set_flashdata('ins_success', 'Update data success!');
+				$this->session->set_flashdata('global', 'upd_success');
 				redirect('category');
 			} else {
-				$this->session->set_flashdata('ins_failed', 'Update data failed!');
+				$this->session->set_flashdata('global', 'upd_failed');
+				redirect('category');
 			}
-
-			// redirect('barang');
 		}
 	}
 	public function delete()
@@ -90,7 +76,7 @@ class Category extends CI_Controller
 		$this->mglobal->checkpermit(12);
 		$id = $this->input->post('id_category');
 		$this->mglobal->delete_item('category', 'id_category', $id);
-		$this->session->set_flashdata('del_success', 'Delete data success!');
+		$this->session->set_flashdata('global', 'del_success!');
 		redirect('category');
 	}
 

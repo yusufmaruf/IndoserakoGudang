@@ -40,21 +40,26 @@
 						</div>
 						<div class="card-body p-2">
 							<div class="table-responsive">
-								<table class="table table-bordered" id="datatable">
+								<table class="table table-bordered text-center" id="datatable">
 									<thead>
 										<th class="w5 text-center">No.</th>
 										<th class="text-center">Category</th>
-										<th class="text-center" style="width: 20%;">Action</th>
+										<th class="text-center" style="width: 20%;" colspan="2">Action</th>
 									</thead>
 									<tbody>
-										<td>1</td>
-										<td>K3</td>
-										<td>
-											<div class="btn-group">
-												<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-edit"><i class="fa fa-edit"></i></button>
-												<button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-delete"><i class="fa fa-trash"></i></button>
-											</div>
-										</td>
+										<?php $no = 1;
+										foreach ($category as $key => $value) { ?>
+											<tr>
+												<td class="text-center"><?= $no++; ?></td>
+												<td><?= $value['name']; ?></td>
+												<td class="text-center">
+													<button type="button" class="btn btn-primary btn-sm btn-edit" onclick="edit(<?= $value['id_category']; ?>)"><i class="fa fa-edit"> </i></button>
+												</td>
+												<td>
+													<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-delete" onclick="remove(<?= $value['id_category'] ?>)"><i class="fa fa-trash "> </i> </button>
+												</td>
+											</tr>
+										<?php } ?>
 									</tbody>
 								</table>
 							</div>
@@ -153,7 +158,7 @@
 			"iDisplayLength": 10,
 			"columnDefs": [{
 				"orderable": false,
-				"targets": [0, 2]
+				"targets": [0, 3]
 			}],
 			"order": [
 				[1, 'asc']

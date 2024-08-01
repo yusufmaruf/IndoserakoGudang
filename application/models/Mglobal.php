@@ -34,7 +34,6 @@ class Mglobal extends CI_Model
 	{
 		$this->db->where($where);
 		$this->db->update($table, $data);
-
 		return $this->db->affected_rows();
 	}
 
@@ -268,40 +267,9 @@ class Mglobal extends CI_Model
 		}
 		return true;
 	}
-	public function get_table($table, $id = null)
+	public function get_table($table, $order, $by)
 	{
-		if ($id != null) {
-			switch ($table) {
-				case 'log_inventory_stock':
-					$this->db->where('id_barang', $id);
-					$this->db->order_by('id', 'DESC');
-					break;
-				case 'detail_bpp_project':
-					$this->db->where('id_bpp', $id);
-					$this->db->order_by('detail_bpp_project.id', 'DESC');
-					$this->db->join('barang', 'barang.id_barang = detail_bpp_project.id_barang');
-					break;
-				default:
-					break;
-			}
-		} else {
-			switch ($table) {
-				case 'barang':
-					$this->db->select('barang.*, category.name as category_name');
-					$this->db->join('category', 'category.id_category = ' . $table . '.category');
-					break;
-				case 'inventory_stock':
-					$this->db->select('barang.*');
-					$this->db->join('barang', 'barang.id_barang = ' . $table . '.id_barang');
-					$this->db->group_by('barang.id_barang');
-					break;
-				case 'bppproject':
-					$this->db->order_by('duedate', 'ASC');
-					break;
-				default:
-					break;
-			}
-		}
+		$this->db->order_by($order, $by);
 		$res = $this->db->get($table);
 		return $res ? $res->result_array() : false;
 	}

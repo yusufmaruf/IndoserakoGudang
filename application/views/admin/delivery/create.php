@@ -14,7 +14,7 @@
 							<h5 class="m-0">Form Delivery</h5>
 						</div>
 						<div class="card-body ">
-							<form action="<?= base_url('bpp/bppproject/savepbb'); ?>" method="POST" mb-0 enctype="multipart/form-data">
+							<form action="<?= base_url('delivery/delivery/store'); ?>" method="POST" mb-0 enctype="multipart/form-data">
 								<div class="row">
 									<div class="col-lg-6 px-1">
 										<div class="form-group d-flex  mb-1 align-items-center">
@@ -31,7 +31,6 @@
 										<div class="form-group d-flex mb-1 align-items-center">
 											<label class="col-lg-4 p-0" for=""> No PO</label>
 											<select name="nomor_po" id="nomor_po" class="form-control">
-
 											</select>
 										</div>
 									</div>
@@ -40,13 +39,13 @@
 									<div class="col-lg-6 px-1">
 										<div class="form-group d-flex mb-1 align-items-center">
 											<label class="col-lg-4" for=""> No SJ</label>
-											<input class="col-lg-8 form-control" type="text" placeholder="Masukan No SJ" name="noso">
+											<input class="col-lg-8 form-control" type="text" placeholder="Masukan No SJ" name="nomor_sj">
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group d-flex mb-1 align-items-center">
 											<label class="col-lg-4 p-0" for=""> Tanggal </label>
-											<input class="col-lg-8 form-control" type="date" placeholder="Masukan Tanggal" name="duedate">
+											<input class="col-lg-8 form-control" type="date" name="created_at" value="<?= date('Y-m-d'); ?>" readonly>
 										</div>
 									</div>
 
@@ -241,7 +240,7 @@
 			var newRow = `
                     <tr class="text-center">
 						<td class="text-center"> <input type="hidden" class="form-control " style="max-height: 30px;" value="${id_po_list_detail}" name="id_po_list_detail[]">${name_po_list_detail}</td>
-                        <td class="text-center"><input type="number" class="form-control" style="max-height: 30px;" value="${qty}" name="qty[]"></td>
+                        <td class="text-center"><input type="number" class="form-control" style="max-height: 30px;" value="${qty}" name="qty_delivery[]"></td>
 						<td class="text-center">${desc_po_list_detail}</td>
                         <td class="text-center">
                             <button type="button" class="btn btn-danger btn-sm delete-row" title="Delete"><i class="fa fa-xmark"></i></button>

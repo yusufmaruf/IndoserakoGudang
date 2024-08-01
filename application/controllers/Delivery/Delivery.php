@@ -55,7 +55,10 @@ class Delivery extends CI_Controller
 		$this->mglobal->checkpermit(12);
 		$header['title'] = 'Create Delivery';
 		$data['delivery'] = $this->mglobal->get_customtableid('delivery', $id);
-		$this->mglobal->pre($data['delivery']);
+		$data['log'] = $this->mglobal->get_table('delivery_log', 'id', 'DESC', ['id_delivery' => $id]);
+		foreach ($data['log'] as $key => $value) {
+			$data['log'][$key]['date'] = $this->mglobal->format_dateIndo($data['log'][$key]['date']);
+		}
 		$this->load->view('vheader', $header);
 		$this->load->view('admin/delivery/detail', $data);
 		$this->load->view('vfooter');

@@ -72,13 +72,13 @@
 									<div class="col-lg-6 px-1">
 										<div class="form-group d-flex mb-1 align-items-center">
 											<label class="col-lg-4 p-0" for=""> No PO</label>
-											<input class="col-lg-8 form-control" type="text" placeholder="6500020486" name="noform" readonly>
+											<input class="col-lg-8 form-control" type="text" value="<?= $delivery['nomor_po']; ?>" name="noform" readonly>
 										</div>
 									</div>
 									<div class="col-lg-6 px-1">
 										<div class="form-group d-flex mb-1 align-items-center">
 											<label class="col-lg-4" for=""> No SJ</label>
-											<input class="col-lg-8 form-control" type="text" placeholder="6500020489" name="noso" readonly>
+											<input class="col-lg-8 form-control" type="text" value="<?= $delivery['nomor_sj']; ?>" name="noso" readonly>
 
 										</div>
 									</div>
@@ -88,16 +88,16 @@
 										<div class="form-group d-flex  mb-1 align-items-center">
 											<label class="col-lg-4 p-0" for=""> Customer</label>
 											<select autofocus="" id="customers" name="customers" class="form-control select2" disabled>
-												<option value="" selected>Mega Surya</option>
+												<option value="" selected><?= $delivery['customer_name']; ?></option>
 											</select>
 										</div>
 									</div>
 									<div class="col-lg-6 px-1">
 										<div class="input-group m-0">
 											<label class="col-lg-4 p-0" for=""> Foto SJ</label>
-											<input type="text" class="form-control" style="border-radius: 5px 0 0 5px;" value="logo.png">
+											<input type="text" class="form-control" style="border-radius: 5px 0 0 5px;" value="<?= $delivery['image_sj']; ?>" readonly name="image">
 											<div class=" input-group-append">
-												<span class="input-group-text"><i class="fas fa-eye"></i></span>
+												<span class="input-group-text bg-light"><i class="fas fa-eye"></i></span>
 											</div>
 										</div>
 									</div>
@@ -106,13 +106,14 @@
 									<div class="col-lg-6 px-1">
 										<div class="form-group d-flex mb-1 align-items-center">
 											<label class="col-lg-4 " for=""> Date Created </label>
-											<input class="col-lg-8 form-control" type="date" value="12/12/2024" name="duedate">
+											<input class="col-lg-8 form-control" type="date" value="<?= date('Y-m-d', strtotime($delivery['created_at'])); ?>" name="duedate" readonly>
 										</div>
 									</div>
 									<div class="col-lg-6 px-1">
 										<div class="form-group d-flex mb-1 align-items-center">
-											<label class="col-lg-4 p-0" for=""> Receipt Date</label>
-											<input class="col-lg-8 form-control" type="date" placeholder="Masukan Tanggal" name="duedate">
+											<label class="col-lg-4 p-0" for=""> Receive Date</label>
+											<input class="col-lg-8 form-control" type="date" placeholder="Masukan Tanggal" value="<?= $delivery['receive_date'] ? date('Y-m-d', strtotime($delivery['receive_date'])) : ''; ?>" name="duedate" readonly>
+
 										</div>
 									</div>
 								</div>
@@ -120,13 +121,13 @@
 									<div class="col-lg-6 px-1">
 										<div class="form-group d-flex mb-1 align-items-center">
 											<label class="col-lg-4" for=""> Penerima </label>
-											<input class="col-lg-8 form-control" type="text" placeholder="Nama Penerima" name="duedate">
+											<input class="col-lg-8 form-control" type="text" value="<?= $delivery['recipient']; ?>" name="duedate" disabled>
 										</div>
 									</div>
 									<div class="col-lg-6 px-1">
 										<div class="form-group d-flex mb-1 align-items-center">
 											<label class="col-lg-4 p-0" for=""> Delivery Date</label>
-											<input class="col-lg-8 form-control" type="date" placeholder="Masukan Tanggal" name="duedate">
+											<input class="col-lg-8 form-control" type="date" value="<?= $delivery['delivery_date'] ? date('Y-m-d', strtotime($delivery['delivery_date'])) : ''; ?>" name="duedate" disabled>
 										</div>
 									</div>
 								</div>
@@ -135,13 +136,13 @@
 									<div class="col-lg-6 px-1">
 										<div class="form-group d-flex mb-1 align-items-center">
 											<label class="col-lg-4" for=""> Pengirim</label>
-											<input class="col-lg-8 form-control" type="text" placeholder="Nama Pengirim" name="duedate">
+											<input class="col-lg-8 form-control" type="text" value="<?= $delivery['sender']; ?>" name="duedate" disabled>
 										</div>
 									</div>
 									<div class="col-lg-6 px-1">
 										<div class="form-group d-flex mb-1 align-items-center">
 											<label class="col-lg-4 p-0" for=""> Report Date </label>
-											<input class="col-lg-8 form-control" type="date" placeholder="Masukan Tanggal" name="duedate">
+											<input class="col-lg-8 form-control" type="date" placeholder="Masukan Tanggal" value="<?= $delivery['report_date'] ? date('Y-m-d', strtotime($delivery['report_date'])) : ''; ?>" name="duedate" disabled>
 										</div>
 									</div>
 								</div>
@@ -209,21 +210,13 @@
 						</div>
 						<div class="card-body py-1 px-2 m-0">
 							<ul class="timeline">
-								<li class="timeline-item bg-white rounded ml-3 py-0 px-3 border border-grey ">
-									<h6 class="mb-0 pt-1"><i class="fa fa-clock-o mr-1"></i>21 March, 2019</h6>
-									<p class="text-small  font-weight-light p-0 m-0 ">barang dikirimkan</p>
-								</li>
-								<li class="timeline-item bg-white rounded ml-3 py-0 px-3 border border-grey ">
-									<h6 class="mb-0 pt-1"><i class="fa fa-clock-o mr-1"></i>21 March, 2019</h6>
-									<p class="text-small  font-weight-light p-0 m-0">barang diterima</p>
-								</li>
-								<li class="timeline-item bg-white rounded ml-3 py-0 px-3  border border-grey">
-									<h6 class="mb-0 pt-1"><i class="fa fa-clock-o mr-1"></i>21 March, 2019</h6>
-									<p class="text-small  font-weight-light p-0 m-0 ">Data PPB Dibuat</p>
-								</li>
-
+								<?php foreach ($log as $logkey => $logvalue) { ?>
+									<li class="timeline-item bg-white rounded ml-3 py-0 px-3 border border-grey ">
+										<h6 class="mb-0 pt-1"><i class="fa fa-clock-o mr-1"></i><?= $logvalue['date']; ?></h6>
+										<p class="text-small  font-weight-light p-0 m-0 "><?= $logvalue['message']; ?></p>
+									</li>
+								<?php } ?>
 							</ul>
-
 						</div>
 					</div>
 				</div>

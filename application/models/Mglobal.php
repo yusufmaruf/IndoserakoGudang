@@ -240,6 +240,10 @@ class Mglobal extends CI_Model
 			// Join condition
 			$this->db->join('po_list', 'po_list.id = po_list_detail.id_po_list');
 		}
+		if ($table == 'delivery_detail') {
+			$this->db->select('delivery_detail.* po_list_detail.description as desc');
+			$this->db->join('po_list_detail', 'po_list_detail.id = delivery_detail.id_po_list_detail');
+		}
 		if ($table == 'po_list') {
 			$this->db->where('year', date('Y'));
 		}
@@ -281,9 +285,12 @@ class Mglobal extends CI_Model
 		}
 		return true;
 	}
-	public function get_table($table, $order, $by)
+	public function get_table($table, $order, $by, $where = null)
 	{
 		$this->db->order_by($order, $by);
+		if ($where) {
+			$this->db->where($where);
+		}
 		$res = $this->db->get($table);
 		return $res ? $res->result_array() : false;
 	}
@@ -295,7 +302,6 @@ class Mglobal extends CI_Model
 				$this->db->join('customer', 'customer.id = delivery.id_customer');
 				break;
 			default:
-
 				break;
 		}
 		$this->db->order_by($order, $by);

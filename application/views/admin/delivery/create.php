@@ -42,37 +42,11 @@
 									</div>
 									<div class="col-lg-6 px-1">
 										<div class="form-group d-flex mb-1 align-items-center">
-											<label class="col-lg-4" for=""> Nama Project</label>
-											<select autofocus="" id="Project" name="projects" class="form-control select2">
-												<option value="">Pilih Project</option>
-											</select>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-lg-6 px-1">
-										<div class="form-group d-flex mb-1 align-items-center">
-											<label for="" class="col-lg-4 p-0">Gambar</label>
-											<div class="input-group">
-												<div class="custom-file">
-													<input type="file" class="custom-file-input" id="previewImgedit" name="ttd" accept="image/*" onchange="previewImageedit(event)">
-													<label class="custom-file-label" for="exampleInputFile">Choose file</label>
-												</div>
-												<div class="input-group-append">
-													<button type="button" class="btn btn-block input-group-text" data-toggle="modal" data-target="#myModal">
-														<i class="fa fa-eye"></i>
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-6 px-1">
-										<div class="form-group d-flex mb-1 align-items-center">
 											<label class="col-lg-4" for=""> Tanggal </label>
 											<input class="col-lg-8 form-control" type="date" placeholder="Masukan Tanggal" name="duedate">
 										</div>
-
 									</div>
+
 								</div>
 								<div class="row mb-1">
 									<div class="col-lg-12 px-1 ">

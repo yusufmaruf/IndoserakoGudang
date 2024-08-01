@@ -287,6 +287,45 @@ class Mglobal extends CI_Model
 		$res = $this->db->get($table);
 		return $res ? $res->result_array() : false;
 	}
+	public function get_customtable($table, $order, $by)
+	{
+		switch ($table) {
+			case 'delivery':
+				$this->db->select('delivery.*, customer.nama as customer_name');
+				$this->db->join('customer', 'customer.id = delivery.id_customer');
+				break;
+			default:
+
+				break;
+		}
+		$this->db->order_by($order, $by);
+		$res = $this->db->get($table);
+		return $res ? $res->result_array() : false;
+	}
+	public function get_customtableid($table,  $id)
+	{
+		switch ($table) {
+			case 'delivery':
+				$this->db->where('delivery.id', $id);
+				$this->db->select('delivery.*, customer.nama as customer_name');
+				$this->db->join('customer', 'customer.id = delivery.id_customer');
+
+				break;
+			default:
+
+				break;
+		}
+		$res = $this->db->get($table);
+		return $res ? $res->row_array() : false;
+	}
+	public function gettablelimit($table, $limit, $order, $by, $where)
+	{
+		$this->db->where($where);
+		$this->db->limit($limit);
+		$this->db->order_by($order, $by);
+		$res = $this->db->get($table);
+		return $res ? $res->result_array() : false;
+	}
 	public function checkpermit($param = null)
 	{
 		if ($this->session->userdata('user') == '') {

@@ -18,6 +18,13 @@ class Delivery extends CI_Controller
 		$this->mglobal->checkpermit(12);
 		$header['title'] = 'Delivery Barang';
 		$data = [];
+		$data['delivery'] = $this->mglobal->get_customtable('delivery', 'id', 'DESC');
+		foreach ($data['delivery'] as $key => $value) {
+			$data['delivery'][$key]['created_at'] = $this->mglobal->format_dateIndo($value['created_at']);
+
+			$message = $this->mglobal->gettablelimit('delivery_log', 1, 'id', 'DESC', ['id_delivery' => $value['id']]);
+			$data['delivery'][$key]['delivery_message'] = $message[0]['message'];
+		}
 		$this->load->view('vheader', $header);
 		$this->mglobal->load_toast();
 		$this->load->view('admin/delivery/index', $data);
@@ -43,12 +50,14 @@ class Delivery extends CI_Controller
 		$this->load->view('admin/delivery/create', $data);
 		$this->load->view('vfooter');
 	}
-	public function detail()
+	public function detail($id = null)
 	{
 		$this->mglobal->checkpermit(12);
 		$header['title'] = 'Create Delivery';
+		$data['delivery'] = $this->mglobal->get_customtableid('delivery', $id);
+		$this->mglobal->pre($data['delivery']);
 		$this->load->view('vheader', $header);
-		$this->load->view('admin/delivery/detail');
+		$this->load->view('admin/delivery/detail', $data);
 		$this->load->view('vfooter');
 	}
 	public function store()
@@ -80,7 +89,7 @@ class Delivery extends CI_Controller
 				$detail[$key] = [
 					'id_delivery' => $insert_data,
 					'id_po_list_detail' => $value,
-					'qty_delivery' => $post['qty'][$key],
+					'qty_delivery' => $post['qty_delivery'][$key],
 				];
 				$this->mglobal->insert_data('delivery_detail', $detail[$key]);
 			}

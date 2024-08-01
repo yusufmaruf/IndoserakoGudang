@@ -40,15 +40,20 @@
 										</tr>
 									</thead>
 									<tbody class="text-center">
-										<tr>
-											<td>1</td>
-											<td>Mega Surya</td>
-											<td>6500020486</td>
-											<td>65000204891</td>
-											<td>12 Januari 2024</td>
-											<td>SJ Dibuat</td>
-											<td><a href="<?= base_url() ?>delivery/delivery/detail" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a></td>
-										</tr>
+										<?php $no = 1;
+										foreach ($delivery as $key => $value) : ?>
+											<tr>
+												<td><?= $no++; ?></td>
+												<td><?= $value['customer_name']; ?></td>
+												<td><?= $value['nomor_po']; ?></td>
+												<td><?= $value['nomor_sj']; ?></td>
+												<td><?= $value['created_at']; ?></td>
+												<td><?= $value['delivery_message']; ?></td>
+												<td>
+													<a href="<?= base_url() ?>delivery/delivery/detail/<?= $value['id']; ?>" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+												</td>
+											</tr>
+										<?php endforeach; ?>
 									</tbody>
 								</table>
 							</div>

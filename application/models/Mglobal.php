@@ -204,9 +204,6 @@ class Mglobal extends CI_Model
 
 
 
-
-
-
 	public function php_login($post)
 	{
 		$this->db->where('username', strtolower($post['username']));
@@ -315,10 +312,15 @@ class Mglobal extends CI_Model
 				$this->db->where('delivery.id', $id);
 				$this->db->select('delivery.*, customer.nama as customer_name');
 				$this->db->join('customer', 'customer.id = delivery.id_customer');
-
 				break;
+			case 'delivery_detail':
+				$this->db->where('delivery_detail.id_delivery', $id);
+				$this->db->select('delivery_detail.*, po_list_detail.description as desc, brand.nama as brand_name');
+				$this->db->join('po_list_detail', 'po_list_detail.id = delivery_detail.id_po_list_detail');
+				$this->db->join('brand', 'brand.id = po_list_detail.id_brand');
+				$res = $this->db->get($table);
+				return $res ? $res->result_array() : false;
 			default:
-
 				break;
 		}
 		$res = $this->db->get($table);

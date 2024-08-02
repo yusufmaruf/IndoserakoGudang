@@ -59,9 +59,47 @@ class Delivery extends CI_Controller
 		foreach ($data['log'] as $key => $value) {
 			$data['log'][$key]['date'] = $this->mglobal->format_dateIndo($data['log'][$key]['date']);
 		}
+		$data['user'] = $this->session->userdata('name');
+		$data['idDelivery'] = $id;
+		$data['delivery_detail'] = $this->mglobal->get_customtableid('delivery_detail', $id);
+		// $this->mglobal->pre($data['detail_delivery']);
 		$this->load->view('vheader', $header);
 		$this->load->view('admin/delivery/detail', $data);
 		$this->load->view('vfooter');
+	}
+	public function terimaBarang($id = null)
+	{
+		$this->mglobal->checkpermit(12);
+		$this->form_validation->set_rules('receive_date', 'Receive Date', 'required');
+		$this->form_validation->set_rules('recipient', 'recipient', 'required');
+		if ($this->form_validation->run() == false) {
+			$this->mglobal->pre($this->form_validation->error_array());
+		} else {
+			$post = $this->input->post();
+			$post['receive_date'] = date('Y-m-d H:i:s', strtotime($post['receive_date']));
+			$post['updated_by'] = $this->session->userdata('name');
+			$post['updated_at'] = date('Y-m-d H:i:s');
+			$this->mglobal->update_data('delivery', $post, ['id' => $id]);
+			$this->mglobal->insert_data('delivery_log', ['id_delivery' => $id, 'date' => date('Y-m-d H:i:s'), 'message' => 'Delivery Received', 'created_by' => $this->session->userdata('name')]);
+			redirect('delivery/delivery/detail/' . $id, 'refresh');
+		}
+	}
+	public function kirimBarang($id = null)
+	{
+		$this->mglobal->checkpermit(12);
+		$this->form_validation->set_rules('delivery_date', 'Delivery Date', 'required');
+		$this->form_validation->set_rules('sender', 'sender', 'required');
+		if ($this->form_validation->run() == false) {
+			$this->mglobal->pre($this->form_validation->error_array());
+		} else {
+			$post = $this->input->post();
+			$post['delivery_date'] = date('Y-m-d H:i:s', strtotime($post['delivery_date']));
+			$post['updated_by'] = $this->session->userdata('name');
+			$post['updated_at'] = date('Y-m-d H:i:s');
+			$this->mglobal->update_data('delivery', $post, ['id' => $id]);
+			$this->mglobal->insert_data('delivery_log', ['id_delivery' => $id, 'date' => date('Y-m-d H:i:s'), 'message' => 'Delivery to customer', 'created_by' => $this->session->userdata('name')]);
+			redirect('delivery/delivery/detail/' . $id, 'refresh');
+		}
 	}
 	public function store()
 	{

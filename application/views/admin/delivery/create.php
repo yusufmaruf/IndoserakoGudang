@@ -16,9 +16,9 @@
 						<div class="card-body ">
 							<form action="<?= base_url('delivery/delivery/store'); ?>" method="POST" mb-0 enctype="multipart/form-data">
 								<div class="row">
-									<div class="col-lg-6 px-1">
+									<div class="col-lg-6">
 										<div class="form-group d-flex  mb-1 align-items-center">
-											<label class="col-lg-4 p-0" for="">Customer</label>
+											<label class="col-lg-4" for="">Customer</label>
 											<select autofocus="" id="nama_customer" name="id_customer" class="form-control select2">
 												<option value="">Pilih Customer</option>
 												<?php foreach ($customer as $key => $value) : ?>
@@ -26,17 +26,6 @@
 												<?php endforeach; ?>
 											</select>
 										</div>
-									</div>
-									<div class="col-lg-6">
-										<div class="form-group d-flex mb-1 align-items-center">
-											<label class="col-lg-4 p-0" for=""> No PO</label>
-											<select name="nomor_po" id="nomor_po" class="form-control">
-											</select>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-lg-6 px-1">
 										<div class="form-group d-flex mb-1 align-items-center">
 											<label class="col-lg-4" for=""> No SJ</label>
 											<input class="col-lg-8 form-control" type="text" placeholder="Masukan No SJ" name="nomor_sj">
@@ -44,36 +33,40 @@
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group d-flex mb-1 align-items-center">
-											<label class="col-lg-4 p-0" for=""> Tanggal </label>
+											<label class="col-lg-4 " for=""> No PO</label>
+											<select name="nomor_po" id="nomor_po" class="form-control">
+											</select>
+										</div>
+										<div class="form-group d-flex mb-1 align-items-center">
+											<label class="col-lg-4 " for=""> Tanggal </label>
 											<input class="col-lg-8 form-control" type="date" name="created_at" value="<?= date('Y-m-d'); ?>" readonly>
 										</div>
 									</div>
-
 								</div>
 								<div class="row mb-1">
-									<div class="col-lg-12 px-1 ">
-										<div class="form-group d-flex mb-2 ">
-											<table class="table table-bordered mb-0 text-center ">
-												<thead>
-													<tr class="text-center">
-														<th>Nama Barang</th>
-														<th width="10%">Qty</th>
-														<th>Desc</th>
-														<th width="10%">Act</th>
-													</tr>
-												</thead>
-												<tbody class="text-center" id="table-body">
+									<div class="col-lg-12 ">
+
+										<table class="table table-bordered mb-0 text-center ">
+											<thead>
+												<tr class="text-center">
+													<th>Nama Barang</th>
+													<th width="10%">Qty</th>
+													<th>Desc</th>
+													<th width="10%">Act</th>
+												</tr>
+											</thead>
+											<tbody class="text-center" id="table-body">
 
 
-												</tbody>
+											</tbody>
 
-											</table>
-										</div>
+										</table>
+
 									</div>
 
 								</div>
-								<div class="row px-0">
-									<div class="col-lg-12 px-1 text-right">
+								<div class="row ">
+									<div class="col-lg-12  text-right">
 										<button type="submit" class="btn  btn-primary">Submit</button>
 									</div>
 								</div>

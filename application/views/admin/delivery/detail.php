@@ -1,52 +1,3 @@
-<style>
-	ul.timeline {
-		list-style-type: none;
-		position: relative;
-		padding-left: 1.5rem;
-	}
-
-	/* Timeline vertical line */
-	ul.timeline:before {
-		content: ' ';
-		background: #a5b3c9;
-		display: inline-block;
-		position: absolute;
-		left: 16px;
-		width: 4px;
-		height: 100%;
-		z-index: 400;
-		border-radius: 1rem;
-	}
-
-	li.timeline-item {
-		margin: 10px 0;
-	}
-
-	/* Timeline item arrow */
-	.timeline-arrow {
-		border-top: 0.5rem solid transparent;
-		border-right: 0.5rem solid #a5b3c9;
-		border-bottom: 0.5rem solid transparent;
-		display: block;
-		position: absolute;
-		left: 2rem;
-	}
-
-	/* Timeline item circle marker */
-	li.timeline-item::before {
-		content: ' ';
-		background: #a5b3c9;
-		display: inline-block;
-		position: absolute;
-		border-radius: 50%;
-		border: 3px solid #fff;
-		left: 11px;
-		width: 14px;
-		height: 14px;
-		z-index: 400;
-		box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-	}
-</style>
 <link rel="stylesheet" href="<?= base_url('assets'); ?>/plugins/select2/css/select2.min.css">
 <link rel="stylesheet" href="<?= base_url('assets'); ?>/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 <script src="<?= base_url('assets'); ?>/plugins/select2/js/select2.full.min.js"></script>
@@ -54,7 +5,7 @@
 	<div class="content mt-4">
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-lg-9">
+				<div class="col-lg-8">
 					<div class="card p-0">
 						<div class="card-header px-4">
 							<div class="row">
@@ -174,7 +125,7 @@
 					</div>
 				</div>
 
-				<div class="col-lg-3">
+				<div class="col-lg-4">
 					<div class="card">
 						<div class="card-header">
 							<div class="row">
@@ -186,14 +137,18 @@
 							</div>
 						</div>
 						<div class="card-body py-1 px-2 m-0">
-							<ul class="timeline">
-								<?php foreach ($log as $logkey => $logvalue) { ?>
-									<li class="timeline-item bg-white rounded ml-3 py-0 px-3 border border-grey ">
-										<h6 class="mb-0 pt-1"><?= $logvalue['date']; ?></h6>
-										<p class="text-small  font-weight-light p-0 m-0 "><?= $logvalue['message']; ?></p>
-									</li>
-								<?php } ?>
-							</ul>
+							<div class="timeline-wrapper">
+								<div class="timeline-content" style="max-height: 200px; overflow-y: auto;">
+									<?php foreach ($log as $logkey => $logvalue) { ?>
+										<div class="timeline-item bg-white rounded  py-0 px-3 border border-grey mb-1">
+											<h6 class="mb-0 pt-1"><?= $logvalue['date']; ?> &nbsp; - &nbsp;<span class="text-muted"><?= $logvalue['created_by']; ?></span></h6>
+											<p class="text-small font-weight-light mb-1 m-0" style="line-height: 20px"><?= $logvalue['message']; ?></p>
+										</div>
+									<?php } ?>
+
+								</div>
+							</div>
+
 						</div>
 					</div>
 				</div>
@@ -326,16 +281,16 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Kirim Ke Jakarta</h4>
+				<h4 class="modal-title">Add Notes</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">×</span>
 				</button>
 			</div>
-			<form action="<?= base_url('category/save'); ?>" method="post">
+			<form action="<?= base_url('delivery/delivery/addNotes/' . $idDelivery); ?>" method="post">
 				<div class="modal-body">
 					<div class="form-group">
-						<label for="">Log</label>
-						<input type="text" name="log" class="form-control" id="">
+						<label for="">Notes</label>
+						<input type="text" class="form-control" id="" placeholder="Add Notes" name="message">
 					</div>
 				</div>
 				<div class="modal-footer justify-content-between">

@@ -38,27 +38,24 @@
 											<th class="text-center">Qty</th>
 											<th class="text-center">Description</th>
 											<th class="text-center">Due Date</th>
-											<th class="text-center" width="15%">Log</th>
 											<th class="text-center" style="width: 7%;">Action</th>
 										</tr>
 									</thead>
 									<tbody class="text-center">
-										<tr>
-											<td>2024/12</td>
-											<td>Mega Surya</td>
-											<td>6500020378</td>
-											<td>IFM</td>
-											<td>2</td>
-											<td>E70213</td>
-											<td>12-12-2024</td>
-											<td>Pengiriman dari jakarta</td>
-											<td>
-												<div class="row justify-content-around">
-													<a href="" class="btn btn-sm btn-primary"><i class="fa fa-file"></i></a>
-													<a href="" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a>
-												</div>
-											</td>
-										</tr>
+										<?php foreach ($list_po as $key => $value) : ?>
+
+											<tr>
+												<td><?= $value['year'] . '/' . $value['month'] ?></td>
+												<td><?= $value['customer'] ?></td>
+												<td><?= $value['nomor_po'] ?></td>
+												<td><?= $value['brand_name'] ?></td>
+												<td><?= $value['totalOutstanding'] ?></td>
+												<td><?= $value['desc'] ?></td>
+												<td><?= $value['due_date'] ?></td>
+												<td><a href="<?= base_url() ?>master/receiveSafetyStock/<?= $value['id_po_list_detail'] ?>" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i> View</a></td>
+
+											</tr>
+										<?php endforeach; ?>
 									</tbody>
 								</table>
 							</div>
@@ -85,10 +82,7 @@
 			"columnDefs": [{
 				"orderable": false,
 				"targets": 7
-			}],
-			"order": [
-				[1, 'asc']
-			]
+			}]
 		});
 
 

@@ -291,15 +291,47 @@ class Mglobal extends CI_Model
 		$res = $this->db->get($table);
 		return $res ? $res->result_array() : false;
 	}
-	public function get_customtable($table, $order, $by)
+	public function get_customtable($table, $order, $by, $where = null)
 	{
 		switch ($table) {
 			case 'delivery':
 				$this->db->select('delivery.*, customer.nama as customer_name');
 				$this->db->join('customer', 'customer.id = delivery.id_customer');
 				break;
+			case 'po_list':
+				$this->db->select(
+					'po_list.year as year,
+					po_list.nama_customer as customer,
+					po_list.due_date as due_date,
+				po_list.month as month, 
+				po_list.nomor_po as nomor_po, 
+				po_list_detail.description as desc, 
+				brand.nama as brand_name, 
+				po_list_detail.qty as qty_item,
+				po_list_detail.id as id_po_list_detail
+				'
+				);
+				$this->db->join('po_list_detail', 'po_list_detail.id_po_list = po_list.id');
+				$this->db->join('brand', 'brand.id = po_list_detail.id_brand');
+				$this->db->where('po_list.id_brand != ', 23);
+				$this->db->where('po_list.id_brand != ', 26);
+
+				// $this->db->join('delivery_detail', 'delivery_detail.id_po_list_detail = po_list_detail.id');
+				// $this->db->join('delivery', 'delivery.id = delivery_detail.id_delivery');
+				// $this->db->where('delivery.sender', '<>', null);
+				break;
+			case 'delivery_detail':
+				$this->db->select('delivery_detail.*');
+
+				$this->db->join('delivery', 'delivery.id = delivery_detail.id_delivery');
+				$this->db->where('delivery.sender != ', '');
+				break;
 			default:
 				break;
+		}
+
+		if ($where) {
+			$this->db->where($where);
 		}
 		$this->db->order_by($order, $by);
 		$res = $this->db->get($table);
@@ -328,6 +360,10 @@ class Mglobal extends CI_Model
 	}
 	public function gettablelimit($table, $limit, $order, $by, $where)
 	{
+		if ($table == 'delivery') {
+			$this->db->select('log.message');
+			// $this->db->join('del')
+		}
 		$this->db->where($where);
 		$this->db->limit($limit);
 		$this->db->order_by($order, $by);

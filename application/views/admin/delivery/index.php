@@ -35,7 +35,7 @@
 											<th class="text-center">No PO</th>
 											<th class="text-center">No SJ</th>
 											<th class="text-center">Date SJ</th>
-											<th class="text-center">Log</th>
+											<th class="text-center" width="40%">Log</th>
 											<th class="text-center" style="width: 5%;">Action</th>
 										</tr>
 									</thead>

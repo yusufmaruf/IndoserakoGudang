@@ -35,6 +35,29 @@ class Delivery extends CI_Controller
 		$this->mglobal->checkpermit(12);
 		$header['title'] = 'Outstanding Delivery';
 		$data = [];
+		$data['list_po'] = $this->mglobal->get_customtable('po_list', 'due_date', 'ASC', ['year' => '2024']);
+		$data['qtydelivered'] = $this->mglobal->get_customtable('delivery_detail', 'id', 'DESC');
+
+
+		// Inisialisasi totalOutstanding di dalam list_po terlebih dahulu
+		foreach ($data['list_po'] as $key2 => $value2) {
+			$data['list_po'][$key2]['totalOutstanding'] = $value2['qty_item'];
+		}
+
+		// Menghitung totalOutstanding berdasarkan qtydelivered
+		foreach ($data['qtydelivered'] as $key => $value) {
+			foreach ($data['list_po'] as $key2 => $value2) {
+				$data['list_po'][$key2]['due_date'] = $this->mglobal->format_dateIndo(date('Y-m-d', strtotime($value2['due_date'])));
+				$message = $this->mglobal->gettablelimit('delivery_log', 1, 'id', 'DESC', ['id_delivery' => $value['id']]);
+
+				if ($value['id_po_list_detail'] == $value2['id_po_list_detail']) {
+					// Mengurangi qty_delivery dari qty_item untuk mendapatkan totalOutstanding
+					$data['list_po'][$key2]['totalOutstanding'] = $value2['qty_item'] - $value['qty_delivery'];
+				}
+			}
+		}
+		// $this->mglobal->pre($data['qtydelivered']);
+		// $this->mglobal->pre($data['list_po']);
 		$this->load->view('vheader', $header);
 		$this->mglobal->load_toast();
 		$this->load->view('admin/delivery/outstanding', $data);
@@ -80,7 +103,12 @@ class Delivery extends CI_Controller
 			$post['updated_by'] = $this->session->userdata('name');
 			$post['updated_at'] = date('Y-m-d H:i:s');
 			$this->mglobal->update_data('delivery', $post, ['id' => $id]);
-			$this->mglobal->insert_data('delivery_log', ['id_delivery' => $id, 'date' => date('Y-m-d H:i:s'), 'message' => 'Delivery Received', 'created_by' => $this->session->userdata('name')]);
+			$this->mglobal->insert_data('delivery_log', [
+				'id_delivery' => $id,
+				'date' => date('Y-m-d H:i:s'),
+				'message' => 'Item Received ',
+				'created_by' => $this->session->userdata('name')  // Fixed this line
+			]);
 			redirect('delivery/delivery/detail/' . $id, 'refresh');
 		}
 	}
@@ -97,7 +125,32 @@ class Delivery extends CI_Controller
 			$post['updated_by'] = $this->session->userdata('name');
 			$post['updated_at'] = date('Y-m-d H:i:s');
 			$this->mglobal->update_data('delivery', $post, ['id' => $id]);
-			$this->mglobal->insert_data('delivery_log', ['id_delivery' => $id, 'date' => date('Y-m-d H:i:s'), 'message' => 'Delivery to customer', 'created_by' => $this->session->userdata('name')]);
+			$this->mglobal->insert_data('delivery_log', [
+				'id_delivery' => $id,
+				'date' => date('Y-m-d H:i:s'),
+				'message' => 'Item Delivered by ' . $post['sender'],
+				'created_by' => $this->session->userdata('name')  // Fixed this line
+			]);
+			redirect('delivery/delivery/detail/' . $id, 'refresh');
+		}
+	}
+
+	public function addNotes($id = null)
+	{
+		$this->mglobal->checkpermit(12);
+		$this->form_validation->set_rules('message', 'Message', 'required');
+		if ($this->form_validation->run() == false) {
+			$this->mglobal->pre($this->form_validation->error_array());
+		} else {
+			$post = $this->input->post();
+			$post['created_at'] = date('Y-m-d H:i:s');
+			$post['created_by'] = $this->session->userdata('name');
+			$this->mglobal->insert_data('delivery_log', [
+				'id_delivery' => $id,
+				'date' => date('Y-m-d H:i:s'),
+				'message' => 'Notes : ' . $post['message'],
+				'created_by' => $this->session->userdata('name')  // Fixed this line
+			]);
 			redirect('delivery/delivery/detail/' . $id, 'refresh');
 		}
 	}
@@ -137,7 +190,7 @@ class Delivery extends CI_Controller
 			$log = [
 				'created_by' => $this->session->userdata('name'),
 				'date' => date('Y-m-d H:i:s'),
-				'message' => 'Create Delivery '  . ' by ' . $this->session->userdata('name'),
+				'message' => 'Form Delivery Created ',
 				'id_delivery' => $insert_data
 			];
 			$this->mglobal->insert_data('delivery_log', $log);

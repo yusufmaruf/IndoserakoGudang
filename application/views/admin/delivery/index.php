@@ -6,6 +6,11 @@
 <script src="<?= base_url() ?>assets/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="<?= base_url() ?>assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="<?= base_url() ?>assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<style>
+	.tdtable {
+		padding: 1px !important;
+	}
+</style>
 
 <div class="content-wrapper">
 	<div class="content-header">
@@ -43,14 +48,14 @@
 										<?php $no = 1;
 										foreach ($delivery as $key => $value) : ?>
 											<tr>
-												<td><?= $no++; ?></td>
-												<td><?= $value['customer_name']; ?></td>
-												<td><?= $value['nomor_po']; ?></td>
-												<td><?= $value['nomor_sj']; ?></td>
-												<td><?= $value['created_at']; ?></td>
-												<td><?= $value['delivery_message']; ?></td>
-												<td>
-													<a href="<?= base_url() ?>delivery/delivery/detail/<?= $value['id']; ?>" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></a>
+												<td class="tdtable"><?= $no++; ?></td>
+												<td class="tdtable"><?= $value['customer_name']; ?></td>
+												<td class="tdtable"><?= $value['nomor_po']; ?></td>
+												<td class="tdtable"><?= $value['nomor_sj']; ?></td>
+												<td class="tdtable"><?= $value['created_at']; ?></td>
+												<td class="tdtable"><?= $value['delivery_message']; ?></td>
+												<td class="tdtable">
+													<a href="<?= base_url() ?>delivery/delivery/detail/<?= $value['id']; ?>"><i class="fas fa-search"></i></a>
 												</td>
 											</tr>
 										<?php endforeach; ?>
@@ -81,9 +86,6 @@
 				"orderable": false,
 				"targets": 4
 			}],
-			"order": [
-				[1, 'asc']
-			]
 		});
 
 

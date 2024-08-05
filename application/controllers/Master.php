@@ -32,6 +32,20 @@ class Master extends CI_Controller
 		$id = $this->input->post('nomor_po');
 		if ($table && $column && $id) {
 			$data = $this->mglobal->get_customs($table, $column, $id);
+			if ($table == 'po_list_detail') {
+				$quantity = $this->mglobal->get_customtable('delivery_detail', 'id', 'DESC');
+				foreach ($data as $key => $value) {
+					$data[$key]['totalOutstanding'] = $value['qty'];
+				}
+				foreach ($quantity as $items => $item) {
+					foreach ($data as $key2 => $value2) {
+						if ($item['id_po_list_detail'] == $value2['id']) {
+							$data[$key2]['totalOutstanding'] = $value2['totalOutstanding'] - $item['qty_delivery'];
+						}
+					}
+				}
+			}
+
 			echo json_encode($data);
 		} else {
 			echo json_encode([]); // Return empty array if parameters are not valid

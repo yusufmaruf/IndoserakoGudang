@@ -38,26 +38,20 @@ class Delivery extends CI_Controller
 		$data['list_po'] = $this->mglobal->get_customtable('po_list', 'due_date', 'ASC', ['year' => '2024']);
 		$data['qtydelivered'] = $this->mglobal->get_customtable('delivery_detail', 'id', 'DESC');
 		$data['get_log'] = $this->mglobal->get_customtable('log', 'id', 'ASC');
-
-
-		// Inisialisasi totalOutstanding di dalam list_po terlebih dahulu
-		foreach ($data['list_po'] as $key5 => $value2) {
-			$data['list_po'][$key5]['totalOutstanding'] = $value2['qty_item'];
+		foreach ($data['list_po'] as $key5 => $value5) {
+			$data['list_po'][$key5]['totalOutstanding'] = $value5['qty_item'];
 			$data['list_po'][$key5]['log_message'] = '';
 			$data['list_po'][$key5]['id_delivery'] = 0;
+			$data['list_po'][$key5]['due_date'] = $this->mglobal->format_dateIndo(date('Y-m-d', strtotime($value5['due_date'])));
 		}
-
-		// Menghitung totalOutstanding berdasarkan qtydelivered
 		foreach ($data['qtydelivered'] as $key => $value) {
 			foreach ($data['list_po'] as $key2 => $value2) {
-				$data['list_po'][$key2]['due_date'] = $this->mglobal->format_dateIndo(date('Y-m-d', strtotime($value2['due_date'])));
 				if ($value['id_po_list_detail'] == $value2['id_po_list_detail']) {
-					// Mengurangi qty_delivery dari qty_item untuk mendapatkan totalOutstanding
-					$data['list_po'][$key2]['totalOutstanding'] = $value2['qty_item'] - $value['qty_delivery'];
-					// $data['list_po'][$key2]['log_message'] = $value['log_delivery_item'];
+					$data['list_po'][$key2]['totalOutstanding'] = $value2['totalOutstanding'] - $value['qty_delivery'];
 				}
 			}
 		}
+
 		foreach ($data['get_log'] as $key3 => $value3) {
 			foreach ($data['list_po'] as $key4 => $value4) {
 				if ($value3['id_po_list_detail'] == $value4['id_po_list_detail']) {
@@ -66,8 +60,7 @@ class Delivery extends CI_Controller
 				}
 			}
 		}
-		// $this->mglobal->pre($data['qtydelivered']);
-		// $this->mglobal->pre($data['get_log']);
+
 		$this->load->view('vheader', $header);
 		$this->mglobal->load_toast();
 		$this->load->view('admin/delivery/outstanding', $data);

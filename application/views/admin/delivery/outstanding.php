@@ -6,6 +6,11 @@
 <script src="<?= base_url() ?>assets/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="<?= base_url() ?>assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="<?= base_url() ?>assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<style>
+	.tdtable {
+		padding: 1px !important;
+	}
+</style>
 
 <div class="content-wrapper">
 	<div class="content-header">
@@ -46,15 +51,15 @@
 										<?php foreach ($list_po as $key => $value) : ?>
 
 											<tr>
-												<td><?= $value['year'] . '/' . $value['month'] ?></td>
-												<td><?= $value['customer'] ?></td>
-												<td><?= $value['nomor_po'] ?></td>
-												<td><?= $value['brand_name'] ?></td>
-												<td><?= $value['totalOutstanding'] ?></td>
-												<td><?= $value['desc'] ?></td>
-												<td><?= $value['due_date'] ?></td>
-												<td><?= $value['log_message'] ?></td>
-												<td><a href="<?= base_url() ?>delivery/delivery/detail/<?= $value['id_delivery'] ?>" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i> View</a></td>
+												<td class="tdtable"><?= $value['year'] . '/' . $value['month'] ?></td>
+												<td class="tdtable"><?= $value['customer'] ?></td>
+												<td class="tdtable"><?= $value['nomor_po'] ?></td>
+												<td class="tdtable"><?= $value['brand_name'] ?></td>
+												<td class="tdtable"><?= $value['totalOutstanding'] ?></td>
+												<td class="tdtable"><?= $value['desc'] ?></td>
+												<td class="tdtable"><?= $value['due_date'] ?></td>
+												<td class="tdtable"><?= $value['log_message'] ?></td>
+												<td class="tdtable"><a href="<?= base_url() ?>delivery/delivery/detail/<?= $value['id_delivery'] ?>"><i class="fa fa-eye"></i></a></td>
 
 											</tr>
 										<?php endforeach; ?>

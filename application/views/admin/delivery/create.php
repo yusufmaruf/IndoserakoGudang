@@ -125,7 +125,7 @@
 		</div>
 	</div>
 </div>
-</div>
+
 <script>
 	$(document).ready(function() {
 		$('#nomor_po').select2({
@@ -142,7 +142,7 @@
 
 		});
 		$('#nomor_po').on('change', function() {
-			console.log($(this).val());
+			getProduk($(this).val());
 		})
 	});
 
@@ -158,14 +158,15 @@
 			success: function(response) {
 				try {
 					var data = JSON.parse(response);
-					console.log(data);
+					console.log(response);
 					$('#id_brand').empty();
 					if (Array.isArray(data) && data.length) {
 						data.forEach(function(value) {
-							$('#id_brand').append('<option value="' + value['id'] + '" data-name="' + value['brand_name'] + '" data-desc="' + value['description'] + '" >' + value['brand_name'] + ' | ' + value['description'] + ' | ' + value['qty'] + '</option>'); // Use forEach to iterate over the array
+							$('#id_brand').append('<option value="' + value['id'] + '" data-name="' + value['brand_name'] + '" data-desc="' + value['description'] + '" >' + value['brand_name'] + ' | ' + value['description'] + ' | ' + value['totalOutstanding'] + '</option>'); // Use forEach to iterate over the array
 						});
 					}
-					$('#qty').attr('max', data[0]['qty']);
+					console.log(data[0]['totalOutstanding']);
+					$('#qty').attr('max', data[0]['totalOutstanding']);
 				} catch (e) {
 					console.error('Parsing Error:', e);
 				}
@@ -195,9 +196,10 @@
 					var data = JSON.parse(response);
 					if (Array.isArray(data) && data.length) {
 						data.forEach(function(value) { // Use forEach to iterate over the array
-							$('#nomor_po').append('<option value="' + value['nomor_po'] + '" >' + value['nomor_po'] + '</option>');
+							$('#nomor_po').append('<option value="' + value['id'] + '" >' + value['nomor_po'] + '</option>');
 
 						});
+						// console.log(data[0]['id']);
 						getProduk(data[0]['id']);
 					} else {
 						// Handle the case where datas is empty or not an array

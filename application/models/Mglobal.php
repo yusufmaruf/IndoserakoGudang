@@ -381,19 +381,24 @@ class Mglobal extends CI_Model
 		if ($this->session->userdata('user') == '') {
 			redirect('main/login', 'refresh');
 		}
-
 		switch ($param) {
+			case 2:
+			case 'Admin Sales':
+			case 4:
+			case 'PE':
+				if ($this->session->userdata('level') < 4) redirect('main/show403', 'refresh');
+				break;
+			case 9:
+			case 'Product Manager':
 			case 10:
-			case 'spv':
-				if ($this->session->userdata('level') < 10) redirect('main/show403', 'refresh');
+			case 'Sales Manager':
+				if ($this->session->userdata('level') < 9) redirect('main/show403', 'refresh');
 				break;
-			case 20:
-			case 'manager':
-				if ($this->session->userdata('level') < 20) redirect('main/show403', 'refresh');
-				break;
+			case 11:
+			case 'director':
 			case 12:
 			case 'admin';
-				if ($this->session->userdata('level') < 12) redirect('main/show403', 'refresh');
+				if ($this->session->userdata('level') < 11) redirect('main/show403', 'refresh');
 				break;
 			default:
 				return true;

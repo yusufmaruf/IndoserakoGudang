@@ -322,9 +322,15 @@ class Mglobal extends CI_Model
 				break;
 			case 'delivery_detail':
 				$this->db->select('delivery_detail.*');
-
 				$this->db->join('delivery', 'delivery.id = delivery_detail.id_delivery');
 				$this->db->where('delivery.sender != ', '');
+				break;
+			case 'log':
+				$this->db->select('delivery_detail.*');
+				$this->db->join('delivery', 'delivery.id = delivery_detail.id_delivery');
+				$this->db->order_by($order, $by);
+				$res = $this->db->get('delivery_detail');
+				return $res ? $res->result_array() : false;
 				break;
 			default:
 				break;

@@ -38,6 +38,7 @@
 											<th class="text-center">Qty</th>
 											<th class="text-center">Description</th>
 											<th class="text-center">Due Date</th>
+											<th class="text-center">Log</th>
 											<th class="text-center" style="width: 7%;">Action</th>
 										</tr>
 									</thead>
@@ -52,7 +53,8 @@
 												<td><?= $value['totalOutstanding'] ?></td>
 												<td><?= $value['desc'] ?></td>
 												<td><?= $value['due_date'] ?></td>
-												<td><a href="<?= base_url() ?>master/receiveSafetyStock/<?= $value['id_po_list_detail'] ?>" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i> View</a></td>
+												<td><?= $value['log_message'] ?></td>
+												<td><a href="<?= base_url() ?>delivery/delivery/detail/<?= $value['id_delivery'] ?>" class="btn btn-sm btn-primary"><i class="fa fa-eye"></i> View</a></td>
 
 											</tr>
 										<?php endforeach; ?>

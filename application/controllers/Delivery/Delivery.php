@@ -132,7 +132,6 @@ class Delivery extends CI_Controller
 	{
 		$this->mglobal->checkpermit(12);
 		$this->form_validation->set_rules('receive_date', 'Receive Date', 'required');
-		$this->form_validation->set_rules('recipient', 'recipient', 'required');
 		if ($this->form_validation->run() == false) {
 			$this->mglobal->pre($this->form_validation->error_array());
 		} else {
@@ -140,6 +139,7 @@ class Delivery extends CI_Controller
 			$post['receive_date'] = date('Y-m-d H:i:s', strtotime($post['receive_date']));
 			$post['updated_by'] = $this->session->userdata('name');
 			$post['updated_at'] = date('Y-m-d H:i:s');
+			$post['recipient'] = $this->session->userdata('name');
 			$this->mglobal->update_data('delivery', $post, ['id' => $id]);
 			$this->mglobal->insert_data('delivery_log', [
 				'id_delivery' => $id,
@@ -248,6 +248,70 @@ class Delivery extends CI_Controller
 			$this->mglobal->insert_data('delivery_log', $log);
 			redirect('delivery/delivery');
 		}
+	}
+	function upload_files($field, $type_name)
+	{
+		$path = "./uploads/surat_jalan";
+		//Configure upload.
+		$this->upload->initialize(array(
+			"upload_path"   => $path,
+			"allowed_types" => "jpg|jpeg|png",
+			"file_name"     => $type_name . date('YmdHis'),
+		));
+		//Perform upload.
+		if ($this->upload->do_upload($field)) {
+			$fileData = $this->upload->data();
+			return $fileData['raw_name'] . $fileData['file_ext'];
+		} else {
+			return $this->upload->display_errors();
+		}
+	}
+	public function kirimJkt($id = null)
+	{
+		$this->mglobal->checkpermit(12);
+		$data = $this->input->post();
+		$data['updated_at'] = date('Y-m-d H:i:s');
+		$data['updated_by'] = $this->session->userdata('name');
+		$data['image_sj'] = $this->upload_files('image_sj', 'image_sj');
+		$this->mglobal->update_data('delivery', $data, ['id' => $id]);
+		$data = [
+			'log_delivery_item' => 'Item Reported to Jakarta ',
+		];
+		$this->mglobal->update_data('delivery_detail', $data, ['id_delivery' => $id]);
+		$this->mglobal->insert_data('delivery_log', [
+			'id_delivery' => $id,
+			'date' => date('Y-m-d H:i:s'),
+			'message' => 'Item Reported to Jakarta ',
+			'created_by' => $this->session->userdata('name')  // Fixed this line
+		]);
+		$checktablememo = $this->mglobal->get_table('delivery_memo', 'id', 'desc', []);
+		if ($checktablememo) {
+			$check_memo1 = $this->mglobal->gettablelimit('delivery_memo', 1, 'id', 'desc', ['status' => 1]);
+			if ($check_memo1) {
+				$detail_memo = [
+					'id_memo' => $check_memo1[0]['id'],
+					'id_delivery' => $id,
+				];
+				$this->mglobal->insert_data('delivery_memo_detail', $detail_memo);
+			} else {
+				$check_memo2 = $this->mglobal->gettablelimit('delivery_memo', 1, 'id', 'desc', ['status' => 2]);
+				$no_memo = $check_memo2[0]['no_memo'] + 1;
+				$new_memo = $this->mglobal->insert_data('delivery_memo', ['status' => 1, 'no_memo' => $no_memo]);
+				$detail_memo = [
+					'id_memo' => $new_memo,
+					'id_delivery' => $id,
+				];
+				$this->mglobal->insert_data('delivery_memo_detail', $detail_memo);
+			}
+		} else {
+			$new_memo = $this->mglobal->insert_data('delivery_memo', ['status' => 1, 'no_memo' => 1]);
+			$detail_memo = [
+				'id_memo' => $new_memo,
+				'id_delivery' => $id,
+			];
+			$this->mglobal->insert_data('delivery_memo_detail', $detail_memo);
+		}
+		// redirect('delivery/delivery/detail/' . $id, 'refresh');
 	}
 }
 

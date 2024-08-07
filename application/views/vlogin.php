@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Mega Surya Vibration | Log in</title>
+	<title>Indoserako Utility | Log in</title>
 	<link href="<?php echo base_url('assets'); ?>/dist/img/logo-square.png" rel="shortcut icon" type="image/x-icon">
 
 	<link rel="stylesheet" href="<?= base_url('assets'); ?>/plugins/fontawesome-free/css/all.min.css">
@@ -57,7 +57,7 @@
 	<div class="bg bg3"></div>
 	<div class="login-box">
 		<div class="login-logo">
-			<a href="<?= base_url(); ?>"><b></b> Name Application</a>
+			<a href="<?= base_url(); ?>"><b></b> Indoserako Utility <br>Super Apps</a>
 			<!-- <img src="<?= base_url('assets'); ?>/dist/img/logo-only.png" alt="" width="100" height="100"> -->
 		</div>
 		<!-- /.login-logo -->

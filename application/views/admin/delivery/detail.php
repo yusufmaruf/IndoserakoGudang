@@ -16,7 +16,9 @@
 									<?php endif; ?>
 									<?php if ($delivery['delivery_date'] == null) : ?> <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-kirimCust"> &nbsp; Kirim Cust</button>
 									<?php endif; ?>
-									<button class="btn btn-warning text-white btn-sm" data-toggle="modal" data-target="#modal-kirimJKT"> &nbsp; Kirim JKT</button>
+									<?php if ($delivery['report_date'] == null) : ?>
+										<button class="btn btn-warning text-white btn-sm" data-toggle="modal" data-target="#modal-kirimJKT"> &nbsp; Report JKT</button>
+									<?php endif; ?>
 								</div>
 							</div>
 						</div>
@@ -67,7 +69,7 @@
 										<label class="col-lg-4" for=""> Foto SJ</label>
 										<input type="text" class="form-control" style="border-radius: 5px 0 0 5px;" value="<?= $delivery['image_sj']; ?>" readonly name="image">
 										<div class=" input-group-append">
-											<span class="input-group-text bg-light"><i class="fas fa-eye"></i></span>
+											<span class="input-group-text bg-light" id="previewBtn"><i class="fas fa-eye"></i></span>
 										</div>
 									</div>
 								</div>
@@ -100,11 +102,6 @@
 								</div>
 
 							</div>
-							<div class="row px-0">
-								<div class="col-lg-12 px-1 text-right">
-									<button type="submit" class="btn  btn-primary">Submit</button>
-								</div>
-							</div>
 
 							<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 								<div class="modal-dialog" role="document">
@@ -129,7 +126,6 @@
 					<div class="card">
 						<div class="card-header">
 							<div class="row">
-
 								<h5 class="m-0">Log Pengiriman</h5>
 								<div class="ml-auto">
 									<button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-addLog"> &nbsp; Add Notes</button>
@@ -163,10 +159,28 @@
 </div>
 <!-- /.content-wrapper -->
 
-
+<!-- Modal for displaying image -->
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="imageModalLabel">Image Preview</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<img id="modalImage" src="<?= base_url('uploads/surat_jalan/' . $delivery['image_sj']); ?>" alt="Image Preview" style="width: 100%;" />
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
 <!-- modal Terima -->
 <div class="modal fade" id="modal-terima" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
+	<div class="modal-dialog modal-sm">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title">Terima Barang</h4>
@@ -177,18 +191,13 @@
 			<form action="<?= base_url('delivery/delivery/terimaBarang/' . $idDelivery); ?>" method="post">
 				<div class="modal-body">
 					<div class="row">
-						<div class="col-md-6">
+						<div class="col-lg-12">
 							<div class="form-group">
 								<label for="">Tanggal Terima Barang</label>
 								<input type="date" class="form-control" name="receive_date" value="<?= date('Y-m-d'); ?>" readonly">
 							</div>
 						</div>
-						<div class="col-md-6">
-							<label for="">Penerima Barang</label>
-							<input type="text" class="form-control" value="<?= $user ?>" name="recipient" readonly>
-						</div>
 					</div>
-
 				</div>
 				<div class="modal-footer justify-content-between">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -239,38 +248,35 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Kirim Ke Jakarta</h4>
+				<h4 class="modal-title">Upluod Surat Jalan</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">×</span>
 				</button>
 			</div>
-			<form action="<?= base_url('category/save'); ?>" method="post">
+			<form id="uploadForm" action="<?= base_url('delivery/delivery/kirimJkt/' . $idDelivery); ?>" method="post" enctype="multipart/form-data">
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
 								<label for="">Tanggal Kirim</label>
-								<input type="date" class="form-control" placeholder="Masukan Nama Category" name="name">
+								<input type="date" class="form-control" name="report_date">
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group mb-1 align-items-center">
-								<label for="" class="col-lg-4 p-0">Gambar</label>
+								<label for="" class="col-lg-4 p-0">Foto SJ</label>
 								<div class="input-group">
 									<div class="custom-file">
-										<input type="file" class="custom-file-input" id="previewImgedit" name="ttd" accept="image/*" onchange="previewImageedit(event)">
-										<label class="custom-file-label" for="exampleInputFile">Choose file</label>
-									</div>
-									<div class="input-group-append">
-										<button type="button" class="btn btn-block input-group-text" data-toggle="modal" data-target="#myModal">
-											<i class="fa fa-eye"></i>
-										</button>
+										<input type="file" class="custom-file-input form-control" id="suratJalan" name="image_sj" accept="image/*" onchange="previewImageedit(event)">
+										<label class="custom-file-label" for="suratJalan" id="suratJalanLabel">Choose file</label>
 									</div>
 								</div>
 							</div>
 						</div>
+						<div class="col-lg-12">
+							<img id="imgPreview" src="" alt="Image Preview" style="display:none; width: 100%;" />
+						</div>
 					</div>
-
 				</div>
 				<div class="modal-footer justify-content-between">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -291,7 +297,7 @@
 					<span aria-hidden="true">×</span>
 				</button>
 			</div>
-			<form action="<?= base_url('delivery/delivery/addNotes/' . $idDelivery); ?>" method="post">
+			<form action="<?= base_url('delivery/delivery/addNotes/' . $idDelivery); ?>" method="post" enctype="multipart/form-data">
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="">Notes</label>
@@ -317,5 +323,38 @@
 		$('#selectPenerima').click(function() {
 			$('#selectPenerima').select2('readonly', true);
 		});
+		document.getElementById('previewBtn').addEventListener('click', function() {
+			$('#imageModal').modal('show');
+		});
+	});
+</script>
+
+<script>
+	function previewImageedit(event) {
+		var input = event.target;
+		var reader = new FileReader();
+		reader.onload = function() {
+			var output = document.getElementById('imgPreview');
+			output.src = reader.result;
+			output.style.display = 'block';
+		};
+		reader.readAsDataURL(input.files[0]);
+
+		// Update the label text
+		var fileName = input.files[0].name;
+		var label = document.getElementById('suratJalanLabel');
+		label.innerText = fileName;
+
+	}
+	$('#modal-kirimJKT').on('hidden.bs.modal', function() {
+		var form = document.getElementById('uploadForm');
+		form.reset();
+
+		var imgPreview = document.getElementById('imgPreview');
+		imgPreview.src = "";
+		imgPreview.style.display = 'none';
+
+		var label = document.getElementById('suratJalanLabel');
+		label.innerText = "Choose file";
 	});
 </script>

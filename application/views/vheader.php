@@ -160,14 +160,8 @@
 				<nav class="mt-2">
 					<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 						<?php if (in_array($this->session->userdata('level'), [12])) { ?>
-							<li class="nav-item">
-								<a href="<?= base_url() . 'report' ?>" class="nav-link <?php if ($this->uri->segment('1') == 'dashboard') echo 'active'; ?>">
-									<i class="nav-icon fas fa-home"></i>
-									<p>Dashboard</p>
-								</a>
-							</li>
-							<li class="nav-header">MAIN</li>
-							<li class="nav-item <?php if ($this->uri->segment('1') == 'bpp') echo 'menu-open'; ?>">
+							<li class="nav-header">Account Receivable</li>
+							<!-- <li class="nav-item <?php if ($this->uri->segment('1') == 'bpp') echo 'menu-open'; ?>">
 								<a href="#" class="nav-link <?php if ($this->uri->segment('1') == 'bpp') echo 'active'; ?>">
 									<i class="nav-icon fas fa-file"></i>
 									<p>Purchase <i class="right fas fa-angle-left"></i></p>
@@ -192,13 +186,19 @@
 										</a>
 									</li>
 								</ul>
-							</li>
+							</li> -->
 							<li class="nav-item <?php if ($this->uri->segment('1') == 'delivery') echo 'menu-open'; ?>">
 								<a href="#" class="nav-link <?php if ($this->uri->segment('1') == 'delivery') echo 'active'; ?>">
 									<i class="nav-icon fas fa-truck"></i>
 									<p>Delivery <i class="right fas fa-angle-left"></i></p>
 								</a>
 								<ul class="nav nav-treeview">
+									<li class="nav-item">
+										<a href="<?= base_url() . 'report' ?>" class="nav-link <?php if ($this->uri->segment('1') == 'dashboard') echo 'active'; ?>">
+											<i class="nav-icon fas fa-home"></i>
+											<p>Dashboard</p>
+										</a>
+									</li>
 									<li class="nav-item">
 										<a href="<?= base_url() . 'delivery/delivery/outstanding'; ?>" class="nav-link <?php if ($this->uri->segment('1') == 'delivery' && $this->uri->segment('3') == 'outstanding') echo 'active'; ?>">
 											<i class="fas fa-calendar-xmark  nav-icon"></i>
@@ -208,12 +208,38 @@
 									<li class="nav-item">
 										<a href="<?= base_url() . 'delivery/delivery'; ?>" class="nav-link <?php if ($this->uri->segment('1') == 'delivery' && $this->uri->segment('2') == 'delivery' && $this->uri->segment('3') != 'outstanding') echo 'active'; ?>">
 											<i class="fas fa-truck  nav-icon"></i>
-											<p>Delivery Barang</p>
+											<p>Delivery Status</p>
 										</a>
 									</li>
 								</ul>
 							</li>
-							<li class="nav-item <?php if ($this->uri->segment('1') == 'stocks') echo 'menu-open'; ?>">
+							<li class="nav-item <?php if ($this->uri->segment('1') == 'collection') echo 'menu-open'; ?>">
+								<a href="#" class="nav-link <?php if ($this->uri->segment('1') == 'collection') echo 'active'; ?>">
+									<i class="nav-icon fa-solid fa-sack-dollar"></i>
+									<p>Collection <i class="right fas fa-angle-left"></i></p>
+								</a>
+								<ul class="nav nav-treeview">
+									<li class="nav-item">
+										<a href="<?= base_url() . 'report' ?>" class="nav-link <?php if ($this->uri->segment('1') == 'dashboardCollection') echo 'active'; ?>">
+											<i class="nav-icon fas fa-home"></i>
+											<p>Dashboard</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="<?= base_url() . 'delivery/delivery/outstanding'; ?>" class="nav-link <?php if ($this->uri->segment('1') == 'collection' && $this->uri->segment('3') == 'outstanding') echo 'active'; ?>">
+											<i class="fa-solid fa-sack-xmark  nav-icon"></i>
+											<p>Outstanding Collection</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="<?= base_url() . 'delivery/delivery'; ?>" class="nav-link <?php if ($this->uri->segment('1') == 'collection' && $this->uri->segment('2') == 'collection' && $this->uri->segment('3') != 'outstanding') echo 'active'; ?>">
+											<i class="fa-solid fa-money-check  nav-icon"></i>
+											<p>Collection Status</p>
+										</a>
+									</li>
+								</ul>
+							</li>
+							<!-- <li class="nav-item <?php if ($this->uri->segment('1') == 'stocks') echo 'menu-open'; ?>">
 								<a href="#" class="nav-link <?php if ($this->uri->segment('1') == 'stocks') echo 'active'; ?>">
 									<i class="nav-icon fas fa-warehouse"></i>
 									<p>Gudang <i class="right fas fa-angle-left"></i></p>
@@ -240,7 +266,7 @@
 
 
 								</ul>
-							</li>
+							</li> -->
 
 						<?php } ?>
 

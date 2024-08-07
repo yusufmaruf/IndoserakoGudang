@@ -285,9 +285,19 @@ class Mglobal extends CI_Model
 	public function get_table($table, $order, $by, $where = null)
 	{
 		$this->db->order_by($order, $by);
+		if ($table == 'delivery') {
+			$this->db->select('po_list_detail.description as desc, delivery_detail.qty_delivery, delivery.id as id, delivery.nomor_sj as nomor_sj, delivery.nomor_po as nomor_po');
+			$this->db->join('delivery_detail', 'delivery_detail.id_delivery = delivery.id');
+			$this->db->join('po_list_detail', 'po_list_detail.id = delivery_detail.id_po_list_detail');
+		}
+		if ($table == 'delivery_log') {
+			$this->db->select('delivery_log.*,delivery.nomor_po as nomor_po, delivery.nomor_sj as nomor_sj, delivery.id as id_delivery');
+			$this->db->join('delivery', 'delivery.id = delivery_log.id_delivery');
+		}
 		if ($where) {
 			$this->db->where($where);
 		}
+
 		$res = $this->db->get($table);
 		return $res ? $res->result_array() : false;
 	}

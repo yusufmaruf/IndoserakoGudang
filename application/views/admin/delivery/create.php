@@ -142,7 +142,7 @@
 
 		});
 		$('#nomor_po').on('change', function() {
-			getProduk($(this).val());
+			getProduk($(this).find('option:selected').attr('data-id'));
 		})
 	});
 
@@ -196,7 +196,7 @@
 					var data = JSON.parse(response);
 					if (Array.isArray(data) && data.length) {
 						data.forEach(function(value) { // Use forEach to iterate over the array
-							$('#nomor_po').append('<option value="' + value['id'] + '" >' + value['nomor_po'] + '</option>');
+							$('#nomor_po').append('<option value="' + value['nomor_po'] + '" + data-id="' + value['id'] + '" >' + value['nomor_po'] + '</option>');
 
 						});
 						// console.log(data[0]['id']);

@@ -11,6 +11,7 @@ class Delivery extends CI_Controller
 		$this->load->model('mglobal');
 		$this->load->library('form_validation');
 		$this->load->model('mmaster');
+		$this->load->model('mdelivery');
 	}
 
 	public function index()
@@ -78,21 +79,55 @@ class Delivery extends CI_Controller
 	}
 	public function detail($id = null)
 	{
-		$this->mglobal->checkpermit(12);
+		$this->mglobal->checkpermit(12); // Check permission with code 12
+
 		$header['title'] = 'Create Delivery';
-		$data['delivery'] = $this->mglobal->get_customtableid('delivery', $id);
-		$data['log'] = $this->mglobal->get_table('delivery_log', 'id', 'DESC', ['id_delivery' => $id]);
-		foreach ($data['log'] as $key => $value) {
-			$data['log'][$key]['date'] = $this->mglobal->format_dateIndo($data['log'][$key]['date']);
+		$data['delivery'] = $this->mglobal->get_customtableid('delivery', $id); // Get delivery by ID
+
+		if (!$data['delivery']) {
+			show_404(); // Show 404 error if delivery is not found
+			return;
 		}
+		$data['log'] = $this->mdelivery->group_delivery_logs($data['delivery']['nomor_po']);
+		// $this->mglobal->pre($data['delivery']);
+
+		// $data['all_delivery'] = $this->mglobal->get_table('delivery', 'id', 'DESC', ['delivery.nomor_po' => $data['delivery']['nomor_po']]);
+
+		// $this->mglobal->pre($data['all_delivery']);
+
+		// $data['log'] = [];
+		// $data['log_detail'] = [];
+
+		// foreach ($data['all_delivery'] as $value_all_delivery) {
+		// 	$logs = $this->mglobal->get_table('delivery_log', 'delivery_log.id', 'DESC', ['delivery_log.id_delivery' => $value_all_delivery['id']]);
+		// 	foreach ($logs as $log) {
+		// 		$log['date'] = $this->mglobal->format_dateIndo($log['date']);
+		// 		$log['nomor_po'] = $value_all_delivery['nomor_po'];
+		// 		$data['log'][] = $log;
+		// 	}
+
+		// 	$log_details = $this->mglobal->get_table('delivery', 'delivery.id', 'DESC', ['delivery.id' => $value_all_delivery['id']]);
+		// 	foreach ($log_details as $log_detail) {
+		// 		$data['log_detail'][] = $log_detail;
+		// 	}
+		// }
+
+		// foreach ($data['log'] as $key => $log_entry) {
+		// 	foreach ($data['log_detail'] as $log_detail_entry) {
+		// 		if ($log_entry['id_delivery'] == $log_detail_entry['id']) {
+		// 			$data['log'][$key]['detail'][] = $log_detail_entry['desc'] . ' (' . $log_detail_entry['qty_delivery'] . ' ea)';
+		// 		}
+		// 	}
+		// }
+		// $this->mglobal->pre($data['log']);
 		$data['user'] = $this->session->userdata('name');
 		$data['idDelivery'] = $id;
 		$data['delivery_detail'] = $this->mglobal->get_customtableid('delivery_detail', $id);
-		// $this->mglobal->pre($data['detail_delivery']);
 		$this->load->view('vheader', $header);
 		$this->load->view('admin/delivery/detail', $data);
 		$this->load->view('vfooter');
 	}
+
 	public function terimaBarang($id = null)
 	{
 		$this->mglobal->checkpermit(12);

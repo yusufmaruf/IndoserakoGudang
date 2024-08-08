@@ -288,11 +288,11 @@ class Delivery extends CI_Controller
 		$this->mglobal->checkpermit(12);
 		$header['title'] = 'Memo Delivery';
 		$data = [];
-		$this->load->view('vheader', $header);
-		$data['list_memo'] = $this->mmemoDelivery->get_data();
+		$data['list_memo'] = $this->mdelivery->getmemo();
 		// $this->mglobal->pre($data['list_memo']);
 		$this->mglobal->load_toast();
-		$this->load->view('admin/delivery/memo', $data);
+		$this->load->view('vheader', $header);
+		$this->load->view('admin/delivery/memonow', $data);
 		$this->load->view('vfooter');
 	}
 	public function memoDetail($id = null)
@@ -305,6 +305,23 @@ class Delivery extends CI_Controller
 		// $this->load->view('vheader', $header);
 		$this->load->view('admin/delivery/memo_detail', $data);
 		// $this->load->view('vfooter');
+	}
+	public function addNote($id = null)
+	{
+		$this->mglobal->checkpermit(12);
+		$data = $this->input->post();
+		$this->mglobal->update_data('delivery_memo', $data, ['id' => $id]);
+		redirect('delivery/delivery/memoDelivery', 'refresh');
+	}
+	public function printMemo($id = null)
+	{
+		$this->mglobal->checkpermit(12);
+		$data = [
+			'print_date' => date('Y-m-d H:i:s'),
+			'status' => 2
+		];
+		$response = $this->mglobal->update_data('delivery_memo', $data, ['id' => $id]);
+		// $this->mglobal->pre($id);
 	}
 }
 

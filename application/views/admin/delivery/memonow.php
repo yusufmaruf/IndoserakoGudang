@@ -1,135 +1,190 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- Content Wrapper. Contains page content -->
+<link rel="stylesheet" href="<?= base_url('assets'); ?>/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="<?= base_url('assets'); ?>/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Print Memo</title>
-	<!-- Bootstrap CSS -->
-	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-	<style>
-		p {
-			line-height: 2px;
-		}
+<!-- DataTables  & Plugins -->
+<script src="<?= base_url() ?>assets/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="<?= base_url() ?>assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="<?= base_url() ?>assets/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<style>
+	p {
+		line-height: 2px;
+	}
 
-		tbody {
-			font-family: Arial, sans-serif;
-			/* Change font family */
-			font-size: 14px;
-			/* Change font size */
-			color: black;
-			font-weight: bold;
-			/* Change background color */
-		}
+	.tdtable {
+		padding: 1px !important;
+	}
+</style>
 
-		.table-bordered-dark {
-			border: 2px solid black;
-			/* Border around the table */
-		}
-
-		.table thead th {
-			border-bottom: 2px solid black;
-		}
-
-		.table-bordered-dark tr,
-		.table-bordered-dark th,
-		.table-bordered-dark td,
-		.table-bordered-dark thead,
-		.table-bordered-dark tbody {
-			border: 2px solid black;
-			/* Borders around cells */
-		}
-
-		/* Optional: Add styles for print preview */
-		@media print {
-			.btn-print {
-				display: none;
-				/* Hide the print button during printing */
-			}
-		}
-	</style>
-</head>
-
-<body>
-	<div class="container mt-4">
-		<div class="row justify-content-center align-items-center mb-1">
-			<div class="col-sm-8">
-				<img src="<?= base_url('assets/logo.png'); ?>" width="100%" alt="">
-			</div>
-			<div class="col-sm-4 text-right">
-				<p><strong>Branch Surabaya</strong></p>
-				<p>Jl. Yos Sudarso No. 38, Sidoarjo</p>
-				<p>T: 031-8943008</p>
-			</div>
-		</div>
-		<hr style="border: 2px solid;" class="m-0 mb-3 text-primary">
-		<div class="row justify-content-center align-items-center mb-4">
-			<div class="col-sm-8">
-				<h5 class="text-primary"> <strong>MEMO: <?= $no_memo ?></strong></h5>
-			</div>
-			<div class="col-sm-4 text-right">
-				<h5 class=""> <strong>Sidoarjo, <?= date('d M Y',) ?></strong></h5>
-			</div>
-		</div>
-		<div class="row mb-4">
-			<div class="col-sm-12">
-				<h5><strong>To: Ci Yen</strong></h5>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-12">
-				<table class="table table-bordered-dark">
-					<thead>
-						<tr>
-							<th class="text-center" width="5%">No</th>
-							<th class="text-center">Customer</th>
-							<th width="10%" class="text-center">No. SP</th>
-							<th class="text-center">Keterangan</th>
-						</tr>
-
-					</thead>
-					<tbody>
-						<tr>
-							<td>1</td>
-							<td>Mega Surya</td>
-							<td>SP-12331</td>
-							<td></td>
-						</tr>
-						<tr>
-							<td>1</td>
-							<td>Mega Surya</td>
-							<td>SP-12331</td>
-							<td></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-sm-12">
-				<h5><strong>Note : </strong></h5>
-			</div>
-
-		</div>
-
-
+<div class="content-wrapper">
+	<div class="content-header">
 	</div>
+	<div class="content">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="card">
+						<div class="card-header">
+							<div class="row">
+								<h3 class="card-title">Memo Delivery</h3>
+								<div class="ml-auto">
+									<?php if ($list_memo['no_memo'] != null) { ?>
+										<a href="#" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addNotesModal"><i class="fa fa-plus mr-2"></i> Add Notes</a>
+										<a href="#" class="btn btn-warning btn-sm text-white" onclick="printDiv('print')"><i class=" fa fa-print mr-2"></i> Print</a>
+									<?php }  ?>
+								</div>
+							</div>
+						</div>
+						<div class="card-body" id="print">
+							<style>
+								p {
+									line-height: 2px;
+								}
 
-	<!-- Bootstrap JS, Popper.js, and jQuery -->
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+								.tdtable {
+									padding: 1px !important;
+								}
+							</style>
+							<div class="row justify-content-center align-items-center mb-1">
+								<div class="col-sm-8">
+									<img src="<?= base_url('assets/logo.png'); ?>" width="600px" height="100px" alt="">
+								</div>
+								<div class="col-sm-4 text-right">
+									<p><strong>Branch Surabaya</strong></p>
+									<p>Jl. Yos Sudarso No. 38, Sidoarjo</p>
+									<p>T: 031-8943008</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-12">
+									<hr style="border: 2px solid;" class="m-0 mb-3 text-primary">
+								</div>
+							</div>
+							<div class="row justify-content-center align-items-center mb-2">
+								<div class="col-sm-8">
+									<h5 class="text-primary"> <strong>MEMO: A<?= $list_memo['no_memo'] ?></strong></h5>
+								</div>
+								<div class="col-sm-4 text-right">
+									<h5 class=""> <strong>Sidoarjo, <span class="print-date"><?= date('Y-m-d') ?></span></strong></h5>
+								</div>
+							</div>
+							<div class="row mb-4">
+								<div class="col-sm-12">
+									<h5><strong>To: Ci Yen</strong></h5>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12">
+									<table class="table table-bordered">
+										<thead>
+											<tr>
+												<th class="text-center" width="5%">No</th>
+												<th class="">Customer</th>
+												<th width="10%" class="">No. SP</th>
+												<th class="">Keterangan</th>
+											</tr>
 
-	<!-- Font Awesome (optional, for icons) -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+										</thead>
+										<tbody>
+											<?php $no = 1;
+											foreach ($list_memo['detail'] as $row) : ?>
 
-	<!-- JavaScript for print functionality -->
-	<script>
-		window.onload = function() {
-			window.print();
-		};
-	</script>
-</body>
+												<tr>
+													<td><?= $no++ ?></td>
+													<td><?= $row['nama'] ?></td>
+													<td><?= $row['nomor_sj'] ?></td>
+													<td></td>
+												<tr></tr>
+											<?php endforeach ?>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12">
+									<h5><strong>Note : </strong></h5>
+									<p> <strong><?= $list_memo['desc'] ?></strong></p>
+								</div>
+							</div>
 
-</html>
+
+						</div>
+
+					</div>
+				</div>
+
+
+			</div>
+
+
+		</div>
+	</div>
+</div>
+<!-- /.content-wrapper -->
+<div class="modal fade" id="addNotesModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h4 class="modal-title">Add Notes</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<!-- Modal Body -->
+			<div class="modal-body">
+				<form action="<?= base_url('delivery/delivery/addNote/' . $list_memo['id']) ?>" method="post">
+					<div class="form-group">
+						<label for="noteContent">Notes:</label>
+						<textarea class="form-control" id="noteContent" name="desc" rows="4" required><?= $list_memo['desc'] ?></textarea>
+					</div>
+					<!-- Modal Footer -->
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary">Save</button>
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	function printDiv(divName) {
+		$.ajax({
+			url: '<?= base_url('delivery/delivery/printMemo/' . $list_memo['id']) ?>',
+			type: 'POST',
+			success: function(response) {
+				var printContents = document.getElementById(divName).innerHTML;
+				var originalContents = document.body.innerHTML;
+				document.body.innerHTML = printContents;
+				window.print();
+				document.body.innerHTML = originalContents;
+			},
+			error: function(xhr, status, error) {
+				console.log(error);
+			}
+		})
+	}
+
+	function formatDateToIndonesian(dateString) {
+		const dateParts = dateString.split('-');
+		// Ensure we have the right number of parts
+		if (dateParts.length === 3) {
+			// Create a new Date object using the parts
+			const date = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]); // Months are 0-based in JavaScript
+			const options = {
+				day: 'numeric',
+				month: 'long',
+				year: 'numeric'
+			};
+			return date.toLocaleDateString('id-ID', options);
+		} else {
+			// Handle invalid date format
+			return 'Invalid Date';
+		}
+	}
+	$(document).ready(function() {
+		const printDateElement = $('.print-date');
+		const printDate = printDateElement.text();
+		printDateElement.text(formatDateToIndonesian(printDate));
+
+	});
+</script>

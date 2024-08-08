@@ -166,7 +166,7 @@
 						});
 					}
 					console.log(data[0]['totalOutstanding']);
-					$('#qty').attr('max', data[0]['totalOutstanding']);
+					$('#qty_item').attr('max', data[0]['totalOutstanding']);
 				} catch (e) {
 					console.error('Parsing Error:', e);
 				}

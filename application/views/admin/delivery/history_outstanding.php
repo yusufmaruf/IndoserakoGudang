@@ -26,7 +26,7 @@
 							<div class="row">
 								<h5><?= $title; ?></h5>
 								<div class="ml-auto">
-									<a href="<?= base_url() ?>delivery/delivery/history_outstanding" class="btn btn-sm btn-success"><i class="fa-solid fa-clock-rotate-left mr-2"></i>&nbsp; History</a>
+									<a href="<?= base_url() ?>master/receiveSafetyStock" class="btn btn-sm btn-success"><i class="fa-solid fa-clock-rotate-left mr-2"></i>&nbsp; History</a>
 								</div>
 							</div>
 						</div>
@@ -48,7 +48,7 @@
 									</thead>
 									<tbody class="text-center">
 										<?php foreach ($list_po as $key => $value) : ?>
-											<?php if ($value['totalOutstanding'] == 0) : ?>
+											<?php if ($value['totalOutstanding'] > 0) : ?>
 												<tr>
 													<td class="tdtable"><?= $value['year'] . '/' . $value['month'] ?></td>
 													<td class="tdtable"><?= $value['customer'] ?></td>

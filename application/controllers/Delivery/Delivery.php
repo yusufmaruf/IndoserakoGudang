@@ -68,6 +68,42 @@ class Delivery extends CI_Controller
 		$this->load->view('admin/delivery/outstanding', $data);
 		$this->load->view('vfooter');
 	}
+	public function history_outstanding()
+	{
+		$this->mglobal->checkpermit(12);
+		$header['title'] = 'Outstanding Delivery';
+		$data = [];
+		$data['list_po'] = $this->mglobal->get_customtable('po_list', 'due_date', 'ASC', ['year' => '2024']);
+		$data['qtydelivered'] = $this->mglobal->get_customtable('delivery_detail', 'id', 'DESC');
+		$data['get_log'] = $this->mglobal->get_customtable('log', 'id', 'ASC');
+		foreach ($data['list_po'] as $key5 => $value5) {
+			$data['list_po'][$key5]['totalOutstanding'] = $value5['qty_item'];
+			$data['list_po'][$key5]['log_message'] = '';
+			$data['list_po'][$key5]['id_delivery'] = 0;
+			$data['list_po'][$key5]['due_date'] = $this->mglobal->format_dateIndo(date('Y-m-d', strtotime($value5['due_date'])));
+		}
+		foreach ($data['qtydelivered'] as $key => $value) {
+			foreach ($data['list_po'] as $key2 => $value2) {
+				if ($value['id_po_list_detail'] == $value2['id_po_list_detail']) {
+					$data['list_po'][$key2]['totalOutstanding'] = $value2['totalOutstanding'] - $value['qty_delivery'];
+				}
+			}
+		}
+
+		foreach ($data['get_log'] as $key3 => $value3) {
+			foreach ($data['list_po'] as $key4 => $value4) {
+				if ($value3['id_po_list_detail'] == $value4['id_po_list_detail']) {
+					$data['list_po'][$key4]['log_message'] = $value3['log_delivery_item'];
+					$data['list_po'][$key4]['id_delivery'] = $value3['id_delivery'];
+				}
+			}
+		}
+
+		$this->load->view('vheader', $header);
+		$this->mglobal->load_toast();
+		$this->load->view('admin/delivery/outstanding', $data);
+		$this->load->view('vfooter');
+	}
 	public function create()
 	{
 		$this->mglobal->checkpermit(12);

@@ -30,7 +30,7 @@ class Mdelivery extends CI_Model
         WHERE 
             d.nomor_po = ?
         ORDER BY 
-            dl.id DESC
+            dl.id DESC, dd.id DESC
     ";
 
 		// Execute the query with the provided parameter

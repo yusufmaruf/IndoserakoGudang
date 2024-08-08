@@ -194,7 +194,7 @@
 								</a>
 								<ul class="nav nav-treeview">
 									<li class="nav-item">
-										<a href="<?= base_url() . 'report' ?>" class="nav-link <?php if ($this->uri->segment('1') == 'dashboard') echo 'active'; ?>">
+										<a href="<?= base_url() . 'delivery/dashboard' ?>" class="nav-link <?php if ($this->uri->segment('1') == 'dashboard') echo 'active'; ?>">
 											<i class="nav-icon fas fa-home"></i>
 											<p>Dashboard</p>
 										</a>
@@ -232,7 +232,7 @@
 								</a>
 								<ul class="nav nav-treeview">
 									<li class="nav-item">
-										<a href="<?= base_url() . 'report' ?>" class="nav-link <?php if ($this->uri->segment('1') == 'dashboardCollection') echo 'active'; ?>">
+										<a href="<?= base_url() . 'delivery/dashboard' ?>" class="nav-link <?php if ($this->uri->segment('1') == 'dashboardCollection') echo 'active'; ?>">
 											<i class="nav-icon fas fa-home"></i>
 											<p>Dashboard</p>
 										</a>

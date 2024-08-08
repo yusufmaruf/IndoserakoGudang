@@ -26,8 +26,7 @@
 							<div class="row">
 								<h5><?= $title; ?></h5>
 								<div class="ml-auto">
-									<a href="<?= base_url() ?>master/receiveSafetyStock" class="btn btn-sm btn-success"><i class="fa fa-print"></i> Print</a>
-
+									<a href="<?= base_url() ?>master/receiveSafetyStock" class="btn btn-sm btn-success"><i class="fa-solid fa-clock-rotate-left mr-2"></i>&nbsp; History</a>
 								</div>
 							</div>
 						</div>

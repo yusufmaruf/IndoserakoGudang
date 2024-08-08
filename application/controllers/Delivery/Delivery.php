@@ -12,6 +12,7 @@ class Delivery extends CI_Controller
 		$this->load->library('form_validation');
 		$this->load->model('mmaster');
 		$this->load->model('mdelivery');
+		$this->load->model('mmemoDelivery');
 	}
 
 	public function index()
@@ -89,37 +90,6 @@ class Delivery extends CI_Controller
 			return;
 		}
 		$data['log'] = $this->mdelivery->group_delivery_logs($data['delivery']['nomor_po']);
-		// $this->mglobal->pre($data['delivery']);
-
-		// $data['all_delivery'] = $this->mglobal->get_table('delivery', 'id', 'DESC', ['delivery.nomor_po' => $data['delivery']['nomor_po']]);
-
-		// $this->mglobal->pre($data['all_delivery']);
-
-		// $data['log'] = [];
-		// $data['log_detail'] = [];
-
-		// foreach ($data['all_delivery'] as $value_all_delivery) {
-		// 	$logs = $this->mglobal->get_table('delivery_log', 'delivery_log.id', 'DESC', ['delivery_log.id_delivery' => $value_all_delivery['id']]);
-		// 	foreach ($logs as $log) {
-		// 		$log['date'] = $this->mglobal->format_dateIndo($log['date']);
-		// 		$log['nomor_po'] = $value_all_delivery['nomor_po'];
-		// 		$data['log'][] = $log;
-		// 	}
-
-		// 	$log_details = $this->mglobal->get_table('delivery', 'delivery.id', 'DESC', ['delivery.id' => $value_all_delivery['id']]);
-		// 	foreach ($log_details as $log_detail) {
-		// 		$data['log_detail'][] = $log_detail;
-		// 	}
-		// }
-
-		// foreach ($data['log'] as $key => $log_entry) {
-		// 	foreach ($data['log_detail'] as $log_detail_entry) {
-		// 		if ($log_entry['id_delivery'] == $log_detail_entry['id']) {
-		// 			$data['log'][$key]['detail'][] = $log_detail_entry['desc'] . ' (' . $log_detail_entry['qty_delivery'] . ' ea)';
-		// 		}
-		// 	}
-		// }
-		// $this->mglobal->pre($data['log']);
 		$data['user'] = $this->session->userdata('name');
 		$data['idDelivery'] = $id;
 		$data['delivery_detail'] = $this->mglobal->get_customtableid('delivery_detail', $id);
@@ -311,7 +281,30 @@ class Delivery extends CI_Controller
 			];
 			$this->mglobal->insert_data('delivery_memo_detail', $detail_memo);
 		}
-		// redirect('delivery/delivery/detail/' . $id, 'refresh');
+		redirect('delivery/delivery/detail/' . $id, 'refresh');
+	}
+	public function memoDelivery()
+	{
+		$this->mglobal->checkpermit(12);
+		$header['title'] = 'Memo Delivery';
+		$data = [];
+		$this->load->view('vheader', $header);
+		$data['list_memo'] = $this->mmemoDelivery->get_data();
+		// $this->mglobal->pre($data['list_memo']);
+		$this->mglobal->load_toast();
+		$this->load->view('admin/delivery/memo', $data);
+		$this->load->view('vfooter');
+	}
+	public function memoDetail($id = null)
+	{
+		$this->mglobal->checkpermit(12);
+		$header['title'] = 'Memo Detail';
+		$data = [];
+		$data['no_memo'] = 'A2123';
+		// $data['memo'] = $this->mmemoDelivery->get_detail($id);
+		// $this->load->view('vheader', $header);
+		$this->load->view('admin/delivery/memo_detail', $data);
+		// $this->load->view('vfooter');
 	}
 }
 

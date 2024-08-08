@@ -133,8 +133,8 @@
 							</div>
 						</div>
 						<div class="card-body py-1 px-2 m-0">
-							<div class="timeline-wrapper">
-								<div class="timeline-content" style="max-height: 380px; overflow-y: auto;">
+							<div class="timeline-wrapper" style="height: calc(100vh - 200px); overflow-y: scroll;">
+								<div class="timeline-content">
 									<?php foreach ($log as $logkey => $logvalue) { ?>
 										<div class="timeline-item bg-white rounded  py-0 px-3 border border-grey mb-1">
 											<h6 class="mb-0 pt-1"><?= $logvalue['date']; ?> &nbsp; - &nbsp;<span class="text-muted"><?= $logvalue['created_by']; ?></span></h6>

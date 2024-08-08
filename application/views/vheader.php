@@ -206,7 +206,7 @@
 										</a>
 									</li>
 									<li class="nav-item">
-										<a href="<?= base_url() . 'delivery/delivery'; ?>" class="nav-link <?php if ($this->uri->segment('1') == 'delivery' && $this->uri->segment('2') == 'delivery' && $this->uri->segment('3') != 'outstanding' && $this->uri->segment('3') != 'memoDelivery') echo 'active'; ?>">
+										<a href="<?= base_url() . 'delivery/delivery'; ?>" class="nav-link <?php if ($this->uri->segment('1') == 'delivery' && $this->uri->segment('2') == 'delivery' && $this->uri->segment('3') != 'outstanding' && $this->uri->segment('3') != 'memoDelivery' && $this->uri->segment('3') != 'historyMemo') echo 'active'; ?>">
 											<i class="fas fa-truck  nav-icon"></i>
 											<p>Delivery Status</p>
 										</a>
@@ -215,6 +215,12 @@
 										<a href="<?= base_url() . 'delivery/delivery/memoDelivery'; ?>" class="nav-link <?php if ($this->uri->segment('1') == 'delivery' && $this->uri->segment('2') == 'delivery' && $this->uri->segment('3') == 'memoDelivery') echo 'active'; ?>">
 											<i class="fa-solid fa-file-pen  nav-icon"></i>
 											<p>Delivery Memo</p>
+										</a>
+									</li>
+									<li class="nav-item">
+										<a href="<?= base_url() . 'delivery/delivery/historyMemo'; ?>" class="nav-link <?php if ($this->uri->segment('1') == 'delivery' && $this->uri->segment('2') == 'delivery' && $this->uri->segment('3') == 'historyMemo') echo 'active'; ?>">
+											<i class="fa-solid fa-clock-rotate-left  nav-icon"></i>
+											<p>History Memo</p>
 										</a>
 									</li>
 								</ul>

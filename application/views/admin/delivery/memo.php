@@ -44,7 +44,7 @@
 										<?php foreach ($list_memo as $key => $value) : ?>
 											<tr>
 												<td class="tdtable"><?= 'A' . $value['no_memo'] ?></td>
-												<td><?= $value['print_date'] ?></td>
+												<td class="tdtable"><?= $value['print_date'] ?></td>
 												<td class="tdtable"><?= $value['desc'] ?></td>
 												<td class="tdtable">
 													<?php if ($value['status'] == 1) : ?>
@@ -53,12 +53,12 @@
 														<span class="badge badge-success">completed</span>
 													<?php endif; ?>
 												</td>
-												<td class="tdtable"><?= $value['total_detail_count'] ?></td>
+												<td class="tdtable"><?= $value['detail_count'] ?></td>
 												<td class="tdtable">
 													<?php if ($value['status'] == 1) : ?>
 														<a href="#" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-check"></i></a>
 													<?php elseif ($value['status'] == 2) : ?>
-														<a target="_blank" href="<?= base_url() ?>delivery/delivery/memodetail/<?= $value['memo_id'] ?>"><i class="fa fa-eye"></i></a>
+														<a target="_blank" href="<?= base_url() ?>delivery/delivery/memodetail/<?= $value['id'] ?>"><i class="fa fa-eye"></i></a>
 													<?php endif; ?>
 												</td>
 											</tr>

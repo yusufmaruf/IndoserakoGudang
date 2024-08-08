@@ -148,20 +148,12 @@
 </div>
 <script>
 	function printDiv(divName) {
-		$.ajax({
-			url: '<?= base_url('delivery/delivery/printMemo/' . $list_memo['id']) ?>',
-			type: 'POST',
-			success: function(response) {
-				var printContents = document.getElementById(divName).innerHTML;
-				var originalContents = document.body.innerHTML;
-				document.body.innerHTML = printContents;
-				window.print();
-				document.body.innerHTML = originalContents;
-			},
-			error: function(xhr, status, error) {
-				console.log(error);
-			}
-		})
+		var printContents = document.getElementById(divName).innerHTML;
+		var originalContents = document.body.innerHTML;
+		document.body.innerHTML = printContents;
+		window.print();
+		document.body.innerHTML = originalContents;
+
 	}
 
 	function formatDateToIndonesian(dateString) {

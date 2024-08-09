@@ -48,7 +48,7 @@
 									</thead>
 									<tbody class="text-center">
 										<?php foreach ($list_po as $key => $value) : ?>
-											<?php if ($value['totalOutstanding'] == 0) : ?>
+											<?php if ($value['totalOutstanding'] != 0) : ?>
 												<tr>
 													<td class="tdtable"><?= $value['year'] . '/' . $value['month'] ?></td>
 													<td class="tdtable"><?= $value['customer'] ?></td>

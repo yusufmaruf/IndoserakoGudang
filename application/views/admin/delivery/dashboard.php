@@ -1,6 +1,6 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-	<div class="content-header">
+	<div class="content-header" style="padding-bottom: 0 !important;">
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
@@ -8,7 +8,6 @@
 				</div>
 				<div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">
-						<li class="breadcrumb-item"><a href="<?= base_url(); ?>">Delivery</a></li>
 						<li class="breadcrumb-item active">Dashboard</li>
 					</ol>
 				</div>
@@ -20,29 +19,25 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-12">
-
-
-					<div class="row mb-4 ">
-						<div class="col-lg-2">
-							<div class="form-group m-0">
-								<div class="input-group date" data-target-input="nearest">
-									<input type="text" id="from_date" class="form-control datetimepicker-input" data-target="#from_date" value="<?php if (isset($selectDate)) echo date('d-m-y', strtotime($selectDate)); ?>" name="i_from_date" />
-									<div class="input-group-append" data-target="#from_date" data-toggle="datetimepicker">
-										<div class="input-group-text"><i class="fa fa-calendar"></i></div>
-									</div>
+					<div class="form">
+						<div class="row mb-1 mt-0">
+							<div class="col-lg-2 mt-0">
+								<div class="form-group">
+									<label for="">Date</label>
+									<input type="month" name="" id="" class="form-control">
 								</div>
-								<span class="text-danger"><?php echo form_error('i_from_date'); ?></span>
 							</div>
-						</div>
-						<div class="col-lg-2">
-							<div class="form-group m-0">
-								<div class="input-group date" data-target-input="nearest">
-									<input type="text" id="from_date" class="form-control datetimepicker-input" data-target="#from_date" value="<?php if (isset($selectDate)) echo date('d-m-y', strtotime($selectDate)); ?>" name="i_from_date" />
-									<div class="input-group-append" data-target="#from_date" data-toggle="datetimepicker">
-										<div class="input-group-text"><i class="fa fa-calendar"></i></div>
-									</div>
+							<div class="col-lg-2 mt-0">
+								<div class="form-group">
+									<label for="">Date</label>
+									<input type="month" name="" id="" class="form-control">
 								</div>
-								<span class="text-danger"><?php echo form_error('i_from_date'); ?></span>
+							</div>
+							<div class="col-lg-2 mt-0 ">
+								<div class="form-group">
+									<label for="">&nbsp;</label>
+									<button type="submit" class="btn  btn-primary btn-block btn-xl w-100">Filter</button>
+								</div>
 							</div>
 						</div>
 					</div>

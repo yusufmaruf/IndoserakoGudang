@@ -80,7 +80,7 @@
 											<tr>
 												<th class="text-center" width="5%">No</th>
 												<th class="">Customer</th>
-												<th width="10%" class="">No. SP</th>
+												<th width="20%" class="">No. SP</th>
 												<th class="">Keterangan</th>
 											</tr>
 

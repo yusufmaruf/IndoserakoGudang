@@ -187,18 +187,18 @@
 									</li>
 								</ul>
 							</li> -->
-							<li class="nav-item <?php if ($this->uri->segment('1') == 'delivery') echo 'menu-open'; ?>">
-								<a href="#" class="nav-link <?php if ($this->uri->segment('1') == 'delivery') echo 'active'; ?>">
+							<li class="nav-item">
+								<a href="<?= base_url() . 'delivery/dashboard' ?>" class="nav-link <?php if ($this->uri->segment('1') == 'delivery' && $this->uri->segment('2') == 'dashboard') echo 'active'; ?>">
+									<i class="nav-icon fas fa-home"></i>
+									<p>Dashboard</p>
+								</a>
+							</li>
+							<li class="nav-item <?php if ($this->uri->segment('1') == 'delivery' && $this->uri->segment('2') != 'dashboard') echo 'menu-open'; ?>">
+								<a href="#" class="nav-link <?php if ($this->uri->segment('1') == 'delivery' && $this->uri->segment('2') != 'dashboard') echo 'active'; ?>">
 									<i class="nav-icon fas fa-truck"></i>
 									<p>Delivery <i class="right fas fa-angle-left"></i></p>
 								</a>
 								<ul class="nav nav-treeview">
-									<li class="nav-item">
-										<a href="<?= base_url() . 'delivery/dashboard' ?>" class="nav-link <?php if ($this->uri->segment('1') == 'dashboard') echo 'active'; ?>">
-											<i class="nav-icon fas fa-home"></i>
-											<p>Dashboard</p>
-										</a>
-									</li>
 									<li class="nav-item">
 										<a href="<?= base_url() . 'delivery/delivery/outstanding'; ?>" class="nav-link <?php if ($this->uri->segment('1') == 'delivery' && $this->uri->segment('3') == 'outstanding') echo 'active'; ?>">
 											<i class="fas fa-calendar-xmark  nav-icon"></i>
